@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AMT Music</title>
+
+<meta name="theme-color" content="#090d18">
+<meta name="description"
+content="AMT Music - Listen, Discover and Earn.">
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#090d18;
+    color:#fff;
+    min-height:100vh;
+    padding-bottom:95px;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:#0d1322;
+    border-bottom:1px solid #202a40;
+    padding:15px;
+}
+
+.header-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+    color:#f5c542;
+}
+
+.logo span{
+    color:#fff;
+}
+
+.balance{
+    background:#151d30;
+    border:1px solid #34415e;
+    border-radius:20px;
+    padding:8px 12px;
+    color:#f5c542;
+    font-weight:bold;
+}
+
+.search{
+    margin-top:14px;
+}
+
+.search input{
+    width:100%;
+    padding:13px 16px;
+    border-radius:25px;
+    border:1px solid #303b55;
+    outline:none;
+    background:#151c2c;
+    color:#fff;
+    font-size:15px;
+}
+
+.container{
+    width:min(1100px,94%);
+    margin:auto;
+}
+
+.hero{
+    margin-top:22px;
+    padding:25px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#151e34,#101624);
+    border:1px solid #27334d;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#aeb8cc;
+    line-height:1.5;
+}
+
+.reward{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    background:#111a2b;
+    border:1px solid #33415d;
+    border-radius:15px;
+    padding:15px;
+}
+
+.reward strong{
+    color:#f5c542;
+}
+
+.section-title{
+    margin:28px 0 14px;
+    font-size:21px;
+}
+
+.music-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:14px;
+}
+
+.track{
+    background:#111827;
+    border:1px solid #27334a;
+    border-radius:16px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    transition:.2s;
+}
+
+.track:hover{
+    transform:translateY(-2px);
+    border-color:#52627f;
+}
+
+.cover{
+    width:62px;
+    height:62px;
+    flex-shrink:0;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    background:#202b43;
+}
+
+.track-info{
+    flex:1;
+    min-width:0;
+}
+
+.track-info h3{
+    font-size:16px;
+    margin-bottom:5px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.track-info p{
+    color:#8f9bb1;
+    font-size:13px;
+}
+
+.play-btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:none;
+    background:#f5c542;
+    color:#111;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.empty{
+    color:#8995aa;
+    padding:20px 0;
+    text-align:center;
+}
+
+.player{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    z-index:20;
+    background:#0e1524;
+    border-top:1px solid #29364f;
+    padding:12px;
+}
+
+.player-inner{
+    width:min(1100px,94%);
+    margin:auto;
+}
+
+.now-playing{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.now-title{
+    min-width:0;
+}
+
+.now-title b{
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.now-title small{
+    color:#8793aa;
+}
+
+.controls{
+    display:flex;
+    align-items:center;
+    gap:9px;
+}
+
+.control{
+    border:none;
+    background:#202b40;
+    color:#fff;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+.control.main{
+    background:#f5c542;
+    color:#111;
+}
+
+.progress{
+    margin-top:9px;
+}
+
+.progress input{
+    width:100%;
+}
+
+.status{
+    text-align:center;
+    color:#8d99ad;
+    font-size:12px;
+    margin-top:5px;
+}
+
+footer{
+    text-align:center;
+    color:#657188;
+    padding:30px 10px;
+    font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <div class="header-row">
+            <div class="logo">🎵 AMT <span>Music</span></div>
+            <div class="balance">
+                🪙 <span id="amtBalance">0.0000</span> AMT
+            </div>
+        </div>
+
+        <div class="search">
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="🔎 Search music or artist..."
+            >
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h1>Listen. Discover. Earn. 🎧</h1>
+        <p>
+            Welcome to AMT Music — a music platform concept
+            designed for the AMT ecosystem.
+        </p>
+
+        <div class="reward">
+            <div>
+                <small>Listen-to-Earn</small><br>
+                <strong id="sessionReward">+0.0000 AMT</strong>
+            </div>
+
+            <div>
+                <small>Listening Time</small><br>
+                <strong id="listenTime">00:00</strong>
+            </div>
+        </div>
+    </section>
+
+    <h2 class="section-title">🔥 AMT Originals</h2>
+
+    <section class="music-list" id="musicList"></section>
+
+    <footer>
+        AMT Music V1 • Demo / Development Build
+        <br>
+        Rewards shown in this version are simulated.
+    </footer>
+
+</main>
+
+<!-- MUSIC PLAYER -->
+
+<div class="player">
+
+    <div class="player-inner">
+
+        <div class="now-playing">
+
+            <div class="now-title">
+                <b id="nowTitle">Select a song</b>
+                <small id="nowArtist">AMT Music</small>
+            </div>
+
+            <div class="controls">
+                <button class="control" onclick="previousTrack()">⏮</button>
+                <button class="control main" id="playBtn"
+                    onclick="togglePlay()">▶</button>
+                <button class="control" onclick="nextTrack()">⏭</button>
+            </div>
+
+        </div>
+
+        <div class="progress">
+            <input
+                type="range"
+                id="progress"
+                min="0"
+                max="100"
+                value="0"
+            >
+        </div>
+
+        <div class="status" id="status">
+            Ready to play
+        </div>
+
+    </div>
+
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+
+/* =====================================
+   AMT MUSIC V1
+   DEMO MUSIC DATABASE
+===================================== */
+
+const tracks = [
+
+    {
+        title:"AMT Genesis",
+        artist:"AMT Originals",
+        icon:"🌌",
+        src:"music/amt-genesis.mp3"
+    },
+
+    {
+        title:"Digital Pioneer",
+        artist:"AMT Originals",
+        icon:"🚀",
+        src:"music/digital-pioneer.mp3"
+    },
+
+    {
+        title:"Crypto Dreams",
+        artist:"AMT Originals",
+        icon:"💎",
+        src:"music/crypto-dreams.mp3"
+    },
+
+    {
+        title:"Future World",
+        artist:"AMT Originals",
+        icon:"🌎",
+        src:"music/future-world.mp3"
+    },
+
+    {
+        title:"Moonlight Network",
+        artist:"AMT Originals",
+        icon:"🌙",
+        src:"music/moonlight-network.mp3"
+    },
+
+    {
+        title:"Pioneer Spirit",
+        artist:"AMT Originals",
+        icon:"🔥",
+        src:"music/pioneer-spirit.mp3"
+    }
+
+];
+
+let currentTrack = 0;
+let isPlaying = false;
+
+let amtBalance =
+    Number(localStorage.getItem("amtBalance") || 0);
+
+let listenSeconds = 0;
+let rewardSeconds = 0;
+
+const audio =
+    document.getElementById("audio");
+
+const playBtn =
+    document.getElementById("playBtn");
+
+const progress =
+    document.getElementById("progress");
+
+const amtBalanceEl =
+    document.getElementById("amtBalance");
+
+const sessionRewardEl =
+    document.getElementById("sessionReward");
+
+const listenTimeEl =
+    document.getElementById("listenTime");
+
+const nowTitle =
+    document.getElementById("nowTitle");
+
+const nowArtist =
+    document.getElementById("nowArtist");
+
+const statusEl =
+    document.getElementById("status");
+
+const musicList =
+    document.getElementById("musicList");
+
+function updateBalance(){
+
+    amtBalanceEl.textContent =
+        amtBalance.toFixed(4);
+
+    localStorage.setItem(
+        "amtBalance",
+        amtBalance
+    );
+}
+
+function renderTracks(list = tracks){
+
+    musicList.innerHTML = "";
+
+    if(list.length === 0){
+
+        musicList.innerHTML =
+            `<div class="empty">
+                No music found.
+            </div>`;
+
+        return;
+    }
+
+    list.forEach((track,index)=>{
+
+        const originalIndex =
+            tracks.indexOf(track);
+
+        const card =
+            document.createElement("div");
+
+        card.className = "track";
+
+        card.innerHTML = `
+
+            <div class="cover">
+                ${track.icon}
+            </div>
+
+            <div class="track-info">
+                <h3>${track.title}</h3>
+                <p>${track.artist}</p>
+            </div>
+
+            <button
+                class="play-btn"
+                onclick="loadTrack(${originalIndex},true)">
+                ▶
+            </button>
+        `;
+
+        musicList.appendChild(card);
+
+    });
+}
+
+function loadTrack(index,autoPlay=false){
+
+    currentTrack = index;
+
+    const track =
+        tracks[currentTrack];
+
+    audio.src = track.src;
+
+    nowTitle.textContent =
+        track.title;
+
+    nowArtist.textContent =
+        track.artist;
+
+    progress.value = 0;
+
+    statusEl.textContent =
+        "Ready: " + track.title;
+
+    if(autoPlay){
+
+        audio.play()
+        .then(()=>{
+
+            isPlaying = true;
+
+            playBtn.textContent = "⏸";
+
+            statusEl.textContent =
+                "▶ Listening: " + track.title;
+
+        })
+        .catch(()=>{
+
+            statusEl.textContent =
+                "Add the MP3 file to the music folder.";
+
+        });
+
+    }
+
+}
+
+function togglePlay(){
+
+    if(!audio.src){
+
+        loadTrack(0,true);
+
+        return;
+    }
+
+    if(audio.paused){
+
+        audio.play();
+
+        isPlaying = true;
+
+        playBtn.textContent = "⏸";
+
+        statusEl.textContent =
+            "▶ Listening: " +
+            tracks[currentTrack].title;
+
+    }else{
+
+        audio.pause();
+
+        isPlaying = false;
+
+        playBtn.textContent = "▶";
+
+        statusEl.textContent =
+            "Paused";
+
+    }
+
+}
+
+function nextTrack(){
+
+    currentTrack++;
+
+    if(currentTrack >= tracks.length){
+
+        currentTrack = 0;
+
+    }
+
+    loadTrack(currentTrack,true);
+
+}
+
+function previousTrack(){
+
+    currentTrack--;
+
+    if(currentTrack < 0){
+
+        currentTrack =
+            tracks.length - 1;
+
+    }
+
+    loadTrack(currentTrack,true);
+
+}
+
+audio.addEventListener("timeupdate",()=>{
+
+    if(audio.duration){
+
+        progress.value =
+            (audio.currentTime /
+            audio.duration) * 100;
+
+    }
+
+});
+
+progress.addEventListener("input",()=>{
+
+    if(audio.duration){
+
+        audio.currentTime =
+            (progress.value / 100)
+            * audio.duration;
+
+    }
+
+});
+
+audio.addEventListener("ended",()=>{
+
+    nextTrack();
+
+});
+
+/* =====================================
+   LISTEN TIMER
+===================================== */
+
+setInterval(()=>{
+
+    if(!audio.paused){
+
+        listenSeconds++;
+
+        rewardSeconds++;
+
+        updateListeningTime();
+
+        /*
+          DEMO REWARD
+
+          1 minute genuine listening
+          = 0.0100 simulated AMT
+
+          This is NOT real token mining.
+        */
+
+        if(rewardSeconds >= 60){
+
+            const reward = 0.0100;
+
+            amtBalance += reward;
+
+            sessionRewardEl.textContent =
+                "+" + amtBalance.toFixed(4)
+                + " AMT";
+
+            rewardSeconds = 0;
+
+            updateBalance();
+
+            statusEl.textContent =
+                "🎉 Demo reward earned: "
+                + reward.toFixed(4)
+                + " AMT";
+
+        }
+
+    }
+
+},1000);
+
+function updateListeningTime(){
+
+    const minutes =
+        Math.floor(listenSeconds / 60);
+
+    const seconds =
+        listenSeconds % 60;
+
+    listenTimeEl.textContent =
+        String(minutes).padStart(2,"0")
+        + ":"
+        + String(seconds).padStart(2,"0");
+
+}
+
+/* =====================================
+   SEARCH
+===================================== */
+
+document
+.getElementById("searchInput")
+.addEventListener("input",(e)=>{
+
+    const query =
+        e.target.value.toLowerCase();
+
+    const filtered =
+        tracks.filter(track =>
+            track.title.toLowerCase()
+            .includes(query)
+            ||
+            track.artist.toLowerCase()
+            .includes(query)
+        );
+
+    renderTracks(filtered);
+
+});
+
+/* INITIALIZE */
+
+updateBalance();
+
+renderTracks();
+
+</script>
+
+</body>
+</html>
