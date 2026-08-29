@@ -1,43 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AMT Music</title>
-
-<meta name="theme-color" content="#050713">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AMT Music | Pioneer Music Ecosystem</title><meta name="theme-color" content="#050713">
 <meta name="description"
-content="AMT Music - 3D Digital Music Ecosystem">
-
-<style>
-
+content="AMT Music — Music, Mining, Rewards and Marketplace Ecosystem"><style>
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
+:root{
+    --bg:#03050d;
+    --panel:rgba(12,18,34,.82);
+    --panel2:rgba(20,29,51,.78);
+    --line:rgba(255,255,255,.09);
+    --text:#fff;
+    --muted:#8c9bb0;
+    --cyan:#63ddff;
+    --blue:#4387ff;
+    --gold:#ffd45a;
+    --green:#63f0a4;
+    --purple:#a477ff;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at 50% 25%,#17264b 0%,#080c19 38%,#03050c 100%);
-    color:#fff;
+        radial-gradient(circle at 50% 10%,#182957 0%,#080d1c 35%,#03050d 75%);
+    color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
+    padding-bottom:80px;
 }
 
-/* =========================
-   HEADER
-========================= */
+button{
+    font-family:inherit;
+}
+
+/* HEADER */
 
 header{
-    position:relative;
-    z-index:20;
-    padding:15px;
-    background:rgba(5,8,18,.78);
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid rgba(255,255,255,.08);
+    position:sticky;
+    top:0;
+    z-index:100;
+    padding:14px;
+    background:rgba(3,5,13,.82);
+    backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--line);
 }
 
 .header{
@@ -49,178 +59,130 @@ header{
 }
 
 .logo{
-    font-size:22px;
-    font-weight:800;
-    letter-spacing:.5px;
+    font-size:21px;
+    font-weight:900;
+    letter-spacing:.8px;
 }
 
 .logo span{
-    color:#62d9ff;
+    color:var(--cyan);
+    text-shadow:0 0 15px rgba(99,221,255,.55);
 }
 
 .wallet{
     padding:8px 13px;
     border-radius:20px;
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.12);
-    color:#ffd75a;
-    font-size:13px;
+    background:rgba(255,255,255,.055);
+    border:1px solid rgba(255,255,255,.1);
+    color:var(--gold);
+    font-size:12px;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main{
     width:min(1100px,94%);
     margin:auto;
-    padding-top:20px;
+    padding-top:18px;
 }
 
-/* =========================
-   3D MUSIC STAGE
-========================= */
+/* MUSIC STAGE */
 
 .music-stage{
-
     position:relative;
-
-    min-height:500px;
-
+    min-height:470px;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-
-    perspective:1000px;
-
     overflow:hidden;
-
     border-radius:28px;
-
     background:
         radial-gradient(circle at center,
-        rgba(44,115,190,.22),
-        rgba(5,8,18,.2) 45%,
-        rgba(0,0,0,.4));
-
-    border:1px solid rgba(255,255,255,.09);
-
+        rgba(54,139,230,.25),
+        rgba(6,11,24,.32) 45%,
+        rgba(0,0,0,.55));
+    border:1px solid var(--line);
     box-shadow:
         0 30px 80px rgba(0,0,0,.55),
-        inset 0 0 80px rgba(70,160,255,.08);
+        inset 0 0 90px rgba(70,160,255,.08);
 }
 
-/* DIGITAL FLOOR */
+/* GRID FLOOR */
 
 .floor{
-
     position:absolute;
-
-    bottom:-120px;
-
-    width:900px;
-    height:400px;
-
+    bottom:-130px;
+    width:1000px;
+    height:420px;
     transform:
         perspective(500px)
         rotateX(67deg);
-
     background:
         repeating-linear-gradient(
             90deg,
-            transparent 0px,
+            transparent 0,
             transparent 49px,
             rgba(71,183,255,.13) 50px
         ),
         repeating-linear-gradient(
             0deg,
-            transparent 0px,
+            transparent 0,
             transparent 49px,
             rgba(71,183,255,.13) 50px
         );
-
-    mask-image:linear-gradient(
-        to top,
-        black,
-        transparent
-    );
+    mask-image:linear-gradient(to top,black,transparent);
 }
 
-/* GLOW ORB */
+/* ORB */
 
 .orb{
-
     position:absolute;
-
-    width:210px;
-    height:210px;
-
+    width:220px;
+    height:220px;
     border-radius:50%;
-
     background:
         radial-gradient(
             circle,
-            rgba(102,220,255,.75),
-            rgba(40,110,255,.15) 45%,
+            rgba(102,220,255,.72),
+            rgba(40,110,255,.13) 45%,
             transparent 70%
         );
-
-    filter:blur(4px);
-
-    animation:
-        orbPulse 3s ease-in-out infinite;
-
+    filter:blur(5px);
+    animation:orbPulse 3s ease-in-out infinite;
 }
 
 @keyframes orbPulse{
-
     0%,100%{
-        transform:scale(.95);
+        transform:scale(.94);
         opacity:.55;
     }
-
     50%{
         transform:scale(1.12);
-        opacity:.9;
+        opacity:.92;
     }
-
 }
 
-/* =========================
-   EQUALIZER
-========================= */
+/* EQUALIZER */
 
 .equalizer{
-
     position:relative;
     z-index:5;
-
-    height:230px;
-
+    height:225px;
     display:flex;
-
     align-items:flex-end;
-
     justify-content:center;
-
-    gap:7px;
-
+    gap:6px;
     transform:
         perspective(600px)
         rotateX(10deg)
         rotateY(-3deg);
-
 }
 
 .bar{
-
-    width:9px;
-
+    width:8px;
     height:35px;
-
     border-radius:10px 10px 2px 2px;
-
     background:
         linear-gradient(
             to top,
@@ -228,11 +190,9 @@ header{
             #61e4ff,
             #ffffff
         );
-
     box-shadow:
         0 0 10px rgba(80,210,255,.8),
         0 0 25px rgba(50,130,255,.35);
-
     animation:
         equalize .85s ease-in-out infinite alternate;
 }
@@ -259,338 +219,417 @@ header{
 .bar:nth-child(20){animation-delay:.7s}
 
 @keyframes equalize{
-
     from{
         height:25px;
         transform:scaleY(.6);
     }
-
     to{
         height:190px;
         transform:scaleY(1);
     }
-
 }
 
-/* =========================
-   CENTER LOGO
-========================= */
+/* CENTER */
 
 .center-logo{
-
     position:absolute;
-
     z-index:8;
-
-    width:130px;
-    height:130px;
-
+    width:132px;
+    height:132px;
     border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     text-align:center;
-
     background:
         radial-gradient(
             circle,
             rgba(255,255,255,.16),
             rgba(20,70,130,.35) 55%,
-            rgba(5,10,20,.8)
+            rgba(5,10,20,.88)
         );
-
     border:1px solid rgba(125,220,255,.4);
-
     box-shadow:
         0 0 25px rgba(70,200,255,.45),
         inset 0 0 25px rgba(100,200,255,.15);
-
-    transform:
-        translateZ(80px);
-
 }
 
 .center-logo strong{
-
-    font-size:25px;
-
-    letter-spacing:2px;
-
-    color:#fff;
-
+    display:block;
+    font-size:27px;
+    letter-spacing:3px;
     text-shadow:
         0 0 10px #62d9ff,
         0 0 25px #268cff;
 }
 
 .center-logo small{
-
     display:block;
-
     color:#9fc9e8;
-
     font-size:9px;
-
     margin-top:4px;
-
+    letter-spacing:2px;
 }
 
-/* =========================
-   SONG INFO
-========================= */
+/* SONG */
 
 .song-info{
-
     position:absolute;
-
-    bottom:35px;
-
+    bottom:28px;
     z-index:10;
-
     text-align:center;
-
 }
 
 .song-info h1{
-
-    font-size:24px;
-
+    font-size:23px;
     margin-bottom:5px;
-
 }
 
 .song-info p{
-
-    color:#8da4bd;
-
-    font-size:13px;
-
+    color:var(--muted);
+    font-size:12px;
 }
 
-/* =========================
-   PLAYER
-========================= */
+/* PLAYER */
 
 .player{
-
-    margin-top:15px;
-
-    padding:15px;
-
+    margin-top:14px;
+    padding:16px;
     border-radius:20px;
-
-    background:rgba(12,18,33,.86);
-
-    border:1px solid rgba(255,255,255,.08);
-
+    background:var(--panel);
+    border:1px solid var(--line);
     backdrop-filter:blur(15px);
-
 }
 
 .progress{
-
     width:100%;
-
-    accent-color:#55d9ff;
-
+    accent-color:var(--cyan);
 }
 
 .controls{
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
-    gap:15px;
-
-    margin-top:10px;
-
+    gap:14px;
+    margin-top:11px;
 }
 
 .control{
-
     width:44px;
     height:44px;
-
     border-radius:50%;
-
     border:1px solid rgba(255,255,255,.1);
-
     background:#172238;
-
     color:#fff;
-
     cursor:pointer;
-
     font-size:17px;
-
 }
 
 .control.main{
-
-    width:54px;
-    height:54px;
-
-    background:#59dfff;
-
+    width:55px;
+    height:55px;
+    background:var(--cyan);
     color:#06101b;
-
     font-size:20px;
-
-    box-shadow:
-        0 0 20px rgba(80,220,255,.35);
-
+    box-shadow:0 0 22px rgba(80,220,255,.35);
 }
 
-/* =========================
-   STATUS CARDS
-========================= */
+/* DASHBOARD */
+
+.section-title{
+    margin:25px 0 10px;
+    font-size:18px;
+}
 
 .cards{
-
     display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(220px,1fr));
-
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
     gap:12px;
-
-    margin-top:15px;
-
 }
 
 .card{
-
     padding:18px;
-
     border-radius:18px;
-
     background:
         linear-gradient(
             145deg,
             rgba(26,39,65,.9),
             rgba(8,13,25,.9)
         );
-
-    border:1px solid rgba(255,255,255,.08);
-
+    border:1px solid var(--line);
+    box-shadow:0 15px 35px rgba(0,0,0,.18);
 }
 
 .card-icon{
-
     font-size:25px;
-
     margin-bottom:8px;
-
 }
 
 .card h3{
-
     font-size:15px;
-
     margin-bottom:5px;
-
 }
 
 .card p{
-
-    color:#8b9bb0;
-
+    color:var(--muted);
     font-size:12px;
-
+    line-height:1.5;
 }
 
-.mining-active{
+.amount{
+    font-size:23px;
+    font-weight:800;
+    margin:8px 0;
+}
 
-    color:#66e5ff;
+.cyan{
+    color:var(--cyan);
+}
 
+.gold{
+    color:var(--gold);
+}
+
+.green{
+    color:var(--green);
+}
+
+.purple{
+    color:var(--purple);
+}
+
+/* MINING */
+
+.mining-panel{
+    margin-top:12px;
+    padding:22px;
+    border-radius:22px;
+    background:
+        radial-gradient(circle at 50% 0,
+        rgba(73,188,255,.16),
+        rgba(10,15,29,.94) 65%);
+    border:1px solid rgba(99,221,255,.14);
+    text-align:center;
+}
+
+.mining-status{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    padding:7px 12px;
+    border-radius:20px;
+    background:rgba(99,240,164,.08);
+    border:1px solid rgba(99,240,164,.18);
+    color:var(--green);
+    font-size:11px;
     font-weight:bold;
-
 }
 
-/* =========================
-   NAVIGATION
-========================= */
+.mining-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 12px var(--green);
+}
+
+.mining-amount{
+    margin:14px 0 2px;
+    font-size:38px;
+    font-weight:900;
+    color:var(--gold);
+    text-shadow:0 0 18px rgba(255,212,90,.25);
+}
+
+.mining-rate{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.mine-button{
+    margin-top:18px;
+    padding:13px 28px;
+    border:none;
+    border-radius:25px;
+    background:linear-gradient(90deg,#3c83ff,#63ddff);
+    color:#03101a;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(70,180,255,.28);
+}
+
+.mine-button.stop{
+    background:#263149;
+    color:#fff;
+}
+
+/* REFERRAL */
+
+.tier{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+}
+
+.tier-name{
+    font-size:16px;
+    font-weight:bold;
+}
+
+.tier-count{
+    color:var(--muted);
+    font-size:12px;
+}
+
+.progress-bar{
+    height:8px;
+    border-radius:10px;
+    margin-top:10px;
+    overflow:hidden;
+    background:#182136;
+}
+
+.progress-fill{
+    width:46%;
+    height:100%;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7c57ff,#c08aff);
+    box-shadow:0 0 15px rgba(164,119,255,.4);
+}
+
+/* MARKET */
+
+.market-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:12px;
+}
+
+.market-item{
+    padding:16px;
+    border-radius:18px;
+    background:rgba(16,23,42,.85);
+    border:1px solid var(--line);
+}
+
+.market-image{
+    height:95px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+    background:
+        radial-gradient(circle,#284c85,#0c1325 70%);
+    margin-bottom:11px;
+}
+
+.market-item h3{
+    font-size:14px;
+}
+
+.price{
+    color:var(--gold);
+    font-size:13px;
+    margin-top:6px;
+    font-weight:bold;
+}
+
+/* PROFILE */
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.avatar{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#2f78ff,#9a5dff);
+    font-size:25px;
+    box-shadow:0 0 25px rgba(100,100,255,.3);
+}
+
+.profile h3{
+    margin-bottom:4px;
+}
+
+.profile p{
+    color:var(--muted);
+    font-size:11px;
+}
+
+/* NAV */
 
 .bottom-nav{
-
     position:fixed;
-
-    z-index:50;
-
+    z-index:200;
     left:0;
     right:0;
     bottom:0;
-
-    padding:9px;
-
-    background:rgba(5,8,17,.92);
-
-    backdrop-filter:blur(18px);
-
-    border-top:1px solid rgba(255,255,255,.08);
-
+    padding:8px;
+    background:rgba(5,8,17,.94);
+    backdrop-filter:blur(20px);
+    border-top:1px solid var(--line);
 }
 
 .nav{
-
-    width:min(600px,96%);
-
+    width:min(650px,96%);
     margin:auto;
-
     display:flex;
-
     justify-content:space-around;
-
 }
 
 .nav button{
-
+    min-width:60px;
     border:none;
-
     background:none;
-
     color:#7e8da4;
-
-    font-size:11px;
-
+    font-size:10px;
     cursor:pointer;
-
 }
 
 .nav button span{
-
     display:block;
-
     font-size:20px;
-
     margin-bottom:3px;
-
 }
 
 .nav button.active{
-
-    color:#63ddff;
-
+    color:var(--cyan);
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* HIDDEN SECTIONS */
+
+.app-section{
+    display:none;
+}
+
+.app-section.active{
+    display:block;
+}
+
+/* MOBILE */
 
 @media(max-width:600px){
 
+    .main{
+        width:94%;
+    }
+
     .music-stage{
-        min-height:440px;
+        min-height:430px;
     }
 
     .equalizer{
         gap:4px;
-        height:200px;
+        height:195px;
     }
 
     .bar{
@@ -603,275 +642,419 @@ header{
     }
 
     .center-logo strong{
-        font-size:20px;
+        font-size:21px;
     }
 
     .song-info h1{
         font-size:20px;
     }
 
+    .mining-amount{
+        font-size:32px;
+    }
+
+    .cards{
+        grid-template-columns:1fr 1fr;
+    }
 }
 
-</style>
-</head>
+@media(max-width:400px){
 
-<body>
+    .cards{
+        grid-template-columns:1fr;
+    }
 
-<header>
+    .logo{
+        font-size:18px;
+    }
 
-    <div class="header">
+    .wallet{
+        font-size:10px;
+    }
+}
+</style></head><body><header>
+    <div class="header">    <div class="logo">
+        🎵 <span>AMT</span> MUSIC
+    </div>
 
-        <div class="logo">
-            🎵 <span>AMT</span> MUSIC
-        </div>
+    <div class="wallet">
+        🪙 <span id="balance">0.0000</span> AMT
+    </div>
 
-        <div class="wallet">
-            🪙 <span id="balance">0.0000</span> AMT
+</div>
+
+</header><main class="main"><!-- MUSIC SECTION --><section id="musicSection" class="app-section active"><section class="music-stage">
+
+    <div class="floor"></div>
+    <div class="orb"></div>
+
+    <div class="equalizer">
+
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+        <div class="bar"></div><div class="bar"></div>
+
+    </div>
+
+    <div class="center-logo">
+
+        <div>
+            <strong>AMT</strong>
+            <small>MUSIC</small>
         </div>
 
     </div>
 
-</header>
+    <div class="song-info">
 
+        <h1 id="songTitle">AMT Genesis</h1>
 
-<main class="main">
-
-    <!-- =====================
-         3D MUSIC SCREEN
-    ====================== -->
-
-    <section class="music-stage">
-
-        <div class="floor"></div>
-
-        <div class="orb"></div>
-
-        <div class="equalizer">
-
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-
-        </div>
-
-
-        <div class="center-logo">
-
-            <div>
-
-                <strong>AMT</strong>
-
-                <small>
-                    MUSIC
-                </small>
-
-            </div>
-
-        </div>
-
-
-        <div class="song-info">
-
-            <h1 id="songTitle">
-                AMT Genesis
-            </h1>
-
-            <p id="artist">
-                AMT Originals • 3D Digital Sound
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================
-         PLAYER
-    ====================== -->
-
-    <section class="player">
-
-        <input
-            type="range"
-            class="progress"
-            id="progress"
-            value="0"
-            min="0"
-            max="100"
-        >
-
-        <div class="controls">
-
-            <button
-                class="control"
-                onclick="previousSong()">
-                ⏮
-            </button>
-
-            <button
-                class="control main"
-                id="playButton"
-                onclick="toggleMusic()">
-                ▶
-            </button>
-
-            <button
-                class="control"
-                onclick="nextSong()">
-                ⏭
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================
-         ECOSYSTEM CARDS
-    ====================== -->
-
-    <section class="cards">
-
-        <div class="card">
-
-            <div class="card-icon">
-                ⛏️
-            </div>
-
-            <h3>
-                AMT Hard Mining
-            </h3>
-
-            <p>
-                24/7-style Testnet reward engine
-            </p>
-
-            <br>
-
-            <span
-                class="mining-active">
-                ● MINING ACTIVE
-            </span>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                🎧
-            </div>
-
-            <h3>
-                Music Reward
-            </h3>
-
-            <p>
-                Bonus rewards for verified listening
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                ⭐
-            </div>
-
-            <h3>
-                AMT Reputation
-            </h3>
-
-            <p>
-                Ecosystem reputation score
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-icon">
-                👥
-            </div>
-
-            <h3>
-                Referral Tier
-            </h3>
-
-            <p>
-                Bronze • Silver • Gold • Platinum
-            </p>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<!-- =====================
-     BOTTOM NAV
-===================== -->
-
-<nav class="bottom-nav">
-
-    <div class="nav">
-
-        <button class="active">
-            <span>🎵</span>
-            Music
-        </button>
-
-        <button>
-            <span>⛏️</span>
-            Mining
-        </button>
-
-        <button>
-            <span>🛒</span>
-            Market
-        </button>
-
-        <button>
-            <span>👤</span>
-            Profile
-        </button>
+        <p id="artist">
+            AMT Originals • Digital Sound
+        </p>
 
     </div>
 
-</nav>
+</section>
 
 
-<!-- AUDIO -->
+<section class="player">
 
-<audio id="audio"></audio>
+    <input
+        type="range"
+        class="progress"
+        id="progress"
+        value="0"
+        min="0"
+        max="100">
 
+    <div class="controls">
+
+        <button class="control"
+            onclick="previousSong()">⏮</button>
+
+        <button class="control main"
+            id="playButton"
+            onclick="toggleMusic()">▶</button>
+
+        <button class="control"
+            onclick="nextSong()">⏭</button>
+
+    </div>
+
+</section>
+
+
+<h2 class="section-title">
+    AMT Ecosystem
+</h2>
+
+<section class="cards">
+
+    <div class="card">
+
+        <div class="card-icon">⛏️</div>
+
+        <h3>AMT Mining</h3>
+
+        <p>
+            Earn AMT rewards through the
+            platform's mining mechanism.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">🎧</div>
+
+        <h3>Music Rewards</h3>
+
+        <p>
+            Verified activity may qualify
+            for ecosystem rewards.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">⭐</div>
+
+        <h3>Reputation</h3>
+
+        <p>
+            Build your Pioneer reputation
+            inside the AMT ecosystem.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-icon">👥</div>
+
+        <h3>Referral Tier</h3>
+
+        <p>
+            Pioneer → Bronze → Silver →
+            Gold → Platinum.
+        </p>
+
+    </div>
+
+</section>
+
+</section><!-- MINING SECTION --><section id="miningSection" class="app-section"><h2 class="section-title">
+    ⛏️ AMT Mining
+</h2>
+
+<div class="mining-panel">
+
+    <div class="mining-status">
+        <span class="mining-dot"></span>
+        <span id="miningStatus">MINING READY</span>
+    </div>
+
+    <div class="mining-amount">
+        <span id="miningBalance">0.0000</span>
+        AMT
+    </div>
+
+    <div class="mining-rate">
+        Current rate: <strong>0.2500 AMT</strong> / cycle
+    </div>
+
+    <button
+        class="mine-button"
+        id="mineButton"
+        onclick="toggleMining()">
+        START MINING
+    </button>
+
+</div>
+
+
+<h2 class="section-title">
+    Mining Information
+</h2>
+
+<section class="cards">
+
+    <div class="card">
+        <div class="card-icon">⏱️</div>
+        <h3>Mining Cycle</h3>
+        <p>24-hour reward cycle.</p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">🛡️</div>
+        <h3>Anti-Abuse</h3>
+        <p>
+            Server-side validation will be
+            added in the backend.
+        </p>
+    </div>
+
+    <div class="card">
+        <div class="card-icon">📊</div>
+        <h3>Daily Limit</h3>
+        <p>
+            Reward limits can be configured
+            by the AMT server.
+        </p>
+    </div>
+
+</section>
+
+</section><!-- MARKET SECTION --><section id="marketSection" class="app-section"><h2 class="section-title">
+    🛒 AMT Marketplace
+</h2>
+
+<section class="market-grid">
+
+    <div class="market-item">
+
+        <div class="market-image">🎵</div>
+
+        <h3>Premium Music</h3>
+
+        <div class="price">100 AMT</div>
+
+    </div>
+
+    <div class="market-item">
+
+        <div class="market-image">🎤</div>
+
+        <h3>Artist Promotion</h3>
+
+        <div class="price">250 AMT</div>
+
+    </div>
+
+    <div class="market-item">
+
+        <div class="market-image">🎨</div>
+
+        <h3>Digital Content</h3>
+
+        <div class="price">150 AMT</div>
+
+    </div>
+
+    <div class="market-item">
+
+        <div class="market-image">🎟️</div>
+
+        <h3>Event Access</h3>
+
+        <div class="price">300 AMT</div>
+
+    </div>
+
+</section>
+
+</section><!-- PROFILE SECTION --><section id="profileSection" class="app-section"><h2 class="section-title">
+    👤 Pioneer Profile
+</h2>
+
+<div class="card">
+
+    <div class="profile">
+
+        <div class="avatar">
+            👤
+        </div>
+
+        <div>
+
+            <h3 id="username">
+                Pioneer
+            </h3>
+
+            <p>
+                AMT Music Member
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<h2 class="section-title">
+    🤝 Referral Tier
+</h2>
+
+<div class="card">
+
+    <div class="tier">
+
+        <div class="tier-name purple">
+            SILVER
+        </div>
+
+        <div class="tier-count">
+            23 / 50 referrals
+        </div>
+
+    </div>
+
+    <div class="progress-bar">
+
+        <div class="progress-fill"></div>
+
+    </div>
+
+    <p style="margin-top:10px;">
+        Next tier: GOLD
+    </p>
+
+</div>
+
+
+<h2 class="section-title">
+    💰 Wallet
+</h2>
+
+<div class="cards">
+
+    <div class="card">
+
+        <h3>AMT Balance</h3>
+
+        <div class="amount gold">
+            <span id="profileBalance">0.0000</span>
+        </div>
+
+        <p>
+            Internal AMT ecosystem balance
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Pi Integration</h3>
+
+        <div class="amount cyan">
+            READY
+        </div>
+
+        <p>
+            Official Pi integration can be
+            connected when supported.
+        </p>
+
+    </div>
+
+</div>
+
+</section></main><!-- BOTTOM NAV --><nav class="bottom-nav"><div class="nav">
+
+    <button
+        class="active"
+        onclick="showSection('musicSection',this)">
+        <span>🎵</span>
+        Music
+    </button>
+
+    <button
+        onclick="showSection('miningSection',this)">
+        <span>⛏️</span>
+        Mining
+    </button>
+
+    <button
+        onclick="showSection('marketSection',this)">
+        <span>🛒</span>
+        Market
+    </button>
+
+    <button
+        onclick="showSection('profileSection',this)">
+        <span>👤</span>
+        Profile
+    </button>
+
+</div>
+
+</nav><audio id="audio"></audio>
 
 <script>
 
-/* ==================================
-   AMT MUSIC PLAYER V1
-================================== */
+/* =================================
+   AMT MUSIC PLAYER
+================================= */
 
 const songs = [
 
@@ -897,8 +1080,6 @@ const songs = [
 
 let currentSong = 0;
 
-let playing = false;
-
 const audio =
     document.getElementById("audio");
 
@@ -919,11 +1100,9 @@ function loadSong(index){
 
     currentSong = index;
 
-    const song =
-        songs[currentSong];
+    const song = songs[currentSong];
 
-    audio.src =
-        song.file;
+    audio.src = song.file;
 
     songTitle.textContent =
         song.title;
@@ -932,16 +1111,13 @@ function loadSong(index){
         song.artist;
 
     progress.value = 0;
-
 }
 
 
 function toggleMusic(){
 
     if(!audio.src){
-
         loadSong(0);
-
     }
 
     if(audio.paused){
@@ -949,16 +1125,13 @@ function toggleMusic(){
         audio.play()
         .then(()=>{
 
-            playing = true;
-
-            playButton.textContent =
-                "⏸";
+            playButton.textContent = "⏸";
 
         })
         .catch(()=>{
 
             alert(
-                "Add your licensed MP3 files inside the music folder."
+                "Please add your licensed MP3 files to the music folder."
             );
 
         });
@@ -967,13 +1140,9 @@ function toggleMusic(){
 
         audio.pause();
 
-        playing = false;
-
-        playButton.textContent =
-            "▶";
+        playButton.textContent = "▶";
 
     }
-
 }
 
 
@@ -982,24 +1151,16 @@ function nextSong(){
     currentSong++;
 
     if(currentSong >= songs.length){
-
         currentSong = 0;
-
     }
 
     loadSong(currentSong);
 
     audio.play()
     .then(()=>{
-
-        playing = true;
-
-        playButton.textContent =
-            "⏸";
-
+        playButton.textContent = "⏸";
     })
     .catch(()=>{});
-
 }
 
 
@@ -1008,14 +1169,10 @@ function previousSong(){
     currentSong--;
 
     if(currentSong < 0){
-
-        currentSong =
-            songs.length - 1;
-
+        currentSong = songs.length - 1;
     }
 
     loadSong(currentSong);
-
 }
 
 
@@ -1042,8 +1199,8 @@ progress.addEventListener(
         if(audio.duration){
 
             audio.currentTime =
-                (progress.value / 100)
-                * audio.duration;
+                (progress.value / 100) *
+                audio.duration;
 
         }
 
@@ -1057,30 +1214,146 @@ audio.addEventListener(
 );
 
 
-/* ==================================
-   DEMO AMT BALANCE
-================================== */
+/* =================================
+   AMT LOCAL DEMO BALANCE
+================================= */
 
-let balance =
-    Number(
-        localStorage.getItem(
-            "amtTestBalance"
-        ) || 0
-    );
+let balance = Number(
+    localStorage.getItem("amtBalance") || 0
+);
 
-document.getElementById(
-    "balance"
-).textContent =
-    balance.toFixed(4);
+function updateBalanceUI(){
+
+    document.getElementById(
+        "balance"
+    ).textContent =
+        balance.toFixed(4);
+
+    document.getElementById(
+        "miningBalance"
+    ).textContent =
+        balance.toFixed(4);
+
+    document.getElementById(
+        "profileBalance"
+    ).textContent =
+        balance.toFixed(4);
+}
+
+updateBalanceUI();
 
 
-/* ==================================
+/* =================================
+   MINING DEMO STATE
+================================= */
+
+let mining = false;
+
+let miningInterval = null;
+
+const miningRate = 0.25;
+
+
+function toggleMining(){
+
+    const button =
+        document.getElementById("mineButton");
+
+    const status =
+        document.getElementById("miningStatus");
+
+    if(!mining){
+
+        mining = true;
+
+        status.textContent =
+            "MINING ACTIVE";
+
+        button.textContent =
+            "STOP MINING";
+
+        button.classList.add("stop");
+
+        /*
+         * DEMO ONLY
+         *
+         * Real rewards must be
+         * calculated and validated
+         * by the AMT backend.
+         */
+
+        miningInterval =
+            setInterval(()=>{
+
+                balance += 0.01;
+
+                localStorage.setItem(
+                    "amtBalance",
+                    balance
+                );
+
+                updateBalanceUI();
+
+            },10000);
+
+    }else{
+
+        mining = false;
+
+        status.textContent =
+            "MINING PAUSED";
+
+        button.textContent =
+            "START MINING";
+
+        button.classList.remove("stop");
+
+        clearInterval(
+            miningInterval
+        );
+
+    }
+
+}
+
+
+/* =================================
+   NAVIGATION
+================================= */
+
+function showSection(sectionId,button){
+
+    document
+        .querySelectorAll(".app-section")
+        .forEach(section=>{
+            section.classList.remove("active");
+        });
+
+    document
+        .getElementById(sectionId)
+        .classList.add("active");
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(btn=>{
+            btn.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =================================
    START
-================================== */
+================================= */
 
 loadSong(0);
 
-</script>
-
-</body>
+</script></body>
 </html>
