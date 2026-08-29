@@ -2,200 +2,144 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-
 const PORT = process.env.PORT || 10000;
 
 /* =========================================
-MIDDLEWARE
+   MIDDLEWARE
 ========================================= */
 
 app.use(express.json());
-
-app.use(express.urlencoded({
-extended: true
-}));
+app.use(express.urlencoded({ extended: true }));
 
 /* =========================================
-STATIC FRONTEND
-========================================= */
-
-app.use(express.static(__dirname));
-
-/* =========================================
-AMT CONFIGURATION
+   AMT CONFIG
 ========================================= */
 
 const AMT_CONFIG = {
-project: "AMT Music",
-version: "1.0.0",
-network: "AMT Testnet / Sandbox",
+    project: "AMT Music",
+    version: "1.1.0",
+    network: "AMT Testnet / Sandbox",
 
-mining: {
-    rate: 0.25,
-    cycleHours: 24,
-    dailyLimit: 6
-},
+    mining: {
+        rate: 0.25,
+        cycleHours: 24,
+        dailyLimit: 6
+    },
 
-referralTiers: [
-    {
-        name: "Pioneer",
-        minReferrals: 0,
-        bonus: 0
-    },
-    {
-        name: "Bronze",
-        minReferrals: 5,
-        bonus: 0.05
-    },
-    {
-        name: "Silver",
-        minReferrals: 10,
-        bonus: 0.10
-    },
-    {
-        name: "Gold",
-        minReferrals: 25,
-        bonus: 0.15
-    },
-    {
-        name: "Platinum",
-        minReferrals: 50,
-        bonus: 0.20
-    },
-    {
-        name: "Diamond",
-        minReferrals: 100,
-        bonus: 0.25
-    }
-]
-
+    referralTiers: [
+        { name: "Pioneer",  minReferrals: 0,   bonus: 0.00 },
+        { name: "Bronze",   minReferrals: 5,   bonus: 0.05 },
+        { name: "Silver",   minReferrals: 10,  bonus: 0.10 },
+        { name: "Gold",     minReferrals: 25,  bonus: 0.15 },
+        { name: "Platinum", minReferrals: 50,  bonus: 0.20 },
+        { name: "Diamond",  minReferrals: 100, bonus: 0.25 }
+    ]
 };
 
 /* =========================================
-TEMPORARY MVP MEMORY STORE
+   TEMPORARY MEMORY STORE
 
-IMPORTANT:
-This is NOT the final production ledger.
-
-Render can restart the service, which means
-this temporary data can be lost.
-
-Persistent database will be added next.
+   NOTE:
+   This is for testnet/sandbox development.
+   Production will require a persistent DB.
 ========================================= */
 
 const users = new Map();
 
-/* =========================================
-DEFAULT USER
-========================================= */
-
 const demoUser = {
-id: "demo-pioneer",
-username: "Pioneer",
-isPioneer: true,
+    id: "demo-pioneer",
+    username: "Pioneer",
+    isPioneer: true,
 
-balance: 0,
+    balance: 0,
 
-mining: {
-    active: false,
-    startedAt: null,
-    lastClaimAt: null,
-    todayReward: 0
-},
+    mining: {
+        active: false,
+        startedAt: null,
+        lastClaimAt: null,
+        todayReward: 0,
+        cycleReward: 0
+    },
 
-referrals: 0,
+    referrals: 0,
 
-createdAt: new Date().toISOString()
-
+    createdAt: new Date().toISOString()
 };
 
-users.set(
-demoUser.id,
-demoUser
-);
+users.set(demoUser.id, demoUser);
 
 /* =========================================
-HELPER: REFERRAL TIER
+   HELPERS
 ========================================= */
+
+function getUser() {
+    return users.get("demo-pioneer");
+}
 
 function getReferralTier(referrals) {
 
-let currentTier =
-    AMT_CONFIG.referralTiers[0];
+    let current = AMT_CONFIG.referralTiers[0];
 
-for (
-    const tier
-    of AMT_CONFIG.referralTiers
-) {
-
-    if (
-        referrals >=
-        tier.minReferrals
-    ) {
-
-        currentTier = tier;
-
+    for (const tier of AMT_CONFIG.referralTiers) {
+        if (referrals >= tier.minReferrals) {
+            current = tier;
+        }
     }
 
+    return current;
 }
 
-return currentTier;
-
+function sendJson(res, status, data) {
+    res.status(status);
+    res.type("application/json");
+    res.json(data);
 }
 
 /* =========================================
-HEALTH / STATUS
+   HEALTH / STATUS
 ========================================= */
 
-app.get(
-"/api/status",
-(req, res) => {
+app.get("/api/status", (req, res) => {
 
-    res.json({
+    sendJson(res, 200, {
+        success: true,
+        service: AMT_CONFIG.project,
+        status: "online",
+        version: AMT_CONFIG.version,
+        network: AMT_CONFIG.network,
 
-        service:
-            AMT_CONFIG.project,
+        miningRate: AMT_CONFIG.mining.rate,
+        miningCycle: `${AMT_CONFIG.mining.cycleHours} hours`,
+        dailyLimit: AMT_CONFIG.mining.dailyLimit,
 
-        status:
-            "online",
-
-        version:
-            AMT_CONFIG.version,
-
-        network:
-            AMT_CONFIG.network,
-
-        miningRate:
-            AMT_CONFIG.mining.rate,
-
-        miningCycle:
-            `${AMT_CONFIG.mining.cycleHours} hours`,
-
-        dailyLimit:
-            AMT_CONFIG.mining.dailyLimit,
-
-        timestamp:
-            new Date().toISOString()
-
+        timestamp: new Date().toISOString()
     });
 
-}
+});
 
-);
+/* Health alias */
+app.get("/api/health", (req, res) => {
+
+    sendJson(res, 200, {
+        success: true,
+        status: "online",
+        service: AMT_CONFIG.project,
+        version: AMT_CONFIG.version,
+        network: AMT_CONFIG.network,
+        timestamp: new Date().toISOString()
+    });
+
+});
 
 /* =========================================
-USER PROFILE
+   USER
 ========================================= */
 
-app.get(
-"/api/user",
-(req, res) => {
+app.get("/api/user", (req, res) => {
 
-    const user =
-        users.get("demo-pioneer");
+    const user = getUser();
 
-    res.json({
-
+    sendJson(res, 200, {
         success: true,
 
         user: {
@@ -203,98 +147,86 @@ app.get(
             username: user.username,
             isPioneer: user.isPioneer
         }
-
     });
 
-}
-
-);
+});
 
 /* =========================================
-WALLET
+   WALLET
 ========================================= */
 
-app.get(
-"/api/wallet",
-(req, res) => {
+app.get("/api/wallet", (req, res) => {
 
-    const user =
-        users.get("demo-pioneer");
+    const user = getUser();
 
-    res.json({
-
+    sendJson(res, 200, {
         success: true,
 
         wallet: {
             asset: "AMT",
-            balance:
-                Number(
-                    user.balance
-                ).toFixed(4)
+            balance: Number(user.balance).toFixed(4)
         }
-
     });
 
-}
-
-);
+});
 
 /* =========================================
-REFERRAL
+   REFERRAL
 ========================================= */
 
-app.get(
-"/api/referral",
-(req, res) => {
+app.get("/api/referral", (req, res) => {
 
-    const user =
-        users.get("demo-pioneer");
+    const user = getUser();
+    const tier = getReferralTier(user.referrals);
 
-    const tier =
-        getReferralTier(
-            user.referrals
-        );
-
-    res.json({
-
+    sendJson(res, 200, {
         success: true,
 
-        referrals:
-            user.referrals,
+        referrals: user.referrals,
 
         tier: tier.name,
 
-        bonus:
-            `${tier.bonus * 100}%`
+        bonus: `${tier.bonus * 100}%`,
 
+        nextTier: getNextTier(user.referrals)
     });
 
+});
+
+function getNextTier(referrals) {
+
+    for (const tier of AMT_CONFIG.referralTiers) {
+
+        if (referrals < tier.minReferrals) {
+
+            return {
+                name: tier.name,
+                requiredReferrals: tier.minReferrals
+            };
+
+        }
+    }
+
+    return null;
 }
 
-);
-
 /* =========================================
-MINING STATUS
+   MINING STATUS
 ========================================= */
 
-app.get(
-"/api/mining/status",
-(req, res) => {
+app.get("/api/mining/status", (req, res) => {
 
-    const user =
-        users.get("demo-pioneer");
+    const user = getUser();
 
-    res.json({
+    sendJson(res, 200, {
 
         success: true,
 
         mining: {
 
-            active:
-                user.mining.active,
+            active: user.mining.active,
 
-            rate:
-                AMT_CONFIG.mining.rate,
+            rate: AMT_CONFIG.mining.rate,
 
             cycleHours:
                 AMT_CONFIG.mining.cycleHours,
@@ -307,122 +239,195 @@ app.get(
                     user.mining.todayReward
                 ).toFixed(4),
 
-            lastClaimAt:
-                user.mining.lastClaimAt
+            cycleReward:
+                Number(
+                    user.mining.cycleReward
+                ).toFixed(4),
 
+            lastClaimAt:
+                user.mining.lastClaimAt,
+
+            startedAt:
+                user.mining.startedAt
         }
 
     });
 
-}
-
-);
+});
 
 /* =========================================
-START MINING
+   START MINING
 ========================================= */
 
-app.post(
-"/api/mining/start",
-(req, res) => {
+function startMining(req, res) {
 
-    const user =
-        users.get("demo-pioneer");
+    const user = getUser();
 
     if (!user.isPioneer) {
 
-        return res.status(403).json({
-
+        return sendJson(res, 403, {
             success: false,
-
             error:
                 "Only verified Pioneer accounts can access AMT mining."
-
         });
 
     }
 
     if (user.mining.active) {
 
-        return res.status(400).json({
-
+        return sendJson(res, 400, {
             success: false,
-
-            error:
-                "Mining is already active."
-
+            error: "Mining is already active.",
+            mining: {
+                active: true
+            }
         });
 
     }
 
+    const now = new Date().toISOString();
+
     user.mining.active = true;
+    user.mining.startedAt = now;
 
-    user.mining.startedAt =
-        new Date().toISOString();
-
-    res.json({
+    sendJson(res, 200, {
 
         success: true,
 
-        message:
-            "AMT mining started.",
+        message: "AMT mining started.",
 
         mining: {
 
             active: true,
 
-            startedAt:
-                user.mining.startedAt,
+            startedAt: now,
 
             rate:
                 AMT_CONFIG.mining.rate,
 
             cycleHours:
-                AMT_CONFIG.mining.cycleHours
+                AMT_CONFIG.mining.cycleHours,
 
+            dailyLimit:
+                AMT_CONFIG.mining.dailyLimit
         }
 
     });
 
 }
 
-);
+/*
+   Multiple compatible endpoints.
+   This prevents frontend/API path mismatch.
+*/
+
+app.post("/api/mining/start", startMining);
+
+app.get("/api/mining/start", startMining);
+
+app.post("/api/mine/start", startMining);
+
+app.post("/api/start-mining", startMining);
 
 /* =========================================
-STOP MINING
+   STOP MINING
 ========================================= */
 
-app.post(
-"/api/mining/stop",
-(req, res) => {
+function stopMining(req, res) {
 
-    const user =
-        users.get("demo-pioneer");
+    const user = getUser();
 
     user.mining.active = false;
 
-    res.json({
+    sendJson(res, 200, {
 
         success: true,
 
-        message:
-            "AMT mining paused."
+        message: "AMT mining paused.",
+
+        mining: {
+            active: false
+        }
 
     });
 
 }
 
-);
+app.post("/api/mining/stop", stopMining);
+
+app.get("/api/mining/stop", stopMining);
+
+app.post("/api/mine/stop", stopMining);
+
+app.post("/api/stop-mining", stopMining);
 
 /* =========================================
-MARKETPLACE
+   MINING CLAIM
 ========================================= */
 
-app.get(
-"/api/marketplace",
-(req, res) => {
+app.post("/api/mining/claim", (req, res) => {
 
-    res.json({
+    const user = getUser();
+
+    if (!user.isPioneer) {
+
+        return sendJson(res, 403, {
+            success: false,
+            error: "Pioneer verification required."
+        });
+
+    }
+
+    if (!user.mining.active) {
+
+        return sendJson(res, 400, {
+            success: false,
+            error: "Mining is not active."
+        });
+
+    }
+
+    const reward = AMT_CONFIG.mining.rate;
+
+    user.balance += reward;
+
+    user.mining.todayReward += reward;
+    user.mining.cycleReward += reward;
+    user.mining.lastClaimAt =
+        new Date().toISOString();
+
+    sendJson(res, 200, {
+
+        success: true,
+
+        message: "AMT mining reward recorded.",
+
+        reward: reward,
+
+        wallet: {
+            asset: "AMT",
+            balance:
+                Number(user.balance).toFixed(4)
+        },
+
+        mining: {
+            todayReward:
+                Number(
+                    user.mining.todayReward
+                ).toFixed(4)
+        }
+
+    });
+
+});
+
+/* =========================================
+   MARKETPLACE
+========================================= */
+
+app.get("/api/marketplace", (req, res) => {
+
+    sendJson(res, 200, {
 
         success: true,
 
@@ -458,63 +463,108 @@ app.get(
 
     });
 
-}
-
-);
+});
 
 /* =========================================
-ROOT
+   PI INTEGRATION STATUS
 ========================================= */
 
-app.get(
-"/",
-(req, res) => {
+app.get("/api/pi/status", (req, res) => {
 
-    res.sendFile(
-        path.join(
-            __dirname,
-            "index.html"
-        )
-    );
+    sendJson(res, 200, {
 
-}
+        success: true,
 
-);
+        integration: "Pi Network",
 
-/* =========================================
-404 API HANDLER
-========================================= */
+        status: "READY_FOR_OFFICIAL_SDK",
 
-app.use(
-"/api",
-(req, res) => {
+        network:
+            AMT_CONFIG.network,
 
-    res.status(404).json({
-
-        success: false,
-
-        error:
-            "API endpoint not found."
+        message:
+            "Official Pi SDK integration will be connected after Pi Developer approval/configuration."
 
     });
 
-}
-
-);
+});
 
 /* =========================================
-SERVER
+   ROOT
+========================================= */
+
+app.get("/", (req, res) => {
+
+    res.sendFile(
+        path.join(__dirname, "index.html")
+    );
+
+});
+
+/* =========================================
+   API 404
+
+   IMPORTANT:
+   API errors MUST return JSON,
+   never an HTML page.
+========================================= */
+
+app.use("/api", (req, res) => {
+
+    sendJson(res, 404, {
+
+        success: false,
+
+        error: "API endpoint not found.",
+
+        path: req.originalUrl
+
+    });
+
+});
+
+/* =========================================
+   SERVER ERROR HANDLER
+========================================= */
+
+app.use((err, req, res, next) => {
+
+    console.error(err);
+
+    if (req.originalUrl.startsWith("/api")) {
+
+        return sendJson(res, 500, {
+
+            success: false,
+
+            error: "AMT server error."
+
+        });
+
+    }
+
+    res.status(500).send(
+        "AMT Music Server Error"
+    );
+
+});
+
+/* =========================================
+   SERVER
 ========================================= */
 
 app.listen(
-PORT,
-"0.0.0.0",
-() => {
+    PORT,
+    "0.0.0.0",
+    () => {
 
-    console.log(
-        `AMT Music server running on port ${PORT}`
-    );
+        console.log(
+            `AMT Music server running on port ${PORT}`
+        );
 
-}
+        console.log(
+            `Network: ${AMT_CONFIG.network}`
+        );
 
+    }
 );
