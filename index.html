@@ -6,11 +6,12 @@
 
 <title>AMT Music</title>
 
-<meta name="theme-color" content="#090d18">
+<meta name="theme-color" content="#050713">
 <meta name="description"
-content="AMT Music - Listen, Discover and Earn.">
+content="AMT Music - 3D Digital Music Ecosystem">
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -19,736 +20,1065 @@ content="AMT Music - Listen, Discover and Earn.">
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#090d18;
+    background:
+        radial-gradient(circle at 50% 25%,#17264b 0%,#080c19 38%,#03050c 100%);
     color:#fff;
     min-height:100vh;
-    padding-bottom:95px;
+    overflow-x:hidden;
 }
+
+/* =========================
+   HEADER
+========================= */
 
 header{
-    position:sticky;
-    top:0;
-    z-index:10;
-    background:#0d1322;
-    border-bottom:1px solid #202a40;
+    position:relative;
+    z-index:20;
     padding:15px;
+    background:rgba(5,8,18,.78);
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.header-row{
+.header{
+    max-width:1100px;
+    margin:auto;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
 }
 
 .logo{
     font-size:22px;
-    font-weight:bold;
-    color:#f5c542;
+    font-weight:800;
+    letter-spacing:.5px;
 }
 
 .logo span{
-    color:#fff;
+    color:#62d9ff;
 }
 
-.balance{
-    background:#151d30;
-    border:1px solid #34415e;
+.wallet{
+    padding:8px 13px;
     border-radius:20px;
-    padding:8px 12px;
-    color:#f5c542;
-    font-weight:bold;
-}
-
-.search{
-    margin-top:14px;
-}
-
-.search input{
-    width:100%;
-    padding:13px 16px;
-    border-radius:25px;
-    border:1px solid #303b55;
-    outline:none;
-    background:#151c2c;
-    color:#fff;
-    font-size:15px;
-}
-
-.container{
-    width:min(1100px,94%);
-    margin:auto;
-}
-
-.hero{
-    margin-top:22px;
-    padding:25px;
-    border-radius:20px;
-    background:linear-gradient(135deg,#151e34,#101624);
-    border:1px solid #27334d;
-}
-
-.hero h1{
-    font-size:30px;
-    margin-bottom:8px;
-}
-
-.hero p{
-    color:#aeb8cc;
-    line-height:1.5;
-}
-
-.reward{
-    margin-top:18px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:15px;
-    background:#111a2b;
-    border:1px solid #33415d;
-    border-radius:15px;
-    padding:15px;
-}
-
-.reward strong{
-    color:#f5c542;
-}
-
-.section-title{
-    margin:28px 0 14px;
-    font-size:21px;
-}
-
-.music-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:14px;
-}
-
-.track{
-    background:#111827;
-    border:1px solid #27334a;
-    border-radius:16px;
-    padding:14px;
-    display:flex;
-    align-items:center;
-    gap:13px;
-    transition:.2s;
-}
-
-.track:hover{
-    transform:translateY(-2px);
-    border-color:#52627f;
-}
-
-.cover{
-    width:62px;
-    height:62px;
-    flex-shrink:0;
-    border-radius:12px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    background:#202b43;
-}
-
-.track-info{
-    flex:1;
-    min-width:0;
-}
-
-.track-info h3{
-    font-size:16px;
-    margin-bottom:5px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.track-info p{
-    color:#8f9bb1;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.12);
+    color:#ffd75a;
     font-size:13px;
 }
 
-.play-btn{
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    border:none;
-    background:#f5c542;
-    color:#111;
-    font-size:18px;
-    cursor:pointer;
-}
+/* =========================
+   MAIN
+========================= */
 
-.empty{
-    color:#8995aa;
-    padding:20px 0;
-    text-align:center;
-}
-
-.player{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    z-index:20;
-    background:#0e1524;
-    border-top:1px solid #29364f;
-    padding:12px;
-}
-
-.player-inner{
+.main{
     width:min(1100px,94%);
     margin:auto;
+    padding-top:20px;
 }
 
-.now-playing{
+/* =========================
+   3D MUSIC STAGE
+========================= */
+
+.music-stage{
+
+    position:relative;
+
+    min-height:500px;
+
     display:flex;
+    flex-direction:column;
     align-items:center;
-    justify-content:space-between;
-    gap:10px;
-}
+    justify-content:center;
 
-.now-title{
-    min-width:0;
-}
+    perspective:1000px;
 
-.now-title b{
-    display:block;
-    white-space:nowrap;
     overflow:hidden;
-    text-overflow:ellipsis;
+
+    border-radius:28px;
+
+    background:
+        radial-gradient(circle at center,
+        rgba(44,115,190,.22),
+        rgba(5,8,18,.2) 45%,
+        rgba(0,0,0,.4));
+
+    border:1px solid rgba(255,255,255,.09);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.55),
+        inset 0 0 80px rgba(70,160,255,.08);
 }
 
-.now-title small{
-    color:#8793aa;
+/* DIGITAL FLOOR */
+
+.floor{
+
+    position:absolute;
+
+    bottom:-120px;
+
+    width:900px;
+    height:400px;
+
+    transform:
+        perspective(500px)
+        rotateX(67deg);
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 49px,
+            rgba(71,183,255,.13) 50px
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 49px,
+            rgba(71,183,255,.13) 50px
+        );
+
+    mask-image:linear-gradient(
+        to top,
+        black,
+        transparent
+    );
 }
 
-.controls{
+/* GLOW ORB */
+
+.orb{
+
+    position:absolute;
+
+    width:210px;
+    height:210px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(102,220,255,.75),
+            rgba(40,110,255,.15) 45%,
+            transparent 70%
+        );
+
+    filter:blur(4px);
+
+    animation:
+        orbPulse 3s ease-in-out infinite;
+
+}
+
+@keyframes orbPulse{
+
+    0%,100%{
+        transform:scale(.95);
+        opacity:.55;
+    }
+
+    50%{
+        transform:scale(1.12);
+        opacity:.9;
+    }
+
+}
+
+/* =========================
+   EQUALIZER
+========================= */
+
+.equalizer{
+
+    position:relative;
+    z-index:5;
+
+    height:230px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:center;
+
+    gap:7px;
+
+    transform:
+        perspective(600px)
+        rotateX(10deg)
+        rotateY(-3deg);
+
+}
+
+.bar{
+
+    width:9px;
+
+    height:35px;
+
+    border-radius:10px 10px 2px 2px;
+
+    background:
+        linear-gradient(
+            to top,
+            #2468ff,
+            #61e4ff,
+            #ffffff
+        );
+
+    box-shadow:
+        0 0 10px rgba(80,210,255,.8),
+        0 0 25px rgba(50,130,255,.35);
+
+    animation:
+        equalize .85s ease-in-out infinite alternate;
+}
+
+.bar:nth-child(1){animation-delay:.1s}
+.bar:nth-child(2){animation-delay:.3s}
+.bar:nth-child(3){animation-delay:.5s}
+.bar:nth-child(4){animation-delay:.2s}
+.bar:nth-child(5){animation-delay:.7s}
+.bar:nth-child(6){animation-delay:.4s}
+.bar:nth-child(7){animation-delay:.8s}
+.bar:nth-child(8){animation-delay:.1s}
+.bar:nth-child(9){animation-delay:.6s}
+.bar:nth-child(10){animation-delay:.3s}
+.bar:nth-child(11){animation-delay:.9s}
+.bar:nth-child(12){animation-delay:.4s}
+.bar:nth-child(13){animation-delay:.7s}
+.bar:nth-child(14){animation-delay:.2s}
+.bar:nth-child(15){animation-delay:.5s}
+.bar:nth-child(16){animation-delay:.8s}
+.bar:nth-child(17){animation-delay:.1s}
+.bar:nth-child(18){animation-delay:.6s}
+.bar:nth-child(19){animation-delay:.3s}
+.bar:nth-child(20){animation-delay:.7s}
+
+@keyframes equalize{
+
+    from{
+        height:25px;
+        transform:scaleY(.6);
+    }
+
+    to{
+        height:190px;
+        transform:scaleY(1);
+    }
+
+}
+
+/* =========================
+   CENTER LOGO
+========================= */
+
+.center-logo{
+
+    position:absolute;
+
+    z-index:8;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
     display:flex;
     align-items:center;
-    gap:9px;
+    justify-content:center;
+
+    text-align:center;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.16),
+            rgba(20,70,130,.35) 55%,
+            rgba(5,10,20,.8)
+        );
+
+    border:1px solid rgba(125,220,255,.4);
+
+    box-shadow:
+        0 0 25px rgba(70,200,255,.45),
+        inset 0 0 25px rgba(100,200,255,.15);
+
+    transform:
+        translateZ(80px);
+
 }
 
-.control{
-    border:none;
-    background:#202b40;
+.center-logo strong{
+
+    font-size:25px;
+
+    letter-spacing:2px;
+
     color:#fff;
-    width:38px;
-    height:38px;
-    border-radius:50%;
-    cursor:pointer;
+
+    text-shadow:
+        0 0 10px #62d9ff,
+        0 0 25px #268cff;
 }
 
-.control.main{
-    background:#f5c542;
-    color:#111;
+.center-logo small{
+
+    display:block;
+
+    color:#9fc9e8;
+
+    font-size:9px;
+
+    margin-top:4px;
+
+}
+
+/* =========================
+   SONG INFO
+========================= */
+
+.song-info{
+
+    position:absolute;
+
+    bottom:35px;
+
+    z-index:10;
+
+    text-align:center;
+
+}
+
+.song-info h1{
+
+    font-size:24px;
+
+    margin-bottom:5px;
+
+}
+
+.song-info p{
+
+    color:#8da4bd;
+
+    font-size:13px;
+
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player{
+
+    margin-top:15px;
+
+    padding:15px;
+
+    border-radius:20px;
+
+    background:rgba(12,18,33,.86);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(15px);
+
 }
 
 .progress{
-    margin-top:9px;
-}
 
-.progress input{
     width:100%;
+
+    accent-color:#55d9ff;
+
 }
 
-.status{
-    text-align:center;
-    color:#8d99ad;
-    font-size:12px;
-    margin-top:5px;
+.controls{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-top:10px;
+
 }
 
-footer{
-    text-align:center;
-    color:#657188;
-    padding:30px 10px;
-    font-size:12px;
+.control{
+
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.1);
+
+    background:#172238;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:17px;
+
 }
+
+.control.main{
+
+    width:54px;
+    height:54px;
+
+    background:#59dfff;
+
+    color:#06101b;
+
+    font-size:20px;
+
+    box-shadow:
+        0 0 20px rgba(80,220,255,.35);
+
+}
+
+/* =========================
+   STATUS CARDS
+========================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:12px;
+
+    margin-top:15px;
+
+}
+
+.card{
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(26,39,65,.9),
+            rgba(8,13,25,.9)
+        );
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.card-icon{
+
+    font-size:25px;
+
+    margin-bottom:8px;
+
+}
+
+.card h3{
+
+    font-size:15px;
+
+    margin-bottom:5px;
+
+}
+
+.card p{
+
+    color:#8b9bb0;
+
+    font-size:12px;
+
+}
+
+.mining-active{
+
+    color:#66e5ff;
+
+    font-weight:bold;
+
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.bottom-nav{
+
+    position:fixed;
+
+    z-index:50;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:9px;
+
+    background:rgba(5,8,17,.92);
+
+    backdrop-filter:blur(18px);
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.nav{
+
+    width:min(600px,96%);
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-around;
+
+}
+
+.nav button{
+
+    border:none;
+
+    background:none;
+
+    color:#7e8da4;
+
+    font-size:11px;
+
+    cursor:pointer;
+
+}
+
+.nav button span{
+
+    display:block;
+
+    font-size:20px;
+
+    margin-bottom:3px;
+
+}
+
+.nav button.active{
+
+    color:#63ddff;
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .music-stage{
+        min-height:440px;
+    }
+
+    .equalizer{
+        gap:4px;
+        height:200px;
+    }
+
+    .bar{
+        width:6px;
+    }
+
+    .center-logo{
+        width:105px;
+        height:105px;
+    }
+
+    .center-logo strong{
+        font-size:20px;
+    }
+
+    .song-info h1{
+        font-size:20px;
+    }
+
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="container">
-        <div class="header-row">
-            <div class="logo">🎵 AMT <span>Music</span></div>
-            <div class="balance">
-                🪙 <span id="amtBalance">0.0000</span> AMT
-            </div>
+
+    <div class="header">
+
+        <div class="logo">
+            🎵 <span>AMT</span> MUSIC
         </div>
 
-        <div class="search">
-            <input
-                type="search"
-                id="searchInput"
-                placeholder="🔎 Search music or artist..."
-            >
+        <div class="wallet">
+            🪙 <span id="balance">0.0000</span> AMT
         </div>
+
     </div>
+
 </header>
 
-<main class="container">
 
-    <section class="hero">
-        <h1>Listen. Discover. Earn. 🎧</h1>
-        <p>
-            Welcome to AMT Music — a music platform concept
-            designed for the AMT ecosystem.
-        </p>
+<main class="main">
 
-        <div class="reward">
-            <div>
-                <small>Listen-to-Earn</small><br>
-                <strong id="sessionReward">+0.0000 AMT</strong>
-            </div>
+    <!-- =====================
+         3D MUSIC SCREEN
+    ====================== -->
 
-            <div>
-                <small>Listening Time</small><br>
-                <strong id="listenTime">00:00</strong>
-            </div>
+    <section class="music-stage">
+
+        <div class="floor"></div>
+
+        <div class="orb"></div>
+
+        <div class="equalizer">
+
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+
         </div>
+
+
+        <div class="center-logo">
+
+            <div>
+
+                <strong>AMT</strong>
+
+                <small>
+                    MUSIC
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="song-info">
+
+            <h1 id="songTitle">
+                AMT Genesis
+            </h1>
+
+            <p id="artist">
+                AMT Originals • 3D Digital Sound
+            </p>
+
+        </div>
+
     </section>
 
-    <h2 class="section-title">🔥 AMT Originals</h2>
 
-    <section class="music-list" id="musicList"></section>
+    <!-- =====================
+         PLAYER
+    ====================== -->
 
-    <footer>
-        AMT Music V1 • Demo / Development Build
-        <br>
-        Rewards shown in this version are simulated.
-    </footer>
+    <section class="player">
+
+        <input
+            type="range"
+            class="progress"
+            id="progress"
+            value="0"
+            min="0"
+            max="100"
+        >
+
+        <div class="controls">
+
+            <button
+                class="control"
+                onclick="previousSong()">
+                ⏮
+            </button>
+
+            <button
+                class="control main"
+                id="playButton"
+                onclick="toggleMusic()">
+                ▶
+            </button>
+
+            <button
+                class="control"
+                onclick="nextSong()">
+                ⏭
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================
+         ECOSYSTEM CARDS
+    ====================== -->
+
+    <section class="cards">
+
+        <div class="card">
+
+            <div class="card-icon">
+                ⛏️
+            </div>
+
+            <h3>
+                AMT Hard Mining
+            </h3>
+
+            <p>
+                24/7-style Testnet reward engine
+            </p>
+
+            <br>
+
+            <span
+                class="mining-active">
+                ● MINING ACTIVE
+            </span>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🎧
+            </div>
+
+            <h3>
+                Music Reward
+            </h3>
+
+            <p>
+                Bonus rewards for verified listening
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                ⭐
+            </div>
+
+            <h3>
+                AMT Reputation
+            </h3>
+
+            <p>
+                Ecosystem reputation score
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <h3>
+                Referral Tier
+            </h3>
+
+            <p>
+                Bronze • Silver • Gold • Platinum
+            </p>
+
+        </div>
+
+    </section>
 
 </main>
 
-<!-- MUSIC PLAYER -->
 
-<div class="player">
+<!-- =====================
+     BOTTOM NAV
+===================== -->
 
-    <div class="player-inner">
+<nav class="bottom-nav">
 
-        <div class="now-playing">
+    <div class="nav">
 
-            <div class="now-title">
-                <b id="nowTitle">Select a song</b>
-                <small id="nowArtist">AMT Music</small>
-            </div>
+        <button class="active">
+            <span>🎵</span>
+            Music
+        </button>
 
-            <div class="controls">
-                <button class="control" onclick="previousTrack()">⏮</button>
-                <button class="control main" id="playBtn"
-                    onclick="togglePlay()">▶</button>
-                <button class="control" onclick="nextTrack()">⏭</button>
-            </div>
+        <button>
+            <span>⛏️</span>
+            Mining
+        </button>
 
-        </div>
+        <button>
+            <span>🛒</span>
+            Market
+        </button>
 
-        <div class="progress">
-            <input
-                type="range"
-                id="progress"
-                min="0"
-                max="100"
-                value="0"
-            >
-        </div>
-
-        <div class="status" id="status">
-            Ready to play
-        </div>
+        <button>
+            <span>👤</span>
+            Profile
+        </button>
 
     </div>
 
-</div>
+</nav>
+
+
+<!-- AUDIO -->
 
 <audio id="audio"></audio>
 
+
 <script>
 
-/* =====================================
-   AMT MUSIC V1
-   DEMO MUSIC DATABASE
-===================================== */
+/* ==================================
+   AMT MUSIC PLAYER V1
+================================== */
 
-const tracks = [
+const songs = [
 
     {
         title:"AMT Genesis",
         artist:"AMT Originals",
-        icon:"🌌",
-        src:"music/amt-genesis.mp3"
+        file:"music/amt-genesis.mp3"
     },
 
     {
         title:"Digital Pioneer",
         artist:"AMT Originals",
-        icon:"🚀",
-        src:"music/digital-pioneer.mp3"
+        file:"music/digital-pioneer.mp3"
     },
 
     {
         title:"Crypto Dreams",
         artist:"AMT Originals",
-        icon:"💎",
-        src:"music/crypto-dreams.mp3"
-    },
-
-    {
-        title:"Future World",
-        artist:"AMT Originals",
-        icon:"🌎",
-        src:"music/future-world.mp3"
-    },
-
-    {
-        title:"Moonlight Network",
-        artist:"AMT Originals",
-        icon:"🌙",
-        src:"music/moonlight-network.mp3"
-    },
-
-    {
-        title:"Pioneer Spirit",
-        artist:"AMT Originals",
-        icon:"🔥",
-        src:"music/pioneer-spirit.mp3"
+        file:"music/crypto-dreams.mp3"
     }
 
 ];
 
-let currentTrack = 0;
-let isPlaying = false;
+let currentSong = 0;
 
-let amtBalance =
-    Number(localStorage.getItem("amtBalance") || 0);
-
-let listenSeconds = 0;
-let rewardSeconds = 0;
+let playing = false;
 
 const audio =
     document.getElementById("audio");
 
-const playBtn =
-    document.getElementById("playBtn");
+const playButton =
+    document.getElementById("playButton");
+
+const songTitle =
+    document.getElementById("songTitle");
+
+const artist =
+    document.getElementById("artist");
 
 const progress =
     document.getElementById("progress");
 
-const amtBalanceEl =
-    document.getElementById("amtBalance");
 
-const sessionRewardEl =
-    document.getElementById("sessionReward");
+function loadSong(index){
 
-const listenTimeEl =
-    document.getElementById("listenTime");
+    currentSong = index;
 
-const nowTitle =
-    document.getElementById("nowTitle");
+    const song =
+        songs[currentSong];
 
-const nowArtist =
-    document.getElementById("nowArtist");
+    audio.src =
+        song.file;
 
-const statusEl =
-    document.getElementById("status");
+    songTitle.textContent =
+        song.title;
 
-const musicList =
-    document.getElementById("musicList");
-
-function updateBalance(){
-
-    amtBalanceEl.textContent =
-        amtBalance.toFixed(4);
-
-    localStorage.setItem(
-        "amtBalance",
-        amtBalance
-    );
-}
-
-function renderTracks(list = tracks){
-
-    musicList.innerHTML = "";
-
-    if(list.length === 0){
-
-        musicList.innerHTML =
-            `<div class="empty">
-                No music found.
-            </div>`;
-
-        return;
-    }
-
-    list.forEach((track,index)=>{
-
-        const originalIndex =
-            tracks.indexOf(track);
-
-        const card =
-            document.createElement("div");
-
-        card.className = "track";
-
-        card.innerHTML = `
-
-            <div class="cover">
-                ${track.icon}
-            </div>
-
-            <div class="track-info">
-                <h3>${track.title}</h3>
-                <p>${track.artist}</p>
-            </div>
-
-            <button
-                class="play-btn"
-                onclick="loadTrack(${originalIndex},true)">
-                ▶
-            </button>
-        `;
-
-        musicList.appendChild(card);
-
-    });
-}
-
-function loadTrack(index,autoPlay=false){
-
-    currentTrack = index;
-
-    const track =
-        tracks[currentTrack];
-
-    audio.src = track.src;
-
-    nowTitle.textContent =
-        track.title;
-
-    nowArtist.textContent =
-        track.artist;
+    artist.textContent =
+        song.artist;
 
     progress.value = 0;
 
-    statusEl.textContent =
-        "Ready: " + track.title;
-
-    if(autoPlay){
-
-        audio.play()
-        .then(()=>{
-
-            isPlaying = true;
-
-            playBtn.textContent = "⏸";
-
-            statusEl.textContent =
-                "▶ Listening: " + track.title;
-
-        })
-        .catch(()=>{
-
-            statusEl.textContent =
-                "Add the MP3 file to the music folder.";
-
-        });
-
-    }
-
 }
 
-function togglePlay(){
+
+function toggleMusic(){
 
     if(!audio.src){
 
-        loadTrack(0,true);
+        loadSong(0);
 
-        return;
     }
 
     if(audio.paused){
 
-        audio.play();
+        audio.play()
+        .then(()=>{
 
-        isPlaying = true;
+            playing = true;
 
-        playBtn.textContent = "⏸";
+            playButton.textContent =
+                "⏸";
 
-        statusEl.textContent =
-            "▶ Listening: " +
-            tracks[currentTrack].title;
+        })
+        .catch(()=>{
+
+            alert(
+                "Add your licensed MP3 files inside the music folder."
+            );
+
+        });
 
     }else{
 
         audio.pause();
 
-        isPlaying = false;
+        playing = false;
 
-        playBtn.textContent = "▶";
-
-        statusEl.textContent =
-            "Paused";
+        playButton.textContent =
+            "▶";
 
     }
 
 }
 
-function nextTrack(){
 
-    currentTrack++;
+function nextSong(){
 
-    if(currentTrack >= tracks.length){
+    currentSong++;
 
-        currentTrack = 0;
+    if(currentSong >= songs.length){
+
+        currentSong = 0;
 
     }
 
-    loadTrack(currentTrack,true);
+    loadSong(currentSong);
+
+    audio.play()
+    .then(()=>{
+
+        playing = true;
+
+        playButton.textContent =
+            "⏸";
+
+    })
+    .catch(()=>{});
 
 }
 
-function previousTrack(){
 
-    currentTrack--;
+function previousSong(){
 
-    if(currentTrack < 0){
+    currentSong--;
 
-        currentTrack =
-            tracks.length - 1;
+    if(currentSong < 0){
+
+        currentSong =
+            songs.length - 1;
 
     }
 
-    loadTrack(currentTrack,true);
+    loadSong(currentSong);
 
 }
 
-audio.addEventListener("timeupdate",()=>{
 
-    if(audio.duration){
+audio.addEventListener(
+    "timeupdate",
+    ()=>{
 
-        progress.value =
-            (audio.currentTime /
-            audio.duration) * 100;
+        if(audio.duration){
 
-    }
-
-});
-
-progress.addEventListener("input",()=>{
-
-    if(audio.duration){
-
-        audio.currentTime =
-            (progress.value / 100)
-            * audio.duration;
-
-    }
-
-});
-
-audio.addEventListener("ended",()=>{
-
-    nextTrack();
-
-});
-
-/* =====================================
-   LISTEN TIMER
-===================================== */
-
-setInterval(()=>{
-
-    if(!audio.paused){
-
-        listenSeconds++;
-
-        rewardSeconds++;
-
-        updateListeningTime();
-
-        /*
-          DEMO REWARD
-
-          1 minute genuine listening
-          = 0.0100 simulated AMT
-
-          This is NOT real token mining.
-        */
-
-        if(rewardSeconds >= 60){
-
-            const reward = 0.0100;
-
-            amtBalance += reward;
-
-            sessionRewardEl.textContent =
-                "+" + amtBalance.toFixed(4)
-                + " AMT";
-
-            rewardSeconds = 0;
-
-            updateBalance();
-
-            statusEl.textContent =
-                "🎉 Demo reward earned: "
-                + reward.toFixed(4)
-                + " AMT";
+            progress.value =
+                (audio.currentTime /
+                audio.duration) * 100;
 
         }
 
     }
+);
 
-},1000);
 
-function updateListeningTime(){
+progress.addEventListener(
+    "input",
+    ()=>{
 
-    const minutes =
-        Math.floor(listenSeconds / 60);
+        if(audio.duration){
 
-    const seconds =
-        listenSeconds % 60;
+            audio.currentTime =
+                (progress.value / 100)
+                * audio.duration;
 
-    listenTimeEl.textContent =
-        String(minutes).padStart(2,"0")
-        + ":"
-        + String(seconds).padStart(2,"0");
+        }
 
-}
+    }
+);
 
-/* =====================================
-   SEARCH
-===================================== */
 
-document
-.getElementById("searchInput")
-.addEventListener("input",(e)=>{
+audio.addEventListener(
+    "ended",
+    nextSong
+);
 
-    const query =
-        e.target.value.toLowerCase();
 
-    const filtered =
-        tracks.filter(track =>
-            track.title.toLowerCase()
-            .includes(query)
-            ||
-            track.artist.toLowerCase()
-            .includes(query)
-        );
+/* ==================================
+   DEMO AMT BALANCE
+================================== */
 
-    renderTracks(filtered);
+let balance =
+    Number(
+        localStorage.getItem(
+            "amtTestBalance"
+        ) || 0
+    );
 
-});
+document.getElementById(
+    "balance"
+).textContent =
+    balance.toFixed(4);
 
-/* INITIALIZE */
 
-updateBalance();
+/* ==================================
+   START
+================================== */
 
-renderTracks();
+loadSong(0);
 
 </script>
 
