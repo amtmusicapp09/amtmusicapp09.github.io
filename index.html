@@ -1,9 +1,21 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AMT Music | Pioneer Music Ecosystem</title><meta name="theme-color" content="#050713">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AMT Music | Pioneer Ecosystem</title>
+
+<meta name="theme-color" content="#050713">
+
 <meta name="description"
-content="AMT Music — Music, Mining, Rewards and Marketplace Ecosystem"><style>
+content="AMT Music — Music, Mining, Rewards and Marketplace Ecosystem">
+
+<style>
 
 *{
     box-sizing:border-box;
@@ -12,28 +24,43 @@ content="AMT Music — Music, Mining, Rewards and Marketplace Ecosystem"><style>
 }
 
 :root{
+
     --bg:#03050d;
-    --panel:rgba(12,18,34,.82);
+    --panel:rgba(10,17,32,.88);
+    --panel2:rgba(18,29,51,.82);
     --line:rgba(255,255,255,.09);
-    --text:#fff;
+
+    --text:#ffffff;
     --muted:#8c9bb0;
+
     --cyan:#63ddff;
     --blue:#4387ff;
     --gold:#ffd45a;
     --green:#63f0a4;
     --purple:#a477ff;
+    --red:#ff6575;
+
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
     background:
-        radial-gradient(
-            circle at 50% 10%,
-            #182957 0%,
-            #080d1c 35%,
-            #03050d 75%
-        );
+
+    radial-gradient(
+        circle at 50% 8%,
+        #182957 0%,
+        #080d1c 34%,
+        #03050d 76%
+    );
 
     color:var(--text);
 
@@ -41,11 +68,16 @@ body{
 
     overflow-x:hidden;
 
-    padding-bottom:80px;
+    padding-bottom:85px;
+
 }
 
 button{
     font-family:inherit;
+}
+
+button:active{
+    transform:scale(.96);
 }
 
 
@@ -63,16 +95,20 @@ header{
 
     padding:14px;
 
-    background:rgba(3,5,13,.82);
+    background:
+    rgba(3,5,13,.86);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:
+    blur(20px);
 
-    border-bottom:1px solid var(--line);
+    border-bottom:
+    1px solid var(--line);
+
 }
 
 .header{
 
-    max-width:1100px;
+    width:min(1100px,94%);
 
     margin:auto;
 
@@ -81,6 +117,7 @@ header{
     align-items:center;
 
     justify-content:space-between;
+
 }
 
 .logo{
@@ -90,6 +127,7 @@ header{
     font-weight:900;
 
     letter-spacing:.8px;
+
 }
 
 .logo span{
@@ -97,7 +135,9 @@ header{
     color:var(--cyan);
 
     text-shadow:
-        0 0 15px rgba(99,221,255,.55);
+    0 0 15px
+    rgba(99,221,255,.55);
+
 }
 
 .wallet{
@@ -106,13 +146,17 @@ header{
 
     border-radius:20px;
 
-    background:rgba(255,255,255,.055);
+    background:
+    rgba(255,255,255,.055);
 
-    border:1px solid rgba(255,255,255,.1);
+    border:
+    1px solid
+    rgba(255,255,255,.1);
 
     color:var(--gold);
 
     font-size:12px;
+
 }
 
 
@@ -127,6 +171,20 @@ header{
     margin:auto;
 
     padding-top:18px;
+
+}
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.app-section{
+    display:none;
+}
+
+.app-section.active{
+    display:block;
 }
 
 
@@ -153,23 +211,30 @@ header{
     border-radius:28px;
 
     background:
-        radial-gradient(
-            circle at center,
-            rgba(54,139,230,.25),
-            rgba(6,11,24,.32) 45%,
-            rgba(0,0,0,.55)
-        );
 
-    border:1px solid var(--line);
+    radial-gradient(
+        circle at center,
+        rgba(54,139,230,.25),
+        rgba(6,11,24,.32) 45%,
+        rgba(0,0,0,.55)
+    );
+
+    border:
+    1px solid var(--line);
 
     box-shadow:
-        0 30px 80px rgba(0,0,0,.55),
-        inset 0 0 90px rgba(70,160,255,.08);
+
+    0 30px 80px
+    rgba(0,0,0,.55),
+
+    inset 0 0 90px
+    rgba(70,160,255,.08);
+
 }
 
 
 /* =========================
-   GRID FLOOR
+   DIGITAL FLOOR
 ========================= */
 
 .floor{
@@ -183,30 +248,32 @@ header{
     height:420px;
 
     transform:
-        perspective(500px)
-        rotateX(67deg);
+    perspective(500px)
+    rotateX(67deg);
 
     background:
-        repeating-linear-gradient(
-            90deg,
-            transparent 0,
-            transparent 49px,
-            rgba(71,183,255,.13) 50px
-        ),
 
-        repeating-linear-gradient(
-            0deg,
-            transparent 0,
-            transparent 49px,
-            rgba(71,183,255,.13) 50px
-        );
+    repeating-linear-gradient(
+        90deg,
+        transparent 0,
+        transparent 49px,
+        rgba(71,183,255,.13) 50px
+    ),
+
+    repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 49px,
+        rgba(71,183,255,.13) 50px
+    );
 
     mask-image:
-        linear-gradient(
-            to top,
-            black,
-            transparent
-        );
+    linear-gradient(
+        to top,
+        black,
+        transparent
+    );
+
 }
 
 
@@ -225,34 +292,33 @@ header{
     border-radius:50%;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(102,220,255,.72),
-            rgba(40,110,255,.13) 45%,
-            transparent 70%
-        );
+
+    radial-gradient(
+        circle,
+        rgba(102,220,255,.72),
+        rgba(40,110,255,.13) 45%,
+        transparent 70%
+    );
 
     filter:blur(5px);
 
     animation:
-        orbPulse 3s ease-in-out infinite;
+    orbPulse 3s ease-in-out infinite;
+
 }
 
 @keyframes orbPulse{
 
     0%,100%{
-
         transform:scale(.94);
-
         opacity:.55;
     }
 
     50%{
-
         transform:scale(1.12);
-
         opacity:.92;
     }
+
 }
 
 
@@ -277,9 +343,11 @@ header{
     gap:6px;
 
     transform:
-        perspective(600px)
-        rotateX(10deg)
-        rotateY(-3deg);
+
+    perspective(600px)
+    rotateX(10deg)
+    rotateY(-3deg);
+
 }
 
 .bar{
@@ -289,22 +357,28 @@ header{
     height:35px;
 
     border-radius:
-        10px 10px 2px 2px;
+    10px 10px 2px 2px;
 
     background:
-        linear-gradient(
-            to top,
-            #2468ff,
-            #61e4ff,
-            #ffffff
-        );
+
+    linear-gradient(
+        to top,
+        #2468ff,
+        #61e4ff,
+        #ffffff
+    );
 
     box-shadow:
-        0 0 10px rgba(80,210,255,.8),
-        0 0 25px rgba(50,130,255,.35);
+
+    0 0 10px
+    rgba(80,210,255,.8),
+
+    0 0 25px
+    rgba(50,130,255,.35);
 
     animation:
-        equalize .85s ease-in-out infinite alternate;
+    equalize .85s ease-in-out infinite alternate;
+
 }
 
 .bar:nth-child(1){animation-delay:.1s}
@@ -331,18 +405,15 @@ header{
 @keyframes equalize{
 
     from{
-
         height:25px;
-
         transform:scaleY(.6);
     }
 
     to{
-
         height:190px;
-
         transform:scaleY(1);
     }
+
 }
 
 
@@ -371,19 +442,26 @@ header{
     text-align:center;
 
     background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.16),
-            rgba(20,70,130,.35) 55%,
-            rgba(5,10,20,.88)
-        );
+
+    radial-gradient(
+        circle,
+        rgba(255,255,255,.16),
+        rgba(20,70,130,.35) 55%,
+        rgba(5,10,20,.88)
+    );
 
     border:
-        1px solid rgba(125,220,255,.4);
+    1px solid
+    rgba(125,220,255,.4);
 
     box-shadow:
-        0 0 25px rgba(70,200,255,.45),
-        inset 0 0 25px rgba(100,200,255,.15);
+
+    0 0 25px
+    rgba(70,200,255,.45),
+
+    inset 0 0 25px
+    rgba(100,200,255,.15);
+
 }
 
 .center-logo strong{
@@ -395,8 +473,11 @@ header{
     letter-spacing:3px;
 
     text-shadow:
-        0 0 10px #62d9ff,
-        0 0 25px #268cff;
+
+    0 0 10px #62d9ff,
+
+    0 0 25px #268cff;
+
 }
 
 .center-logo small{
@@ -410,11 +491,12 @@ header{
     margin-top:4px;
 
     letter-spacing:2px;
+
 }
 
 
 /* =========================
-   SONG
+   SONG INFO
 ========================= */
 
 .song-info{
@@ -426,6 +508,7 @@ header{
     z-index:10;
 
     text-align:center;
+
 }
 
 .song-info h1{
@@ -433,6 +516,7 @@ header{
     font-size:23px;
 
     margin-bottom:5px;
+
 }
 
 .song-info p{
@@ -440,6 +524,7 @@ header{
     color:var(--muted);
 
     font-size:12px;
+
 }
 
 
@@ -457,16 +542,21 @@ header{
 
     background:var(--panel);
 
-    border:1px solid var(--line);
+    border:
+    1px solid var(--line);
 
-    backdrop-filter:blur(15px);
+    backdrop-filter:
+    blur(15px);
+
 }
 
 .progress{
 
     width:100%;
 
-    accent-color:var(--cyan);
+    accent-color:
+    var(--cyan);
+
 }
 
 .controls{
@@ -480,6 +570,7 @@ header{
     gap:14px;
 
     margin-top:11px;
+
 }
 
 .control{
@@ -491,7 +582,8 @@ header{
     border-radius:50%;
 
     border:
-        1px solid rgba(255,255,255,.1);
+    1px solid
+    rgba(255,255,255,.1);
 
     background:#172238;
 
@@ -500,6 +592,7 @@ header{
     cursor:pointer;
 
     font-size:17px;
+
 }
 
 .control.main{
@@ -508,19 +601,22 @@ header{
 
     height:55px;
 
-    background:var(--cyan);
+    background:
+    var(--cyan);
 
     color:#06101b;
 
     font-size:20px;
 
     box-shadow:
-        0 0 22px rgba(80,220,255,.35);
+    0 0 22px
+    rgba(80,220,255,.35);
+
 }
 
 
 /* =========================
-   SECTIONS
+   TITLES
 ========================= */
 
 .section-title{
@@ -528,16 +624,7 @@ header{
     margin:25px 0 10px;
 
     font-size:18px;
-}
 
-.app-section{
-
-    display:none;
-}
-
-.app-section.active{
-
-    display:block;
 }
 
 
@@ -550,9 +637,13 @@ header{
     display:grid;
 
     grid-template-columns:
-        repeat(auto-fit,minmax(210px,1fr));
+    repeat(
+        auto-fit,
+        minmax(210px,1fr)
+    );
 
     gap:12px;
+
 }
 
 .card{
@@ -562,16 +653,20 @@ header{
     border-radius:18px;
 
     background:
-        linear-gradient(
-            145deg,
-            rgba(26,39,65,.9),
-            rgba(8,13,25,.9)
-        );
 
-    border:1px solid var(--line);
+    linear-gradient(
+        145deg,
+        rgba(26,39,65,.9),
+        rgba(8,13,25,.9)
+    );
+
+    border:
+    1px solid var(--line);
 
     box-shadow:
-        0 15px 35px rgba(0,0,0,.18);
+    0 15px 35px
+    rgba(0,0,0,.18);
+
 }
 
 .card-icon{
@@ -579,6 +674,7 @@ header{
     font-size:25px;
 
     margin-bottom:8px;
+
 }
 
 .card h3{
@@ -586,6 +682,7 @@ header{
     font-size:15px;
 
     margin-bottom:5px;
+
 }
 
 .card p{
@@ -595,6 +692,7 @@ header{
     font-size:12px;
 
     line-height:1.5;
+
 }
 
 .amount{
@@ -604,25 +702,22 @@ header{
     font-weight:800;
 
     margin:8px 0;
-}
 
-.gold{
-
-    color:var(--gold);
 }
 
 .cyan{
-
     color:var(--cyan);
 }
 
-.green{
+.gold{
+    color:var(--gold);
+}
 
+.green{
     color:var(--green);
 }
 
 .purple{
-
     color:var(--purple);
 }
 
@@ -640,16 +735,19 @@ header{
     border-radius:22px;
 
     background:
-        radial-gradient(
-            circle at 50% 0,
-            rgba(73,188,255,.16),
-            rgba(10,15,29,.94) 65%
-        );
+
+    radial-gradient(
+        circle at 50% 0,
+        rgba(73,188,255,.16),
+        rgba(10,15,29,.94) 65%
+    );
 
     border:
-        1px solid rgba(99,221,255,.14);
+    1px solid
+    rgba(99,221,255,.14);
 
     text-align:center;
+
 }
 
 .mining-status{
@@ -665,16 +763,18 @@ header{
     border-radius:20px;
 
     background:
-        rgba(99,240,164,.08);
+    rgba(99,240,164,.08);
 
     border:
-        1px solid rgba(99,240,164,.18);
+    1px solid
+    rgba(99,240,164,.18);
 
     color:var(--green);
 
     font-size:11px;
 
     font-weight:bold;
+
 }
 
 .mining-dot{
@@ -685,15 +785,19 @@ header{
 
     border-radius:50%;
 
-    background:var(--green);
+    background:
+    var(--green);
 
     box-shadow:
-        0 0 12px var(--green);
+    0 0 12px
+    var(--green);
+
 }
 
 .mining-amount{
 
-    margin:14px 0 2px;
+    margin:
+    14px 0 2px;
 
     font-size:38px;
 
@@ -702,7 +806,9 @@ header{
     color:var(--gold);
 
     text-shadow:
-        0 0 18px rgba(255,212,90,.25);
+    0 0 18px
+    rgba(255,212,90,.25);
+
 }
 
 .mining-rate{
@@ -710,6 +816,7 @@ header{
     color:var(--muted);
 
     font-size:12px;
+
 }
 
 .mine-button{
@@ -723,11 +830,12 @@ header{
     border-radius:25px;
 
     background:
-        linear-gradient(
-            90deg,
-            #3c83ff,
-            #63ddff
-        );
+
+    linear-gradient(
+        90deg,
+        #3c83ff,
+        #63ddff
+    );
 
     color:#03101a;
 
@@ -736,7 +844,9 @@ header{
     cursor:pointer;
 
     box-shadow:
-        0 0 25px rgba(70,180,255,.28);
+    0 0 25px
+    rgba(70,180,255,.28);
+
 }
 
 .mine-button.stop{
@@ -744,13 +854,7 @@ header{
     background:#263149;
 
     color:#fff;
-}
 
-.mine-button:disabled{
-
-    opacity:.6;
-
-    cursor:wait;
 }
 
 
@@ -767,6 +871,7 @@ header{
     align-items:center;
 
     margin-top:12px;
+
 }
 
 .tier-name{
@@ -774,6 +879,7 @@ header{
     font-size:16px;
 
     font-weight:bold;
+
 }
 
 .tier-count{
@@ -781,6 +887,7 @@ header{
     color:var(--muted);
 
     font-size:12px;
+
 }
 
 .progress-bar{
@@ -794,6 +901,7 @@ header{
     overflow:hidden;
 
     background:#182136;
+
 }
 
 .progress-fill{
@@ -805,13 +913,16 @@ header{
     border-radius:10px;
 
     background:
-        linear-gradient(
-            90deg,
-            #7c57ff,
-            #c08aff
-        );
 
-    transition:width .4s ease;
+    linear-gradient(
+        90deg,
+        #7c57ff,
+        #c08aff
+    );
+
+    transition:
+    width .5s ease;
+
 }
 
 
@@ -824,9 +935,13 @@ header{
     display:grid;
 
     grid-template-columns:
-        repeat(auto-fit,minmax(160px,1fr));
+    repeat(
+        auto-fit,
+        minmax(160px,1fr)
+    );
 
     gap:12px;
+
 }
 
 .market-item{
@@ -836,9 +951,11 @@ header{
     border-radius:18px;
 
     background:
-        rgba(16,23,42,.85);
+    rgba(16,23,42,.85);
 
-    border:1px solid var(--line);
+    border:
+    1px solid var(--line);
+
 }
 
 .market-image{
@@ -856,18 +973,21 @@ header{
     font-size:38px;
 
     background:
-        radial-gradient(
-            circle,
-            #284c85,
-            #0c1325 70%
-        );
+
+    radial-gradient(
+        circle,
+        #284c85,
+        #0c1325 70%
+    );
 
     margin-bottom:11px;
+
 }
 
 .market-item h3{
 
     font-size:14px;
+
 }
 
 .price{
@@ -879,6 +999,7 @@ header{
     margin-top:6px;
 
     font-weight:bold;
+
 }
 
 
@@ -893,6 +1014,7 @@ header{
     align-items:center;
 
     gap:14px;
+
 }
 
 .avatar{
@@ -910,21 +1032,25 @@ header{
     justify-content:center;
 
     background:
-        linear-gradient(
-            135deg,
-            #2f78ff,
-            #9a5dff
-        );
+
+    linear-gradient(
+        135deg,
+        #2f78ff,
+        #9a5dff
+    );
 
     font-size:25px;
 
     box-shadow:
-        0 0 25px rgba(100,100,255,.3);
+    0 0 25px
+    rgba(100,100,255,.3);
+
 }
 
 .profile h3{
 
     margin-bottom:4px;
+
 }
 
 .profile p{
@@ -932,33 +1058,47 @@ header{
     color:var(--muted);
 
     font-size:11px;
+
 }
 
 
 /* =========================
-   PI STATUS
+   API STATUS
 ========================= */
 
-.pi-status{
+.api-status{
 
-    display:inline-block;
+    margin-top:12px;
 
-    padding:5px 9px;
+    padding:10px 14px;
 
-    border-radius:12px;
+    border-radius:14px;
 
-    background:rgba(99,221,255,.08);
+    background:
+    rgba(255,255,255,.04);
 
-    color:var(--cyan);
+    border:
+    1px solid var(--line);
 
-    font-size:10px;
+    color:var(--muted);
 
-    font-weight:bold;
+    font-size:11px;
+
+    text-align:center;
+
+}
+
+.api-online{
+    color:var(--green);
+}
+
+.api-offline{
+    color:var(--red);
 }
 
 
 /* =========================
-   BOTTOM NAV
+   NAVIGATION
 ========================= */
 
 .bottom-nav{
@@ -976,11 +1116,14 @@ header{
     padding:8px;
 
     background:
-        rgba(5,8,17,.94);
+    rgba(5,8,17,.94);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:
+    blur(20px);
 
-    border-top:1px solid var(--line);
+    border-top:
+    1px solid var(--line);
+
 }
 
 .nav{
@@ -992,6 +1135,7 @@ header{
     display:flex;
 
     justify-content:space-around;
+
 }
 
 .nav button{
@@ -1007,6 +1151,7 @@ header{
     font-size:10px;
 
     cursor:pointer;
+
 }
 
 .nav button span{
@@ -1016,11 +1161,74 @@ header{
     font-size:20px;
 
     margin-bottom:3px;
+
 }
 
 .nav button.active{
 
     color:var(--cyan);
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+
+    position:fixed;
+
+    z-index:999;
+
+    left:50%;
+
+    bottom:90px;
+
+    transform:
+    translateX(-50%)
+    translateY(20px);
+
+    width:min(90%,420px);
+
+    padding:13px 16px;
+
+    border-radius:14px;
+
+    background:
+    rgba(15,22,40,.96);
+
+    border:
+    1px solid
+    rgba(99,221,255,.2);
+
+    box-shadow:
+    0 15px 40px
+    rgba(0,0,0,.45);
+
+    color:#fff;
+
+    font-size:12px;
+
+    text-align:center;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:
+    .3s ease;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+    translateX(-50%)
+    translateY(0);
+
 }
 
 
@@ -1031,12 +1239,10 @@ header{
 @media(max-width:600px){
 
     .main{
-
         width:94%;
     }
 
     .music-stage{
-
         min-height:430px;
     }
 
@@ -1045,10 +1251,10 @@ header{
         gap:4px;
 
         height:195px;
+
     }
 
     .bar{
-
         width:6px;
     }
 
@@ -1057,712 +1263,870 @@ header{
         width:105px;
 
         height:105px;
+
     }
 
     .center-logo strong{
-
         font-size:21px;
     }
 
     .song-info h1{
-
         font-size:20px;
     }
 
     .mining-amount{
-
         font-size:32px;
     }
 
     .cards{
-
         grid-template-columns:1fr 1fr;
     }
+
 }
 
 @media(max-width:400px){
 
     .cards{
-
         grid-template-columns:1fr;
     }
 
     .logo{
-
         font-size:18px;
     }
 
     .wallet{
-
         font-size:10px;
     }
+
 }
 
-</style></head><body><header><div class="header">
+</style>
 
-    <div class="logo">
+</head>
 
-        🎵 <span>AMT</span> MUSIC
 
-    </div>
+<body>
 
-    <div class="wallet">
 
-        🪙
-        <span id="balance">
-            0.0000
-        </span>
-        AMT
+<header>
 
-    </div>
+<div class="header">
+
+<div class="logo">
+
+🎵 <span>AMT</span> MUSIC
 
 </div>
 
-</header><main class="main"><!-- =========================
-     MUSIC
-========================= --><section
-    id="musicSection"
-    class="app-section active"
-><section class="music-stage">
+<div class="wallet">
 
-    <div class="floor"></div>
+🪙
+<span id="balance">
+0.0000
+</span>
+AMT
 
-    <div class="orb"></div>
+</div>
 
+</div>
 
-    <div class="equalizer">
-
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-
-    </div>
+</header>
 
 
-    <div class="center-logo">
-
-        <div>
-
-            <strong>AMT</strong>
-
-            <small>
-                MUSIC
-            </small>
-
-        </div>
-
-    </div>
+<main class="main">
 
 
-    <div class="song-info">
+<!-- =========================
+     MUSIC SECTION
+========================= -->
 
-        <h1 id="songTitle">
-            AMT Genesis
-        </h1>
+<section
+id="musicSection"
+class="app-section active">
 
-        <p id="artist">
-            AMT Originals • Digital Sound
-        </p>
 
-    </div>
+<section class="music-stage">
+
+<div class="floor"></div>
+
+<div class="orb"></div>
+
+
+<div class="equalizer">
+
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+
+</div>
+
+
+<div class="center-logo">
+
+<div>
+
+<strong>AMT</strong>
+
+<small>
+MUSIC
+</small>
+
+</div>
+
+</div>
+
+
+<div class="song-info">
+
+<h1 id="songTitle">
+AMT Genesis
+</h1>
+
+<p id="artist">
+AMT Originals • Digital Sound
+</p>
+
+</div>
 
 </section>
 
 
 <section class="player">
 
-    <input
-        type="range"
-        class="progress"
-        id="progress"
-        value="0"
-        min="0"
-        max="100"
-    >
+<input
+type="range"
+class="progress"
+id="progress"
+value="0"
+min="0"
+max="100"
+>
 
-    <div class="controls">
+<div class="controls">
 
-        <button
-            class="control"
-            onclick="previousSong()"
-        >
-            ⏮
-        </button>
+<button
+class="control"
+onclick="previousSong()">
+⏮
+</button>
 
-        <button
-            class="control main"
-            id="playButton"
-            onclick="toggleMusic()"
-        >
-            ▶
-        </button>
+<button
+class="control main"
+id="playButton"
+onclick="toggleMusic()">
+▶
+</button>
 
-        <button
-            class="control"
-            onclick="nextSong()"
-        >
-            ⏭
-        </button>
+<button
+class="control"
+onclick="nextSong()">
+⏭
+</button>
 
-    </div>
+</div>
 
 </section>
 
 
+<div
+class="api-status"
+id="apiStatus">
+
+Connecting to AMT server...
+
+</div>
+
+
 <h2 class="section-title">
-    AMT Ecosystem
+AMT Ecosystem
 </h2>
 
 
 <section class="cards">
 
-    <div class="card">
 
-        <div class="card-icon">
-            ⛏️
-        </div>
+<div class="card">
 
-        <h3>
-            AMT Mining
-        </h3>
+<div class="card-icon">
+⛏️
+</div>
 
-        <p>
-            Earn AMT ecosystem rewards
-            through verified platform
-            activity.
-        </p>
+<h3>
+AMT Mining
+</h3>
 
-    </div>
+<p>
+Pioneer-based AMT reward system
+with server validation.
+</p>
 
-
-    <div class="card">
-
-        <div class="card-icon">
-            🎧
-        </div>
-
-        <h3>
-            Music Rewards
-        </h3>
-
-        <p>
-            Verified listening activity
-            may qualify for ecosystem
-            rewards.
-        </p>
-
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="card-icon">
-            ⭐
-        </div>
+<div class="card-icon">
+🎧
+</div>
 
-        <h3>
-            Reputation
-        </h3>
+<h3>
+Music Rewards
+</h3>
 
-        <p>
-            Build your Pioneer reputation
-            inside the AMT ecosystem.
-        </p>
+<p>
+Music activity can support
+future ecosystem rewards.
+</p>
 
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="card-icon">
-            👥
-        </div>
+<div class="card-icon">
+⭐
+</div>
 
-        <h3>
-            Referral Tier
-        </h3>
+<h3>
+Pioneer Reputation
+</h3>
 
-        <p>
-            Pioneer → Bronze → Silver →
-            Gold → Platinum → Diamond.
-        </p>
+<p>
+Build reputation inside the
+AMT Music ecosystem.
+</p>
 
-    </div>
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+👥
+</div>
+
+<h3>
+Referral Tier
+</h3>
+
+<p>
+Pioneer → Bronze → Silver →
+Gold → Platinum → Diamond.
+</p>
+
+</div>
+
 
 </section>
 
-</section><!-- =========================
-     MINING
-========================= --><section
-    id="miningSection"
-    class="app-section"
-><h2 class="section-title">
-    ⛏️ AMT Mining
+</section>
+
+
+<!-- =========================
+     MINING SECTION
+========================= -->
+
+<section
+id="miningSection"
+class="app-section">
+
+
+<h2 class="section-title">
+⛏️ AMT Mining
 </h2>
 
 
 <div class="mining-panel">
 
-    <div class="mining-status">
 
-        <span class="mining-dot"></span>
+<div class="mining-status">
 
-        <span id="miningStatus">
-            MINING READY
-        </span>
+<span class="mining-dot"></span>
 
-    </div>
+<span id="miningStatus">
+MINING READY
+</span>
 
-
-    <div class="mining-amount">
-
-        <span id="miningBalance">
-            0.0000
-        </span>
-
-        AMT
-
-    </div>
+</div>
 
 
-    <div class="mining-rate">
+<div class="mining-amount">
 
-        Current rate:
+<span id="miningBalance">
+0.0000
+</span>
 
-        <strong id="miningRate">
-            0.2500 AMT
-        </strong>
+AMT
 
-        / cycle
-
-    </div>
+</div>
 
 
-    <button
-        class="mine-button"
-        id="mineButton"
-        onclick="toggleMining()"
-    >
-        START MINING
-    </button>
+<div class="mining-rate">
+
+Current rate:
+<strong>
+0.2500 AMT
+</strong>
+/
+24-hour cycle
+
+</div>
+
+
+<button
+class="mine-button"
+id="mineButton"
+onclick="toggleMining()">
+
+START MINING
+
+</button>
+
 
 </div>
 
 
 <h2 class="section-title">
-    Mining Information
+Mining Information
 </h2>
 
 
 <section class="cards">
 
-    <div class="card">
 
-        <div class="card-icon">
-            ⏱️
-        </div>
+<div class="card">
 
-        <h3>
-            Mining Cycle
-        </h3>
+<div class="card-icon">
+⏱️
+</div>
 
-        <p>
-            24-hour reward cycle.
-        </p>
+<h3>
+Mining Cycle
+</h3>
 
-    </div>
+<p>
+24-hour reward cycle configured
+by the AMT backend.
+</p>
 
-
-    <div class="card">
-
-        <div class="card-icon">
-            🛡️
-        </div>
-
-        <h3>
-            Server Validation
-        </h3>
-
-        <p>
-            Mining requests are processed
-            through the AMT backend.
-        </p>
-
-    </div>
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <div class="card-icon">
-            📊
-        </div>
+<div class="card-icon">
+🛡️
+</div>
 
-        <h3>
-            Daily Limit
-        </h3>
+<h3>
+Server Validation
+</h3>
 
-        <p>
-            Reward limits are configured
-            by the AMT server.
-        </p>
+<p>
+Mining requests are processed
+through the AMT server.
+</p>
 
-    </div>
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">
+📊
+</div>
+
+<h3>
+Daily Limit
+</h3>
+
+<p>
+Backend configuration currently
+supports a daily limit.
+</p>
+
+</div>
+
 
 </section>
 
-</section><!-- =========================
+</section>
+
+
+<!-- =========================
      MARKETPLACE
-========================= --><section
-    id="marketSection"
-    class="app-section"
-><h2 class="section-title">
-    🛒 AMT Marketplace
+========================= -->
+
+<section
+id="marketSection"
+class="app-section">
+
+
+<h2 class="section-title">
+🛒 AMT Marketplace
 </h2>
 
 
 <section
-    id="marketGrid"
-    class="market-grid"
->
-
-    <div class="market-item">
-
-        <div class="market-image">
-            🎵
-        </div>
-
-        <h3>
-            Premium Music
-        </h3>
-
-        <div class="price">
-            100 AMT
-        </div>
-
-    </div>
+class="market-grid"
+id="marketGrid">
 
 
-    <div class="market-item">
+<div class="market-item">
 
-        <div class="market-image">
-            🎤
-        </div>
+<div class="market-image">
+🎵
+</div>
 
-        <h3>
-            Artist Promotion
-        </h3>
+<h3>
+Premium Music
+</h3>
 
-        <div class="price">
-            250 AMT
-        </div>
+<div class="price">
+100 AMT
+</div>
 
-    </div>
-
-
-    <div class="market-item">
-
-        <div class="market-image">
-            🎨
-        </div>
-
-        <h3>
-            Digital Content
-        </h3>
-
-        <div class="price">
-            150 AMT
-        </div>
-
-    </div>
+</div>
 
 
-    <div class="market-item">
+<div class="market-item">
 
-        <div class="market-image">
-            🎟️
-        </div>
+<div class="market-image">
+🎤
+</div>
 
-        <h3>
-            Event Access
-        </h3>
+<h3>
+Artist Promotion
+</h3>
 
-        <div class="price">
-            300 AMT
-        </div>
+<div class="price">
+250 AMT
+</div>
 
-    </div>
+</div>
+
+
+<div class="market-item">
+
+<div class="market-image">
+🎨
+</div>
+
+<h3>
+Digital Content
+</h3>
+
+<div class="price">
+150 AMT
+</div>
+
+</div>
+
+
+<div class="market-item">
+
+<div class="market-image">
+🎟️
+</div>
+
+<h3>
+Event Access
+</h3>
+
+<div class="price">
+300 AMT
+</div>
+
+</div>
+
 
 </section>
 
-</section><!-- =========================
+</section>
+
+
+<!-- =========================
      PROFILE
-========================= --><section
-    id="profileSection"
-    class="app-section"
-><h2 class="section-title">
-    👤 Pioneer Profile
+========================= -->
+
+<section
+id="profileSection"
+class="app-section">
+
+
+<h2 class="section-title">
+👤 Pioneer Profile
 </h2>
 
 
 <div class="card">
 
-    <div class="profile">
 
-        <div class="avatar">
-            👤
-        </div>
+<div class="profile">
 
 
-        <div>
+<div class="avatar">
+👤
+</div>
 
-            <h3 id="username">
-                Pioneer
-            </h3>
 
-            <p>
-                AMT Music Member
-            </p>
+<div>
 
-        </div>
+<h3 id="username">
+Pioneer
+</h3>
 
-    </div>
+<p>
+AMT Music Member
+</p>
+
+</div>
+
+
+</div>
 
 </div>
 
 
 <h2 class="section-title">
-    🤝 Referral Tier
+🤝 Referral Tier
 </h2>
 
 
 <div class="card">
 
-    <div class="tier">
 
-        <div
-            class="tier-name purple"
-            id="tierName"
-        >
-            PIONEER
-        </div>
+<div class="tier">
 
-        <div
-            class="tier-count"
-            id="tierCount"
-        >
-            0 referrals
-        </div>
+<div
+class="tier-name purple"
+id="tierName">
 
-    </div>
+PIONEER
 
+</div>
 
-    <div class="progress-bar">
+<div
+class="tier-count"
+id="tierCount">
 
-        <div
-            class="progress-fill"
-            id="tierProgress"
-        ></div>
+0 referrals
 
-    </div>
+</div>
+
+</div>
 
 
-    <p
-        id="nextTier"
-        style="margin-top:10px;"
-    >
-        Next tier: BRONZE
-    </p>
+<div class="progress-bar">
+
+<div
+class="progress-fill"
+id="tierProgress">
+</div>
+
+</div>
+
+
+<p
+style="margin-top:10px;"
+id="nextTier">
+
+Next tier: BRONZE
+
+</p>
 
 </div>
 
 
 <h2 class="section-title">
-    💰 Wallet
+💰 Wallet
 </h2>
 
 
 <div class="cards">
 
-    <div class="card">
 
-        <h3>
-            AMT Balance
-        </h3>
+<div class="card">
 
-        <div
-            class="amount gold"
-        >
+<h3>
+AMT Balance
+</h3>
 
-            <span id="profileBalance">
-                0.0000
-            </span>
+<div
+class="amount gold">
 
-        </div>
-
-        <p>
-            Internal AMT ecosystem
-            balance.
-        </p>
-
-    </div>
-
-
-    <div class="card">
-
-        <h3>
-            Pi Integration
-        </h3>
-
-        <div
-            class="amount cyan"
-        >
-            <span class="pi-status">
-                PREPARATION
-            </span>
-        </div>
-
-        <p>
-            Official Pi integration will
-            be connected through supported
-            Pi Developer tools when ready.
-        </p>
-
-    </div>
+<span id="profileBalance">
+0.0000
+</span>
 
 </div>
 
-</section></main><!-- =========================
-     NAVIGATION
-========================= --><nav class="bottom-nav"><div class="nav">
-
-    <button
-        class="active"
-        onclick="
-            showSection(
-                'musicSection',
-                this
-            )
-        "
-    >
-
-        <span>
-            🎵
-        </span>
-
-        Music
-
-    </button>
-
-
-    <button
-        onclick="
-            showSection(
-                'miningSection',
-                this
-            )
-        "
-    >
-
-        <span>
-            ⛏️
-        </span>
-
-        Mining
-
-    </button>
-
-
-    <button
-        onclick="
-            showSection(
-                'marketSection',
-                this
-            )
-        "
-    >
-
-        <span>
-            🛒
-        </span>
-
-        Market
-
-    </button>
-
-
-    <button
-        onclick="
-            showSection(
-                'profileSection',
-                this
-            )
-        "
-    >
-
-        <span>
-            👤
-        </span>
-
-        Profile
-
-    </button>
+<p>
+Internal AMT ecosystem balance.
+</p>
 
 </div>
 
-</nav><audio id="audio"></audio>
+
+<div class="card">
+
+<h3>
+Pi Integration
+</h3>
+
+<div
+class="amount cyan">
+
+PREPARING
+
+</div>
+
+<p>
+Official Pi integration will be
+connected separately when supported.
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+</main>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+<div class="nav">
+
+
+<button
+class="active"
+onclick="showSection('musicSection',this)">
+
+<span>
+🎵
+</span>
+
+Music
+
+</button>
+
+
+<button
+onclick="showSection('miningSection',this)">
+
+<span>
+⛏️
+</span>
+
+Mining
+
+</button>
+
+
+<button
+onclick="showSection('marketSection',this)">
+
+<span>
+🛒
+</span>
+
+Market
+
+</button>
+
+
+<button
+onclick="showSection('profileSection',this)">
+
+<span>
+👤
+</span>
+
+Profile
+
+</button>
+
+
+</div>
+
+</nav>
+
+
+<div
+class="toast"
+id="toast">
+</div>
+
+
+<audio
+id="audio">
+</audio>
+
 
 <script>
 
 
-/* =================================
-   AMT MUSIC PLAYER
-================================= */
+/* =========================================
+   AMT API
+========================================= */
+
+const API_BASE =
+"https://amtmusicapp09-github-io.onrender.com";
+
+
+/* =========================================
+   SAFE API REQUEST
+========================================= */
+
+async function apiRequest(
+    endpoint,
+    options = {}
+){
+
+    const response =
+    await fetch(
+        API_BASE + endpoint,
+        {
+            ...options,
+            headers:{
+                "Content-Type":
+                "application/json",
+
+                ...(options.headers || {})
+            }
+        }
+    );
+
+
+    const contentType =
+    response.headers.get(
+        "content-type"
+    ) || "";
+
+
+    if(!contentType.includes(
+        "application/json"
+    )){
+
+        throw new Error(
+            "AMT server returned HTML instead of JSON."
+        );
+
+    }
+
+
+    const data =
+    await response.json();
+
+
+    if(!response.ok){
+
+        throw new Error(
+            data.error ||
+            "AMT server request failed."
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message){
+
+    const toast =
+    document.getElementById(
+        "toast"
+    );
+
+    toast.textContent =
+    message;
+
+    toast.classList.add(
+        "show"
+    );
+
+    setTimeout(()=>{
+
+        toast.classList.remove(
+            "show"
+        );
+
+    },3000);
+
+}
+
+
+/* =========================================
+   MUSIC PLAYER
+========================================= */
 
 const songs = [
 
     {
-        title:"AMT Genesis",
+        title:
+        "AMT Genesis",
 
-        artist:"AMT Originals",
+        artist:
+        "AMT Originals",
 
         file:
-            "music/amt-genesis.mp3"
+        "music/amt-genesis.mp3"
     },
 
     {
-        title:"Digital Pioneer",
+        title:
+        "Digital Pioneer",
 
-        artist:"AMT Originals",
+        artist:
+        "AMT Originals",
 
         file:
-            "music/digital-pioneer.mp3"
+        "music/digital-pioneer.mp3"
     },
 
     {
-        title:"Crypto Dreams",
+        title:
+        "Crypto Dreams",
 
-        artist:"AMT Originals",
+        artist:
+        "AMT Originals",
 
         file:
-            "music/crypto-dreams.mp3"
+        "music/crypto-dreams.mp3"
     }
 
 ];
@@ -1772,48 +2136,54 @@ let currentSong = 0;
 
 
 const audio =
-    document.getElementById(
-        "audio"
-    );
+document.getElementById(
+    "audio"
+);
+
 
 const playButton =
-    document.getElementById(
-        "playButton"
-    );
+document.getElementById(
+    "playButton"
+);
+
 
 const songTitle =
-    document.getElementById(
-        "songTitle"
-    );
+document.getElementById(
+    "songTitle"
+);
+
 
 const artist =
-    document.getElementById(
-        "artist"
-    );
+document.getElementById(
+    "artist"
+);
+
 
 const progress =
-    document.getElementById(
-        "progress"
-    );
+document.getElementById(
+    "progress"
+);
 
 
 function loadSong(index){
 
-    currentSong = index;
+    currentSong =
+    index;
 
     const song =
-        songs[currentSong];
+    songs[currentSong];
 
     audio.src =
-        song.file;
+    song.file;
 
     songTitle.textContent =
-        song.title;
+    song.title;
 
     artist.textContent =
-        song.artist;
+    song.artist;
 
-    progress.value = 0;
+    progress.value =
+    0;
 
 }
 
@@ -1834,14 +2204,14 @@ function toggleMusic(){
         .then(()=>{
 
             playButton.textContent =
-                "⏸";
+            "⏸";
 
         })
 
         .catch(()=>{
 
-            alert(
-                "Please add your licensed MP3 files to the music folder."
+            showToast(
+                "Add your licensed MP3 files inside the music folder."
             );
 
         });
@@ -1851,7 +2221,7 @@ function toggleMusic(){
         audio.pause();
 
         playButton.textContent =
-            "▶";
+        "▶";
 
     }
 
@@ -1871,8 +2241,9 @@ function nextSong(){
 
     }
 
-
-    loadSong(currentSong);
+    loadSong(
+        currentSong
+    );
 
 
     audio.play()
@@ -1880,7 +2251,7 @@ function nextSong(){
     .then(()=>{
 
         playButton.textContent =
-            "⏸";
+        "⏸";
 
     })
 
@@ -1896,10 +2267,9 @@ function previousSong(){
     if(currentSong < 0){
 
         currentSong =
-            songs.length - 1;
+        songs.length - 1;
 
     }
-
 
     loadSong(
         currentSong
@@ -1915,10 +2285,11 @@ audio.addEventListener(
         if(audio.duration){
 
             progress.value =
-                (
-                    audio.currentTime /
-                    audio.duration
-                ) * 100;
+
+            (
+                audio.currentTime /
+                audio.duration
+            ) * 100;
 
         }
 
@@ -1933,10 +2304,12 @@ progress.addEventListener(
         if(audio.duration){
 
             audio.currentTime =
-                (
-                    progress.value /
-                    100
-                ) * audio.duration;
+
+            (
+                progress.value /
+                100
+            ) *
+            audio.duration;
 
         }
 
@@ -1950,135 +2323,69 @@ audio.addEventListener(
 );
 
 
-/* =================================
-   AMT WALLET UI
-================================= */
+/* =========================================
+   LOCAL DISPLAY BALANCE
+========================================= */
 
 let balance = 0;
 
 
 function updateBalanceUI(){
 
-    const value =
-        Number(balance)
-            .toFixed(4);
-
-
     document.getElementById(
         "balance"
-    ).textContent = value;
+    ).textContent =
+    Number(balance)
+    .toFixed(4);
 
 
     document.getElementById(
         "miningBalance"
-    ).textContent = value;
+    ).textContent =
+    Number(balance)
+    .toFixed(4);
 
 
     document.getElementById(
         "profileBalance"
-    ).textContent = value;
+    ).textContent =
+    Number(balance)
+    .toFixed(4);
 
 }
 
 
-/* =================================
-   LOAD SERVER WALLET
-================================= */
+/* =========================================
+   LOAD WALLET
+========================================= */
 
 async function loadWallet(){
 
     try{
 
-        const response =
-            await fetch(
-                "/api/wallet"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Wallet API error"
-            );
-
-        }
-
-
         const data =
-            await response.json();
+        await apiRequest(
+            "/api/wallet"
+        );
 
 
-        if(
-            data.success &&
-            data.wallet
-        ){
-
-            balance =
-                Number(
-                    data.wallet.balance
-                );
+        balance =
+        Number(
+            data.wallet.balance
+        );
 
 
-            updateBalanceUI();
+        updateBalanceUI();
 
-        }
 
     }catch(error){
 
         console.error(
-            "Wallet error:",
             error
         );
 
-    }
-
-}
-
-
-/* =================================
-   MINING
-================================= */
-
-let mining = false;
-
-let miningLoading = false;
-
-
-function updateMiningUI(){
-
-    const button =
-        document.getElementById(
-            "mineButton"
-        );
-
-    const status =
-        document.getElementById(
-            "miningStatus"
-        );
-
-
-    if(mining){
-
-        status.textContent =
-            "MINING ACTIVE";
-
-        button.textContent =
-            "STOP MINING";
-
-        button.classList.add(
-            "stop"
-        );
-
-    }else{
-
-        status.textContent =
-            "MINING READY";
-
-        button.textContent =
-            "START MINING";
-
-        button.classList.remove(
-            "stop"
+        showToast(
+            "Wallet API unavailable."
         );
 
     }
@@ -2086,281 +2393,36 @@ function updateMiningUI(){
 }
 
 
-/* =================================
-   LOAD SERVER MINING STATUS
-================================= */
-
-async function loadMiningStatus(){
-
-    try{
-
-        const response =
-            await fetch(
-                "/api/mining/status"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Mining status error"
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            data.success &&
-            data.mining
-        ){
-
-            mining =
-                Boolean(
-                    data.mining.active
-                );
-
-
-            const rate =
-                Number(
-                    data.mining.rate
-                ).toFixed(4);
-
-
-            document.getElementById(
-                "miningRate"
-            ).textContent =
-                `${rate} AMT`;
-
-
-            updateMiningUI();
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Mining status error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =================================
-   START / STOP SERVER MINING
-================================= */
-
-async function toggleMining(){
-
-    if(miningLoading){
-
-        return;
-
-    }
-
-
-    miningLoading = true;
-
-
-    const button =
-        document.getElementById(
-            "mineButton"
-        );
-
-
-    button.disabled = true;
-
-    button.textContent =
-        "PLEASE WAIT...";
-
-
-    try{
-
-        const endpoint =
-            mining
-            ? "/api/mining/stop"
-            : "/api/mining/start";
-
-
-        const response =
-            await fetch(
-                endpoint,
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    }
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if(!response.ok){
-
-            throw new Error(
-                data.error ||
-                "Mining request failed."
-            );
-
-        }
-
-
-        if(data.mining){
-
-            mining =
-                Boolean(
-                    data.mining.active
-                );
-
-        }else{
-
-            mining =
-                endpoint ===
-                "/api/mining/start";
-
-        }
-
-
-        updateMiningUI();
-
-
-        await loadWallet();
-
-    }catch(error){
-
-        console.error(
-            "Mining error:",
-            error
-        );
-
-
-        alert(
-            error.message ||
-            "Unable to connect to AMT server."
-        );
-
-
-    }finally{
-
-        miningLoading = false;
-
-        button.disabled = false;
-
-        updateMiningUI();
-
-    }
-
-}
-
-
-/* =================================
-   REFERRAL
-================================= */
-
-async function loadReferral(){
-
-    try{
-
-        const response =
-            await fetch(
-                "/api/referral"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Referral API error"
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(data.success){
-
-            document.getElementById(
-                "tierName"
-            ).textContent =
-                data.tier.toUpperCase();
-
-
-            document.getElementById(
-                "tierCount"
-            ).textContent =
-                `${data.referrals} referrals`;
-
-        }
-
-    }catch(error){
-
-        console.error(
-            "Referral error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =================================
+/* =========================================
    LOAD USER
-================================= */
+========================================= */
 
 async function loadUser(){
 
     try{
 
-        const response =
-            await fetch(
-                "/api/user"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "User API error"
-            );
-
-        }
-
-
         const data =
-            await response.json();
+        await apiRequest(
+            "/api/user"
+        );
 
 
         if(
-            data.success &&
-            data.user
+            data.user &&
+            data.user.username
         ){
 
             document.getElementById(
                 "username"
             ).textContent =
-                data.user.username;
+            data.user.username;
 
         }
+
 
     }catch(error){
 
         console.error(
-            "User error:",
             error
         );
 
@@ -2369,98 +2431,415 @@ async function loadUser(){
 }
 
 
-/* =================================
+/* =========================================
+   LOAD REFERRAL
+========================================= */
+
+async function loadReferral(){
+
+    try{
+
+        const data =
+        await apiRequest(
+            "/api/referral"
+        );
+
+
+        const referrals =
+        Number(
+            data.referrals || 0
+        );
+
+
+        document.getElementById(
+            "tierName"
+        ).textContent =
+        String(
+            data.tier || "PIONEER"
+        ).toUpperCase();
+
+
+        document.getElementById(
+            "tierCount"
+        ).textContent =
+        referrals +
+        " referrals";
+
+
+        let progressValue = 0;
+
+
+        if(referrals < 5){
+
+            progressValue =
+            (referrals / 5) * 100;
+
+            document.getElementById(
+                "nextTier"
+            ).textContent =
+            "Next tier: BRONZE";
+
+        }
+
+        else if(referrals < 10){
+
+            progressValue =
+            ((referrals - 5) / 5) * 100;
+
+            document.getElementById(
+                "nextTier"
+            ).textContent =
+            "Next tier: SILVER";
+
+        }
+
+        else if(referrals < 25){
+
+            progressValue =
+            ((referrals - 10) / 15) * 100;
+
+            document.getElementById(
+                "nextTier"
+            ).textContent =
+            "Next tier: GOLD";
+
+        }
+
+        else if(referrals < 50){
+
+            progressValue =
+            ((referrals - 25) / 25) * 100;
+
+            document.getElementById(
+                "nextTier"
+            ).textContent =
+            "Next tier: PLATINUM";
+
+        }
+
+        else if(referrals < 100){
+
+            progressValue =
+            ((referrals - 50) / 50) * 100;
+
+            document.getElementById(
+                "nextTier"
+            ).textContent =
+            "Next tier: DIAMOND";
+
+        }
+
+        else{
+
+            progressValue =
+            100;
+
+            document.getElementById(
+                "nextTier"
+            ).textContent =
+            "Maximum referral tier reached.";
+
+        }
+
+
+        document.getElementById(
+            "tierProgress"
+        ).style.width =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                progressValue
+            )
+        ) + "%";
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   MINING STATUS
+========================================= */
+
+let miningActive =
+false;
+
+
+async function loadMiningStatus(){
+
+    try{
+
+        const data =
+        await apiRequest(
+            "/api/mining/status"
+        );
+
+
+        miningActive =
+        Boolean(
+            data.mining.active
+        );
+
+
+        const status =
+        document.getElementById(
+            "miningStatus"
+        );
+
+
+        const button =
+        document.getElementById(
+            "mineButton"
+        );
+
+
+        if(miningActive){
+
+            status.textContent =
+            "MINING ACTIVE";
+
+            button.textContent =
+            "STOP MINING";
+
+            button.classList.add(
+                "stop"
+            );
+
+        }else{
+
+            status.textContent =
+            "MINING READY";
+
+            button.textContent =
+            "START MINING";
+
+            button.classList.remove(
+                "stop"
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   START / STOP MINING
+========================================= */
+
+async function toggleMining(){
+
+    const button =
+    document.getElementById(
+        "mineButton"
+    );
+
+
+    button.disabled =
+    true;
+
+
+    try{
+
+        if(!miningActive){
+
+            const data =
+            await apiRequest(
+                "/api/mining/start",
+                {
+                    method:
+                    "POST"
+                }
+            );
+
+
+            miningActive =
+            true;
+
+
+            document.getElementById(
+                "miningStatus"
+            ).textContent =
+            "MINING ACTIVE";
+
+
+            button.textContent =
+            "STOP MINING";
+
+
+            button.classList.add(
+                "stop"
+            );
+
+
+            showToast(
+                data.message ||
+                "AMT mining started."
+            );
+
+
+        }else{
+
+            const data =
+            await apiRequest(
+                "/api/mining/stop",
+                {
+                    method:
+                    "POST"
+                }
+            );
+
+
+            miningActive =
+            false;
+
+
+            document.getElementById(
+                "miningStatus"
+            ).textContent =
+            "MINING PAUSED";
+
+
+            button.textContent =
+            "START MINING";
+
+
+            button.classList.remove(
+                "stop"
+            );
+
+
+            showToast(
+                data.message ||
+                "AMT mining paused."
+            );
+
+        }
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        showToast(
+            error.message
+        );
+
+    }
+
+
+    button.disabled =
+    false;
+
+}
+
+
+/* =========================================
    MARKETPLACE
-================================= */
+========================================= */
 
 async function loadMarketplace(){
 
     try{
 
-        const response =
-            await fetch(
-                "/api/marketplace"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Marketplace API error"
-            );
-
-        }
-
-
         const data =
-            await response.json();
+        await apiRequest(
+            "/api/marketplace"
+        );
 
 
         if(
-            data.success &&
-            Array.isArray(data.items)
+            !data.items ||
+            !Array.isArray(
+                data.items
+            )
         ){
 
-            const grid =
-                document.getElementById(
-                    "marketGrid"
+            return;
+
+        }
+
+
+        const grid =
+        document.getElementById(
+            "marketGrid"
+        );
+
+
+        const icons = [
+            "🎵",
+            "🎤",
+            "🎨",
+            "🎟️",
+            "⭐",
+            "💎"
+        ];
+
+
+        grid.innerHTML =
+        "";
+
+
+        data.items.forEach(
+            (item,index)=>{
+
+                const div =
+                document.createElement(
+                    "div"
                 );
 
 
-            const icons = [
-                "🎵",
-                "🎤",
-                "🎨",
-                "🎟️"
-            ];
+                div.className =
+                "market-item";
 
 
-            grid.innerHTML = "";
+                div.innerHTML = `
+
+                    <div class="market-image">
+                        ${icons[index] || "🛍️"}
+                    </div>
+
+                    <h3>
+                        ${item.name}
+                    </h3>
+
+                    <div class="price">
+                        ${item.price} AMT
+                    </div>
+
+                `;
 
 
-            data.items.forEach(
-                (item,index)=>{
+                grid.appendChild(
+                    div
+                );
 
-                    const div =
-                        document.createElement(
-                            "div"
-                        );
+            }
+        );
 
-
-                    div.className =
-                        "market-item";
-
-
-                    div.innerHTML = `
-
-                        <div class="market-image">
-                            ${icons[index] || "🛒"}
-                        </div>
-
-                        <h3>
-                            ${item.name}
-                        </h3>
-
-                        <div class="price">
-                            ${Number(item.price).toFixed(0)} AMT
-                        </div>
-
-                    `;
-
-
-                    grid.appendChild(
-                        div
-                    );
-
-                }
-            );
-
-        }
 
     }catch(error){
 
         console.error(
-            "Marketplace error:",
             error
         );
 
@@ -2469,9 +2848,63 @@ async function loadMarketplace(){
 }
 
 
-/* =================================
+/* =========================================
+   API HEALTH
+========================================= */
+
+async function checkServer(){
+
+    const status =
+    document.getElementById(
+        "apiStatus"
+    );
+
+
+    try{
+
+        const data =
+        await apiRequest(
+            "/api/status"
+        );
+
+
+        status.innerHTML =
+
+        `
+        <span class="api-online">
+        ● AMT SERVER ONLINE
+        </span>
+        •
+        ${data.network}
+        •
+        Mining Rate:
+        ${data.miningRate} AMT
+        `;
+
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+
+        status.innerHTML =
+
+        `
+        <span class="api-offline">
+        ● AMT SERVER OFFLINE
+        </span>
+        `;
+
+    }
+
+}
+
+
+/* =========================================
    NAVIGATION
-================================= */
+========================================= */
 
 function showSection(
     sectionId,
@@ -2479,42 +2912,42 @@ function showSection(
 ){
 
     document
-        .querySelectorAll(
-            ".app-section"
-        )
-        .forEach(
-            section=>{
+    .querySelectorAll(
+        ".app-section"
+    )
+    .forEach(
+        section=>{
 
-                section.classList.remove(
-                    "active"
-                );
+            section.classList.remove(
+                "active"
+            );
 
-            }
-        );
-
-
-    document
-        .getElementById(
-            sectionId
-        )
-        .classList.add(
-            "active"
-        );
+        }
+    );
 
 
     document
-        .querySelectorAll(
-            ".nav button"
-        )
-        .forEach(
-            btn=>{
+    .getElementById(
+        sectionId
+    )
+    .classList.add(
+        "active"
+    );
 
-                btn.classList.remove(
-                    "active"
-                );
 
-            }
-        );
+    document
+    .querySelectorAll(
+        ".nav button"
+    )
+    .forEach(
+        btn=>{
+
+            btn.classList.remove(
+                "active"
+            );
+
+        }
+    );
 
 
     button.classList.add(
@@ -2523,33 +2956,70 @@ function showSection(
 
 
     window.scrollTo({
-
         top:0,
-
         behavior:"smooth"
-
     });
+
+
+    if(
+        sectionId ===
+        "miningSection"
+    ){
+
+        loadMiningStatus();
+
+    }
+
+
+    if(
+        sectionId ===
+        "profileSection"
+    ){
+
+        loadUser();
+
+        loadWallet();
+
+        loadReferral();
+
+    }
+
+
+    if(
+        sectionId ===
+        "marketSection"
+    ){
+
+        loadMarketplace();
+
+    }
 
 }
 
 
-/* =================================
-   INITIALIZE
-================================= */
+/* =========================================
+   START APP
+========================================= */
 
 loadSong(0);
 
 updateBalanceUI();
 
-loadWallet();
-
-loadMiningStatus();
-
-loadReferral();
+checkServer();
 
 loadUser();
 
+loadWallet();
+
+loadReferral();
+
+loadMiningStatus();
+
 loadMarketplace();
 
-</script></body>
+
+</script>
+
+</body>
+
 </html>
