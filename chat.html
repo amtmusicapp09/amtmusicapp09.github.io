@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMT Music Mining | Pioneer Chat</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at top, #182b55 0%, #080b1c 45%, #03040c 100%);
+    }
+
+    .header {
+      padding: 22px 15px;
+      text-align: center;
+      background: rgba(4, 8, 25, 0.94);
+      border-bottom: 1px solid rgba(0, 234, 255, 0.35);
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.12);
+    }
+
+    .header h1 {
+      color: #00eaff;
+      font-size: 23px;
+      text-shadow: 0 0 15px rgba(0, 234, 255, 0.7);
+    }
+
+    .header p {
+      margin-top: 7px;
+      color: #9da9c9;
+      font-size: 13px;
+    }
+
+    .container {
+      width: calc(100% - 28px);
+      max-width: 620px;
+      margin: 20px auto;
+    }
+
+    .status-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 15px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+
+      background: rgba(0, 255, 157, 0.06);
+      border: 1px solid rgba(0, 255, 157, 0.2);
+    }
+
+    .online-dot {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #00ff9d;
+      box-shadow: 0 0 10px #00ff9d;
+    }
+
+    .status-text {
+      font-size: 12px;
+      color: #00ffae;
+    }
+
+    .status-text span {
+      display: block;
+      margin-top: 3px;
+      color: #8190b3;
+      font-size: 10px;
+    }
+
+    .chat-card {
+      overflow: hidden;
+      border-radius: 22px;
+      background: rgba(7, 13, 35, 0.92);
+      border: 1px solid rgba(0, 234, 255, 0.25);
+      box-shadow: 0 0 30px rgba(0, 200, 255, 0.08);
+    }
+
+    .chat-title {
+      padding: 16px;
+      border-bottom: 1px solid rgba(0, 234, 255, 0.15);
+      color: #00eaff;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .messages {
+      height: 430px;
+      overflow-y: auto;
+      padding: 15px;
+      scroll-behavior: smooth;
+    }
+
+    .empty-chat {
+      padding: 70px 20px;
+      text-align: center;
+      color: #657292;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 13px;
+    }
+
+    .message.mine {
+      justify-content: flex-end;
+    }
+
+    .bubble {
+      max-width: 82%;
+      padding: 11px 13px;
+      border-radius: 16px;
+      background: rgba(18, 35, 75, 0.95);
+      border: 1px solid rgba(123, 44, 255, 0.3);
+    }
+
+    .mine .bubble {
+      background: linear-gradient(
+        135deg,
+        rgba(0, 170, 220, 0.3),
+        rgba(100, 35, 180, 0.35)
+      );
+      border-color: rgba(0, 234, 255, 0.3);
+    }
+
+    .message-user {
+      margin-bottom: 5px;
+      color: #00eaff;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+    .message-text {
+      color: #f2f5ff;
+      font-size: 13px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .message-time {
+      margin-top: 5px;
+      color: #73809f;
+      font-size: 9px;
+      text-align: right;
+    }
+
+    .composer {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      border-top: 1px solid rgba(0, 234, 255, 0.15);
+      background: rgba(3, 7, 20, 0.75);
+    }
+
+    #messageInput {
+      width: 100%;
+      min-width: 0;
+      padding: 13px;
+
+      border: 1px solid rgba(0, 234, 255, 0.25);
+      border-radius: 14px;
+      outline: none;
+
+      background: rgba(10, 20, 45, 0.9);
+      color: #fff;
+      font-size: 13px;
+    }
+
+    #messageInput::placeholder {
+      color: #687594;
+    }
+
+    .send-btn {
+      padding: 0 17px;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #00d9ff, #7b2cff);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .send-btn:active {
+      transform: scale(0.95);
+    }
+
+    .clear-btn {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid rgba(255, 80, 120, 0.25);
+      border-radius: 13px;
+      background: rgba(255, 50, 100, 0.06);
+      color: #ff769a;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .notice {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+      color: #8996b6;
+      font-size: 10px;
+      line-height: 1.5;
+      background: rgba(123, 44, 255, 0.06);
+      border: 1px solid rgba(123, 44, 255, 0.18);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      padding: 9px 3px;
+
+      background: rgba(3, 6, 18, 0.97);
+      border-top: 1px solid rgba(0, 234, 255, 0.3);
+      box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-btn {
+      min-width: 45px;
+      border: 0;
+      background: transparent;
+      color: #8290b5;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .nav-btn .icon {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 20px;
+    }
+
+    .nav-btn.active {
+      color: #00eaff;
+      text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
+    }
+
+    @media (max-width: 380px) {
+      .nav-btn {
+        min-width: 40px;
+        font-size: 9px;
+      }
+
+      .nav-btn .icon {
+        font-size: 18px;
+      }
+
+      .messages {
+        height: 390px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>💬 AMT PIONEER CHAT</h1>
+    <p>AMT Music Mining Token</p>
+  </header>
+
+
+  <main class="container">
+
+    <div class="status-card">
+      <div class="online-dot"></div>
+
+      <div class="status-text">
+        AMT Testnet Chat
+        <span id="currentUser">Pioneer</span>
+      </div>
+    </div>
+
+
+    <section class="chat-card">
+
+      <div class="chat-title">
+        🌐 Pioneer Community
+      </div>
+
+      <div
+        id="messages"
+        class="messages"
+      ></div>
+
+
+      <div class="composer">
+
+        <input
+          id="messageInput"
+          type="text"
+          maxlength="500"
+          placeholder="Write a message..."
+          autocomplete="off"
+        >
+
+        <button
+          class="send-btn"
+          onclick="sendMessage()"
+          aria-label="Send message"
+        >
+          ➤
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <button
+      class="clear-btn"
+      onclick="clearChat()"
+    >
+      🗑️ Clear Local Test Chat
+    </button>
+
+
+    <div class="notice">
+      🟢 <strong>TESTNET CHAT</strong><br>
+      Messages on this page are stored locally in this browser.
+      They are not yet a live global Pioneer chat.
+    </div>
+
+  </main>
+
+
+  <!-- BOTTOM NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-btn" onclick="go('index.html')">
+      <span class="icon">⛏️</span>
+      Mining
+    </button>
+
+    <button class="nav-btn" onclick="go('wallet.html')">
+      <span class="icon">💳</span>
+      Wallet
+    </button>
+
+    <button class="nav-btn" onclick="go('referral.html')">
+      <span class="icon">👥</span>
+      Referral
+    </button>
+
+    <button class="nav-btn active" onclick="go('chat.html')">
+      <span class="icon">💬</span>
+      Chat
+    </button>
+
+    <button class="nav-btn" onclick="go('profile.html')">
+      <span class="icon">👤</span>
+      Profile
+    </button>
+
+    <button class="nav-btn" onclick="go('reward.html')">
+      <span class="icon">🎁</span>
+      Reward
+    </button>
+
+    <button class="nav-btn" onclick="go('marketplace.html')">
+      <span class="icon">🛒</span>
+      Market
+    </button>
+
+  </nav>
+
+
+  <script>
+
+    // ==========================================
+    // CURRENT PIONEER
+    // ==========================================
+
+    const currentUser =
+      localStorage.getItem("piUser") ||
+      localStorage.getItem("username") ||
+      "Pioneer";
+
+    document.getElementById("currentUser").textContent =
+      "👤 " + currentUser;
+
+
+    // ==========================================
+    // LOAD LOCAL MESSAGES
+    // ==========================================
+
+    let messages =
+      JSON.parse(
+        localStorage.getItem("amtChatMessages") || "[]"
+      );
+
+
+    // ==========================================
+    // DISPLAY MESSAGES
+    // ==========================================
+
+    function renderMessages() {
+
+      const container =
+        document.getElementById("messages");
+
+      container.innerHTML = "";
+
+
+      if (messages.length === 0) {
+
+        container.innerHTML = `
+          <div class="empty-chat">
+            💬 No messages yet.<br><br>
+            Start the Pioneer conversation.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      messages.forEach(function(message) {
+
+        const wrapper =
+          document.createElement("div");
+
+        wrapper.className =
+          "message " +
+          (message.username === currentUser ? "mine" : "");
+
+
+        const bubble =
+          document.createElement("div");
+
+        bubble.className = "bubble";
+
+
+        const user =
+          document.createElement("div");
+
+        user.className = "message-user";
+
+        user.textContent =
+          "👤 " + message.username;
+
+
+        const text =
+          document.createElement("div");
+
+        text.className = "message-text";
+
+        text.textContent =
+          message.text;
+
+
+        const time =
+          document.createElement("div");
+
+        time.className = "message-time";
+
+        time.textContent =
+          message.time;
+
+
+        bubble.appendChild(user);
+        bubble.appendChild(text);
+        bubble.appendChild(time);
+
+        wrapper.appendChild(bubble);
+
+        container.appendChild(wrapper);
+
+      });
+
+
+      container.scrollTop =
+        container.scrollHeight;
+    }
+
+
+    // ==========================================
+    // SEND MESSAGE
+    // ==========================================
+
+    function sendMessage() {
+
+      const input =
+        document.getElementById("messageInput");
+
+      const text =
+        input.value.trim();
+
+
+      if (!text) return;
+
+
+      const now =
+        new Date();
+
+
+      const time =
+        now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit"
+        });
+
+
+      messages.push({
+        username: currentUser,
+        text: text,
+        time: time
+      });
+
+
+      // Keep local test chat from becoming too large
+
+      if (messages.length > 100) {
+        messages =
+          messages.slice(-100);
+      }
+
+
+      localStorage.setItem(
+        "amtChatMessages",
+        JSON.stringify(messages)
+      );
+
+
+      input.value = "";
+
+      renderMessages();
+
+      input.focus();
+
+    }
+
+
+    // ==========================================
+    // ENTER TO SEND
+    // ==========================================
+
+    document
+      .getElementById("messageInput")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+          sendMessage();
+        }
+
+      });
+
+
+    // ==========================================
+    // CLEAR LOCAL CHAT
+    // ==========================================
+
+    function clearChat() {
+
+      if (
+        !confirm(
+          "Clear all local test chat messages?"
+        )
+      ) {
+        return;
+      }
+
+
+      messages = [];
+
+      localStorage.removeItem(
+        "amtChatMessages"
+      );
+
+      renderMessages();
+
+    }
+
+
+    // ==========================================
+    // NAVIGATION
+    // ==========================================
+
+    function go(page) {
+      window.location.href = page;
+    }
+
+
+    // ==========================================
+    // INITIAL DISPLAY
+    // ==========================================
+
+    renderMessages();
+
+  </script>
+
+</body>
+</html>
