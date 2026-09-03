@@ -1,620 +1,381 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>AMT Music Mining Token</title>
-
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-  --cyan:#00eaff;
-  --blue:#008cff;
-  --purple:#8b5cff;
-  --green:#55ffb0;
-  --bg:#02050b;
-  --panel:rgba(7,16,30,.86);
-}
-
-body{
-  min-height:100vh;
-  color:#fff;
-  font-family:Arial,Helvetica,sans-serif;
-  background:
-    radial-gradient(circle at 50% 18%,#123a64 0%,#071322 30%,#02050b 72%);
-  overflow-x:hidden;
-}
-
-/* FUTURISTIC GRID */
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    linear-gradient(rgba(0,234,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,234,255,.035) 1px,transparent 1px);
-  background-size:42px 42px;
-}
-
-/* HEADER */
-
-header{
-  position:relative;
-  z-index:10;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:14px 16px;
-  background:rgba(1,5,12,.82);
-  border-bottom:1px solid rgba(0,234,255,.25);
-  backdrop-filter:blur(14px);
-}
-
-.brand{
-  font-size:16px;
-  font-weight:900;
-  letter-spacing:1.5px;
-  color:#baf8ff;
-  text-shadow:0 0 14px var(--cyan);
-}
-
-.user{
-  font-size:11px;
-  color:#9db7c7;
-}
-
-.user strong{
-  color:var(--green);
-}
-
-/* MAIN */
-
-main{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:900px;
-  margin:auto;
-  padding:18px 14px 115px;
-}
-
-/* NETWORK STATUS */
-
-.network{
-  display:flex;
-  justify-content:center;
-  margin-bottom:14px;
-}
-
-.network span{
-  padding:8px 16px;
-  border:1px solid rgba(85,255,176,.35);
-  border-radius:30px;
-  background:rgba(0,45,30,.3);
-  color:var(--green);
-  font-size:10px;
-  letter-spacing:1.4px;
-  box-shadow:0 0 18px rgba(85,255,176,.08);
-}
-
-.online-dot{
-  display:inline-block;
-  width:7px;
-  height:7px;
-  margin-right:6px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 12px var(--green);
-}
-
-/* CORE */
-
-.core-area{
-  position:relative;
-  height:425px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.core-aura{
-  position:absolute;
-  width:280px;
-  height:280px;
-  border-radius:50%;
-  background:rgba(0,234,255,.12);
-  filter:blur(50px);
-  animation:aura 3s ease-in-out infinite;
-}
-
-@keyframes aura{
-  0%,100%{
-    transform:scale(.88);
-    opacity:.5;
-  }
-  50%{
-    transform:scale(1.13);
-    opacity:1;
-  }
-}
-
-/* CORE MACHINE */
-
-.core{
-  position:relative;
-  width:245px;
-  height:245px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:50%;
-
-  background:
-    radial-gradient(circle at 50% 50%,
-      #efffff 0%,
-      #5df2ff 7%,
-      #009ac4 18%,
-      #075174 36%,
-      #071c2d 57%,
-      #02070d 73%);
-
-  border:6px solid #17445c;
-
-  box-shadow:
-    0 0 18px var(--cyan),
-    0 0 45px rgba(0,234,255,.7),
-    0 0 100px rgba(0,140,255,.3),
-    inset 0 0 35px rgba(0,234,255,.85);
-
-  animation:float 4s ease-in-out infinite;
-}
-
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-}
-
-/* ROTATING RINGS */
-
-.core::before{
-  content:"";
-  position:absolute;
-  inset:-19px;
-  border-radius:50%;
-  border:2px solid rgba(0,234,255,.65);
-  border-top-color:#fff;
-  border-bottom-color:var(--purple);
-  animation:rotate 7s linear infinite;
-}
-
-.core::after{
-  content:"";
-  position:absolute;
-  inset:-36px;
-  border-radius:50%;
-  border:1px dashed rgba(0,234,255,.35);
-  animation:rotateReverse 13s linear infinite;
-}
-
-@keyframes rotate{
-  to{transform:rotate(360deg)}
-}
-
-@keyframes rotateReverse{
-  to{transform:rotate(-360deg)}
-}
-
-/* CORE CONTENT */
-
-.core-content{
-  text-align:center;
-  z-index:3;
-}
-
-.music-icon{
-  font-size:30px;
-  filter:drop-shadow(0 0 12px var(--cyan));
-}
-
-.core-name{
-  margin-top:5px;
-  font-size:27px;
-  font-weight:900;
-  letter-spacing:3px;
-  text-shadow:
-    0 0 8px #fff,
-    0 0 20px var(--cyan);
-}
-
-.v4{
-  margin-top:5px;
-  font-size:10px;
-  letter-spacing:5px;
-  color:#75edff;
-}
-
-.rate-label{
-  margin-top:17px;
-  font-size:10px;
-  color:#a7c9d5;
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-}
-
-.rate{
-  margin-top:3px;
-  font-size:25px;
-  font-weight:900;
-  color:#fff;
-  text-shadow:0 0 14px var(--cyan);
-}
-
-/* MUSIC WAVES */
-
-.equalizer{
-  position:absolute;
-  bottom:-5px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:3px;
-  align-items:end;
-  height:28px;
-  opacity:.8;
-}
-
-.bar{
-  width:3px;
-  background:var(--cyan);
-  box-shadow:0 0 7px var(--cyan);
-  animation:wave .8s infinite ease-in-out;
-}
-
-.bar:nth-child(1){height:8px}
-.bar:nth-child(2){height:17px;animation-delay:.1s}
-.bar:nth-child(3){height:25px;animation-delay:.2s}
-.bar:nth-child(4){height:13px;animation-delay:.3s}
-.bar:nth-child(5){height:22px;animation-delay:.15s}
-.bar:nth-child(6){height:10px;animation-delay:.25s}
-.bar:nth-child(7){height:19px;animation-delay:.05s}
-
-@keyframes wave{
-  50%{transform:scaleY(.35)}
-}
-
-/* STATS */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-}
-
-.card{
-  padding:15px 8px;
-  text-align:center;
-  border:1px solid rgba(0,234,255,.18);
-  border-radius:15px;
-  background:var(--panel);
-  box-shadow:
-    inset 0 0 22px rgba(0,234,255,.035),
-    0 8px 25px rgba(0,0,0,.18);
-}
-
-.label{
-  color:#7893a2;
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:1px;
-}
-
-.value{
-  margin-top:6px;
-  font-size:16px;
-  font-weight:900;
-  color:#eaffff;
-}
-
-.active{
-  color:var(--green);
-}
-
-/* MINING BUTTON */
-
-.mine-area{
-  text-align:center;
-  margin-top:18px;
-}
-
-.mine-btn{
-  padding:14px 30px;
-  border:1px solid var(--cyan);
-  border-radius:14px;
-  background:
-    linear-gradient(135deg,#07344d,#075f7d);
-  color:#fff;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:1.5px;
-  box-shadow:
-    0 0 22px rgba(0,234,255,.25),
-    inset 0 0 15px rgba(0,234,255,.08);
-  cursor:pointer;
-}
-
-.mine-btn:active{
-  transform:scale(.96);
-}
-
-#message{
-  min-height:17px;
-  margin-top:8px;
-  color:#7797a6;
-  font-size:10px;
-}
-
-/* BOTTOM NAVIGATION */
-
-.bottom-nav{
-  position:fixed;
-  z-index:50;
-  left:0;
-  right:0;
-  bottom:0;
-
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-
-  padding:7px 3px calc(7px + env(safe-area-inset-bottom));
-
-  background:rgba(1,5,11,.95);
-  border-top:1px solid rgba(0,234,255,.28);
-  backdrop-filter:blur(16px);
-}
-
-.nav{
-  border:0;
-  background:transparent;
-  color:#718b99;
-  min-height:54px;
-  font-size:8px;
-  cursor:pointer;
-}
-
-.nav-icon{
-  display:block;
-  font-size:19px;
-  margin-bottom:4px;
-}
-
-.nav.active{
-  color:#70edff;
-}
-
-.nav.active .nav-icon{
-  filter:drop-shadow(0 0 8px var(--cyan));
-}
-
-/* MOBILE */
-
-@media(max-width:600px){
-
-  .brand{
-    font-size:14px;
-  }
-
-  .core-area{
-    height:375px;
-  }
-
-  .core{
-    width:205px;
-    height:205px;
-  }
-
-  .core::before{
-    inset:-15px;
-  }
-
-  .core::after{
-    inset:-27px;
-  }
-
-  .core-name{
-    font-size:22px;
-  }
-
-  .rate{
-    font-size:22px;
-  }
-
-  .stats{
-    gap:6px;
-  }
-
-  .card{
-    padding:12px 5px;
-  }
-
-  .value{
-    font-size:13px;
-  }
-
-  .nav-icon{
-    font-size:17px;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMT Music Mining Token</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      min-height:100vh;
+      font-family:Arial,sans-serif;
+      color:#fff;
+      background:
+        radial-gradient(circle at top,#182c70 0%,#080b24 42%,#03040d 100%);
+      padding-bottom:90px;
+    }
+
+    header{
+      padding:22px 16px;
+      text-align:center;
+      background:linear-gradient(135deg,#101d55,#39106d);
+      border-bottom:1px solid #45eaff;
+      box-shadow:0 0 20px rgba(0,220,255,.25);
+    }
+
+    header h1{
+      font-size:24px;
+      letter-spacing:1px;
+    }
+
+    #username{
+      margin-top:7px;
+      color:#70efff;
+      font-size:14px;
+    }
+
+    .container{
+      width:94%;
+      max-width:700px;
+      margin:20px auto;
+    }
+
+    .status{
+      text-align:center;
+      padding:10px;
+      margin-bottom:18px;
+      border:1px solid #00eaff;
+      border-radius:12px;
+      background:rgba(0,220,255,.08);
+      color:#65efff;
+      font-size:13px;
+    }
+
+    /* CORE MACHINE */
+
+    .core-wrap{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin:25px 0 30px;
+    }
+
+    .core{
+      width:250px;
+      height:250px;
+      border-radius:50%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+
+      background:
+        radial-gradient(circle,
+        #263f9a 0%,
+        #111c58 35%,
+        #090d2c 68%,
+        #03040d 100%);
+
+      border:3px solid #57efff;
+
+      box-shadow:
+        0 0 15px #31eaff,
+        0 0 40px rgba(0,200,255,.55),
+        inset 0 0 35px rgba(0,230,255,.35);
+
+      animation:pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse{
+      0%,100%{
+        transform:scale(1);
+        box-shadow:
+          0 0 15px #31eaff,
+          0 0 40px rgba(0,200,255,.55),
+          inset 0 0 35px rgba(0,230,255,.35);
+      }
+
+      50%{
+        transform:scale(1.035);
+        box-shadow:
+          0 0 25px #31eaff,
+          0 0 65px rgba(0,200,255,.7),
+          inset 0 0 45px rgba(0,230,255,.45);
+      }
+    }
+
+    .core-icon{
+      font-size:42px;
+      margin-bottom:5px;
+    }
+
+    .core h2{
+      font-size:24px;
+      color:#72f4ff;
+      letter-spacing:2px;
+    }
+
+    .core p{
+      margin-top:8px;
+      color:#c5d5ff;
+      font-size:13px;
+    }
+
+    .rate{
+      margin-top:12px;
+      color:#fff;
+      font-size:16px;
+      font-weight:bold;
+    }
+
+    /* CARDS */
+
+    .card{
+      margin-bottom:14px;
+      padding:18px;
+      border-radius:17px;
+      background:rgba(12,18,55,.88);
+      border:1px solid rgba(86,220,255,.45);
+      box-shadow:0 0 18px rgba(0,180,255,.1);
+    }
+
+    .card h3{
+      color:#70efff;
+      margin-bottom:8px;
+      font-size:17px;
+    }
+
+    .big-number{
+      font-size:29px;
+      font-weight:bold;
+      margin-top:8px;
+    }
+
+    .sub{
+      margin-top:6px;
+      color:#8999bb;
+      font-size:12px;
+    }
+
+    .mine-btn{
+      width:100%;
+      margin-top:15px;
+      padding:14px;
+      border:0;
+      border-radius:13px;
+      font-size:16px;
+      font-weight:bold;
+      color:#06101d;
+      background:linear-gradient(90deg,#5df3ff,#8c7cff);
+      cursor:pointer;
+    }
+
+    .mine-btn:active{
+      transform:scale(.98);
+    }
+
+    /* BOTTOM NAV */
+
+    nav{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:100;
+      display:flex;
+      overflow-x:auto;
+      background:rgba(4,7,22,.97);
+      border-top:1px solid #35dfff;
+      box-shadow:0 -5px 20px rgba(0,220,255,.15);
+    }
+
+    .nav-btn{
+      min-width:85px;
+      padding:9px 5px;
+      border:0;
+      border-right:1px solid rgba(255,255,255,.06);
+      border-radius:0;
+      background:transparent;
+      color:#aebcdf;
+      font-size:11px;
+      cursor:pointer;
+    }
+
+    .nav-btn.active{
+      color:#65efff;
+      background:rgba(0,220,255,.08);
+    }
+
+    .nav-btn:active{
+      background:rgba(0,220,255,.16);
+    }
+
+    .notice{
+      text-align:center;
+      margin-top:15px;
+      color:#7181a5;
+      font-size:11px;
+      line-height:1.5;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-
-  <div class="brand">
-    🎵 AMT MUSIC MINING
-  </div>
-
-  <div class="user">
-    Pioneer:
-    <strong id="username">Guest</strong>
-  </div>
-
+  <h1>🎵 AMT MUSIC MINING</h1>
+  <div id="username">👤 Pioneer</div>
 </header>
 
+<div class="container">
 
-<main>
-
-  <!-- NETWORK -->
-
-  <div class="network">
-    <span>
-      <i class="online-dot"></i>
-      AMT TESTNET • CORE ONLINE
-    </span>
+  <div class="status">
+    🟢 AMT TESTNET • CORE MACHINE V4 ONLINE
   </div>
 
+  <!-- AMT CORE MACHINE -->
 
-  <!-- CORE MACHINE -->
-
-  <section class="core-area">
-
-    <div class="core-aura"></div>
+  <div class="core-wrap">
 
     <div class="core">
 
-      <div class="core-content">
+      <div class="core-icon">⚡</div>
 
-        <div class="music-icon">🎵</div>
+      <h2>AMT CORE</h2>
 
-        <div class="core-name">
-          AMT CORE
-        </div>
+      <p>MACHINE V4</p>
 
-        <div class="v4">
-          MACHINE V4
-        </div>
-
-        <div class="rate-label">
-          Mining Rate
-        </div>
-
-        <div class="rate">
-          <span id="rate">0.25</span> AMT / H
-        </div>
-
-      </div>
-
-      <div class="equalizer">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+      <div class="rate">
+        0.25 AMT / H
       </div>
 
     </div>
 
-  </section>
+  </div>
 
 
-  <!-- STATS -->
+  <!-- BALANCE -->
 
-  <section class="stats">
+  <div class="card">
 
-    <div class="card">
-      <div class="label">Balance</div>
-      <div class="value">
-        <span id="balance">0.0000</span> AMT
-      </div>
+    <h3>💰 AMT Balance</h3>
+
+    <div
+      class="big-number"
+      id="balance">
+      0.00 AMT
     </div>
 
-    <div class="card">
-      <div class="label">Session</div>
-      <div class="value" id="session">
-        00:00:00
-      </div>
+    <div class="sub">
+      Local AMT Testnet Balance
     </div>
 
-    <div class="card">
-      <div class="label">Network</div>
-      <div class="value active">
-        TESTNET
-      </div>
+  </div>
+
+
+  <!-- MINING SESSION -->
+
+  <div class="card">
+
+    <h3>⛏️ Mining Session</h3>
+
+    <div
+      class="big-number"
+      id="session">
+      0.00 AMT
     </div>
 
-  </section>
-
-
-  <!-- MINING -->
-
-  <div class="mine-area">
+    <div class="sub">
+      Mining rate: 0.25 AMT per hour
+    </div>
 
     <button
       class="mine-btn"
       id="mineBtn"
-      onclick="startMining()">
-
-      ⛏️ START AMT MINING
-
+      onclick="toggleMining()">
+      ▶ START MINING
     </button>
 
-    <div id="message">
-      AMT Core Machine V4 is ready.
+  </div>
+
+
+  <!-- NETWORK -->
+
+  <div class="card">
+
+    <h3>🌐 Network</h3>
+
+    <div class="big-number">
+      TESTNET
+    </div>
+
+    <div class="sub">
+      AMT Music Mining Token
     </div>
 
   </div>
 
-</main>
+
+  <div class="notice">
+    ⚠️ This interface is for AMT Testnet demonstration only.
+    No real blockchain mining or financial transaction is performed.
+  </div>
+
+</div>
 
 
-<!-- BOTTOM NAV -->
+<!-- BOTTOM NAVIGATION -->
 
-<nav class="bottom-nav">
+<nav>
 
-  <button class="nav active" onclick="selectNav(this,'Mining')">
-    <span class="nav-icon">⛏️</span>
-    Mining
+  <button
+    class="nav-btn active"
+    onclick="go('index.html')">
+    ⛏️<br>Mining
   </button>
 
-  <button class="nav" onclick="selectNav(this,'Wallet')">
-    <span class="nav-icon">💳</span>
-    Wallet
+  <button
+    class="nav-btn"
+    onclick="go('wallet.html')">
+    💳<br>Wallet
   </button>
 
-  <button class="nav" onclick="selectNav(this,'Referral')">
-    <span class="nav-icon">👥</span>
-    Referral
+  <button
+    class="nav-btn"
+    onclick="go('referral.html')">
+    👥<br>Referral
   </button>
 
-  <button class="nav" onclick="selectNav(this,'Chat')">
-    <span class="nav-icon">💬</span>
-    Chat
+  <button
+    class="nav-btn"
+    onclick="go('chat.html')">
+    💬<br>Chat
   </button>
 
-  <button class="nav" onclick="selectNav(this,'Profile')">
-    <span class="nav-icon">👤</span>
-    Profile
+  <button
+    class="nav-btn"
+    onclick="go('profile.html')">
+    👤<br>Profile
   </button>
 
-  <button class="nav" onclick="selectNav(this,'Reward')">
-    <span class="nav-icon">🎁</span>
-    Reward
+  <button
+    class="nav-btn"
+    onclick="go('reward.html')">
+    🎁<br>Reward
   </button>
 
-  <button class="nav" onclick="selectNav(this,'Marketplace')">
-    <span class="nav-icon">🛒</span>
-    Market
+  <button
+    class="nav-btn"
+    onclick="go('marketplace.html')">
+    🛒<br>Market
   </button>
 
 </nav>
@@ -622,92 +383,132 @@ main{
 
 <script>
 
-/* ==========================================
-   PIONEER DISPLAY
-========================================== */
+  // =========================
+  // USERNAME
+  // =========================
 
-const savedUser =
-  localStorage.getItem("piUser") ||
-  localStorage.getItem("username");
+  const username =
+    localStorage.getItem("piUser") ||
+    localStorage.getItem("username") ||
+    "Pioneer";
 
-if(savedUser){
-  document.getElementById("username").textContent = savedUser;
-}
-
-
-/* ==========================================
-   TESTNET UI MINING TIMER
-   BACKEND WILL BE CONNECTED LATER
-========================================== */
-
-let mining = false;
-let seconds = 0;
-let balance = 0;
-let timer = null;
-
-const miningRate = 0.25;
+  document.getElementById("username").textContent =
+    "👤 " + username;
 
 
-function startMining(){
+  // =========================
+  // NAVIGATION
+  // =========================
 
-  if(mining){
-    document.getElementById("message").textContent =
-      "⚡ AMT mining session is already active.";
-    return;
+  function go(page){
+    window.location.href = page;
   }
 
-  mining = true;
 
-  const button =
-    document.getElementById("mineBtn");
+  // =========================
+  // BALANCE
+  // =========================
 
-  button.textContent =
-    "⛏️ MINING ACTIVE";
+  let balance =
+    Number(
+      localStorage.getItem("amtBalance") || 0
+    );
 
-  document.getElementById("message").textContent =
-    "🎵 AMT Core Machine V4 mining session started.";
+  document.getElementById("balance").textContent =
+    balance.toFixed(2) + " AMT";
 
-  timer = setInterval(() => {
 
-    seconds++;
+  // =========================
+  // MINING
+  // =========================
 
-    const hours =
-      String(Math.floor(seconds / 3600)).padStart(2,"0");
+  let mining = false;
 
-    const minutes =
-      String(Math.floor((seconds % 3600) / 60)).padStart(2,"0");
+  let sessionAmount = 0;
 
-    const secs =
-      String(seconds % 60).padStart(2,"0");
+  let miningTimer = null;
 
-    document.getElementById("session").textContent =
-      `${hours}:${minutes}:${secs}`;
+  const miningRatePerHour = 0.25;
 
-    balance += miningRate / 3600;
+  const miningPerSecond =
+    miningRatePerHour / 3600;
+
+
+  function updateDisplay(){
 
     document.getElementById("balance").textContent =
-      balance.toFixed(4);
+      balance.toFixed(4) + " AMT";
 
-  },1000);
-}
+    document.getElementById("session").textContent =
+      sessionAmount.toFixed(4) + " AMT";
+
+  }
 
 
-/* ==========================================
-   NAVIGATION
-========================================== */
+  function toggleMining(){
 
-function selectNav(button,page){
+    const button =
+      document.getElementById("mineBtn");
 
-  document
-    .querySelectorAll(".nav")
-    .forEach(nav => nav.classList.remove("active"));
 
-  button.classList.add("active");
+    if(!mining){
 
-  document.getElementById("message").textContent =
-    page + " module selected.";
+      mining = true;
 
-}
+      button.textContent =
+        "⏹ STOP MINING";
+
+      miningTimer =
+        setInterval(() => {
+
+          const earned =
+            miningPerSecond;
+
+          sessionAmount += earned;
+
+          balance += earned;
+
+          localStorage.setItem(
+            "amtBalance",
+            balance.toString()
+          );
+
+          localStorage.setItem(
+            "amtMiningEarned",
+            (
+              Number(
+                localStorage.getItem(
+                  "amtMiningEarned"
+                ) || 0
+              ) + earned
+            ).toString()
+          );
+
+          updateDisplay();
+
+        },1000);
+
+    }else{
+
+      mining = false;
+
+      clearInterval(miningTimer);
+
+      miningTimer = null;
+
+      button.textContent =
+        "▶ START MINING";
+
+    }
+
+  }
+
+
+  // =========================
+  // INITIAL DISPLAY
+  // =========================
+
+  updateDisplay();
 
 </script>
 
