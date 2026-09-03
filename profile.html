@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMT Music Mining | Profile</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at top, #182b55 0%, #080b1c 45%, #03040c 100%);
+      padding-bottom: 90px;
+    }
+
+    .header {
+      padding: 22px 16px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 220, 255, 0.35);
+      background: rgba(4, 8, 25, 0.9);
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.15);
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #00eaff;
+      text-shadow: 0 0 15px rgba(0, 234, 255, 0.7);
+    }
+
+    .header p {
+      margin-top: 7px;
+      color: #9da9c9;
+      font-size: 13px;
+    }
+
+    .profile-card {
+      width: calc(100% - 28px);
+      max-width: 500px;
+      margin: 25px auto;
+      padding: 28px 20px;
+      text-align: center;
+
+      background: linear-gradient(
+        145deg,
+        rgba(18, 35, 75, 0.95),
+        rgba(10, 11, 35, 0.96)
+      );
+
+      border: 1px solid rgba(0, 234, 255, 0.35);
+      border-radius: 24px;
+      box-shadow:
+        0 0 30px rgba(0, 200, 255, 0.12),
+        inset 0 0 25px rgba(100, 0, 255, 0.08);
+    }
+
+    .avatar-container {
+      position: relative;
+      width: 145px;
+      height: 145px;
+      margin: 0 auto 18px;
+    }
+
+    .avatar {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      object-fit: cover;
+
+      background:
+        radial-gradient(circle, #172b5c, #060917);
+
+      border: 3px solid #00eaff;
+      box-shadow:
+        0 0 15px #00eaff,
+        0 0 35px rgba(0, 234, 255, 0.45);
+    }
+
+    .online-dot {
+      position: absolute;
+      right: 8px;
+      bottom: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #00ff9d;
+      border: 3px solid #080b1c;
+      box-shadow: 0 0 12px #00ff9d;
+    }
+
+    .username {
+      font-size: 25px;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255,255,255,0.35);
+    }
+
+    .pioneer {
+      margin-top: 6px;
+      color: #00eaff;
+      font-size: 13px;
+    }
+
+    .upload-label {
+      display: inline-block;
+      margin-top: 22px;
+      padding: 13px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+
+      background: linear-gradient(135deg, #00d9ff, #7b2cff);
+      color: white;
+      font-weight: bold;
+
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
+      transition: 0.2s;
+    }
+
+    .upload-label:active {
+      transform: scale(0.96);
+    }
+
+    #photoInput {
+      display: none;
+    }
+
+    .section {
+      width: calc(100% - 28px);
+      max-width: 500px;
+      margin: 18px auto;
+    }
+
+    .section-title {
+      margin-bottom: 12px;
+      color: #00eaff;
+      font-size: 17px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .info-box {
+      padding: 18px 12px;
+      border-radius: 17px;
+      text-align: center;
+
+      background: rgba(11, 20, 48, 0.85);
+      border: 1px solid rgba(123, 44, 255, 0.35);
+    }
+
+    .info-box span {
+      display: block;
+      color: #8f9aba;
+      font-size: 12px;
+      margin-bottom: 7px;
+    }
+
+    .info-box strong {
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .testnet {
+      margin-top: 14px;
+      padding: 15px;
+      text-align: center;
+      border-radius: 15px;
+
+      background: rgba(0, 255, 157, 0.07);
+      border: 1px solid rgba(0, 255, 157, 0.25);
+      color: #00ffb0;
+      font-size: 13px;
+    }
+
+    .logout-btn {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: 1px solid rgba(255, 80, 120, 0.5);
+      border-radius: 15px;
+
+      background: rgba(255, 50, 100, 0.08);
+      color: #ff7198;
+
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      padding: 9px 3px;
+
+      background: rgba(3, 6, 18, 0.97);
+      border-top: 1px solid rgba(0, 234, 255, 0.3);
+      box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-btn {
+      border: 0;
+      background: transparent;
+      color: #8290b5;
+      font-size: 10px;
+      cursor: pointer;
+      min-width: 45px;
+    }
+
+    .nav-btn .icon {
+      display: block;
+      font-size: 20px;
+      margin-bottom: 3px;
+    }
+
+    .nav-btn.active {
+      color: #00eaff;
+      text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
+    }
+
+    @media (max-width: 380px) {
+      .nav-btn {
+        font-size: 9px;
+        min-width: 40px;
+      }
+
+      .nav-btn .icon {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>👤 AMT PROFILE</h1>
+    <p>AMT Music Mining Token</p>
+  </header>
+
+  <main>
+
+    <div class="profile-card">
+
+      <div class="avatar-container">
+        <img
+          id="profilePhoto"
+          class="avatar"
+          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='145' height='145'%3E%3Crect width='100%25' height='100%25' fill='%230b1533'/%3E%3Ctext x='50%25' y='53%25' dominant-baseline='middle' text-anchor='middle' font-size='55'%3E👤%3C/text%3E%3C/svg%3E"
+          alt="Profile Photo"
+        >
+
+        <div class="online-dot"></div>
+      </div>
+
+      <div class="username" id="username">
+        Pioneer
+      </div>
+
+      <div class="pioneer">
+        ⚡ AMT Music Mining Pioneer
+      </div>
+
+      <label class="upload-label" for="photoInput">
+        📸 Upload Photo
+      </label>
+
+      <input
+        type="file"
+        id="photoInput"
+        accept="image/*"
+      >
+
+    </div>
+
+
+    <section class="section">
+
+      <div class="section-title">
+        📊 Pioneer Information
+      </div>
+
+      <div class="info-grid">
+
+        <div class="info-box">
+          <span>Mining Status</span>
+          <strong>⚡ Active</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Network</span>
+          <strong>Testnet</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Mining Rate</span>
+          <strong>0.25 AMT/H</strong>
+        </div>
+
+        <div class="info-box">
+          <span>Role</span>
+          <strong>Pioneer</strong>
+        </div>
+
+      </div>
+
+      <div class="testnet">
+        🟢 AMT TESTNET<br>
+        Your mining activity is currently running in testnet mode.
+      </div>
+
+      <button class="logout-btn" onclick="logout()">
+        🚪 Logout
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- BOTTOM NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-btn" onclick="go('index.html')">
+      <span class="icon">⛏️</span>
+      Mining
+    </button>
+
+    <button class="nav-btn" onclick="go('wallet.html')">
+      <span class="icon">💳</span>
+      Wallet
+    </button>
+
+    <button class="nav-btn" onclick="go('referral.html')">
+      <span class="icon">👥</span>
+      Referral
+    </button>
+
+    <button class="nav-btn" onclick="go('chat.html')">
+      <span class="icon">💬</span>
+      Chat
+    </button>
+
+    <button class="nav-btn active" onclick="go('profile.html')">
+      <span class="icon">👤</span>
+      Profile
+    </button>
+
+    <button class="nav-btn" onclick="go('reward.html')">
+      <span class="icon">🎁</span>
+      Reward
+    </button>
+
+    <button class="nav-btn" onclick="go('marketplace.html')">
+      <span class="icon">🛒</span>
+      Market
+    </button>
+
+  </nav>
+
+
+  <script>
+
+    // ==============================
+    // LOAD PIONEER USERNAME
+    // ==============================
+
+    const savedUsername =
+      localStorage.getItem("piUser") ||
+      localStorage.getItem("username") ||
+      "Pioneer";
+
+    document.getElementById("username").textContent =
+      savedUsername;
+
+
+    // ==============================
+    // LOAD SAVED PHOTO
+    // ==============================
+
+    const savedPhoto =
+      localStorage.getItem("amtProfilePhoto");
+
+    if (savedPhoto) {
+      document.getElementById("profilePhoto").src =
+        savedPhoto;
+    }
+
+
+    // ==============================
+    // UPLOAD PHOTO
+    // ==============================
+
+    document
+      .getElementById("photoInput")
+      .addEventListener("change", function(event) {
+
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          alert("Please select an image file.");
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+
+          const imageData = e.target.result;
+
+          document.getElementById("profilePhoto").src =
+            imageData;
+
+          try {
+            localStorage.setItem(
+              "amtProfilePhoto",
+              imageData
+            );
+          } catch (error) {
+
+            console.log(
+              "Photo is too large for local storage."
+            );
+
+            alert(
+              "Photo preview updated, but the image is too large to save permanently on this device."
+            );
+          }
+        };
+
+        reader.readAsDataURL(file);
+
+      });
+
+
+    // ==============================
+    // NAVIGATION
+    // ==============================
+
+    function go(page) {
+      window.location.href = page;
+    }
+
+
+    // ==============================
+    // LOGOUT
+    // ==============================
+
+    function logout() {
+
+      const confirmLogout =
+        confirm("Logout from AMT Music Mining?");
+
+      if (!confirmLogout) return;
+
+      localStorage.removeItem("piUser");
+      localStorage.removeItem("username");
+
+      window.location.href = "index.html";
+    }
+
+  </script>
+
+</body>
+</html>
