@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AMT Pet Marketplace</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --cyan:#00eaff;
+  --blue:#008cff;
+  --purple:#8b5cff;
+  --green:#55ffb0;
+  --gold:#ffd95a;
+  --bg:#02050b;
+}
+
+body{
+  min-height:100vh;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at 50% 12%,#163d63 0%,#071423 32%,#02050b 75%);
+  overflow-x:hidden;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(0,234,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,234,255,.035) 1px,transparent 1px);
+  background-size:42px 42px;
+}
+
+/* HEADER */
+
+header{
+  position:relative;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 16px;
+  background:rgba(1,5,12,.88);
+  border-bottom:1px solid rgba(0,234,255,.25);
+  backdrop-filter:blur(14px);
+}
+
+.brand{
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:1.5px;
+  color:#c4faff;
+  text-shadow:0 0 14px var(--cyan);
+}
+
+.user{
+  font-size:11px;
+  color:#9bb7c7;
+}
+
+.user strong{
+  color:var(--green);
+}
+
+/* MAIN */
+
+main{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  margin:auto;
+  padding:20px 14px 110px;
+}
+
+.page-title{
+  text-align:center;
+  margin-bottom:5px;
+  font-size:24px;
+  font-weight:900;
+  letter-spacing:2px;
+  text-shadow:0 0 18px var(--cyan);
+}
+
+.subtitle{
+  text-align:center;
+  color:#7798a8;
+  font-size:10px;
+  letter-spacing:1.5px;
+  margin-bottom:20px;
+}
+
+/* SEARCH */
+
+.search-box{
+  margin-bottom:18px;
+}
+
+.search-box input{
+  width:100%;
+  padding:13px 15px;
+  border-radius:13px;
+  border:1px solid rgba(0,234,255,.28);
+  outline:none;
+  background:rgba(4,17,29,.85);
+  color:#fff;
+  font-size:13px;
+  box-shadow:inset 0 0 15px rgba(0,234,255,.04);
+}
+
+.search-box input::placeholder{
+  color:#668391;
+}
+
+/* PET GRID */
+
+.pet-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(125px,1fr));
+  gap:11px;
+}
+
+.pet-card{
+  position:relative;
+  padding:8px;
+  border-radius:15px;
+  border:1px solid rgba(0,234,255,.18);
+  background:
+    linear-gradient(145deg,
+      rgba(10,30,48,.92),
+      rgba(3,11,20,.95));
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.25),
+    inset 0 0 20px rgba(0,234,255,.025);
+  cursor:pointer;
+  transition:.25s;
+}
+
+.pet-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(0,234,255,.65);
+  box-shadow:
+    0 0 22px rgba(0,234,255,.2),
+    0 12px 25px rgba(0,0,0,.35);
+}
+
+.pet-image{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:11px;
+  display:block;
+  background:#07121d;
+}
+
+.pet-name{
+  margin-top:8px;
+  text-align:center;
+  font-size:11px;
+  font-weight:900;
+  color:#dffaff;
+}
+
+.pet-rarity{
+  margin-top:4px;
+  text-align:center;
+  font-size:8px;
+  color:var(--purple);
+  letter-spacing:1px;
+}
+
+/* STATS PANEL */
+
+.details-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(9px);
+}
+
+.details-overlay.show{
+  display:flex;
+}
+
+.details{
+  width:100%;
+  max-width:420px;
+  max-height:90vh;
+  overflow-y:auto;
+  padding:18px;
+  border:1px solid rgba(0,234,255,.45);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 50% 0%,
+      rgba(0,100,145,.25),
+      rgba(3,10,18,.98) 50%);
+  box-shadow:
+    0 0 45px rgba(0,234,255,.2),
+    inset 0 0 30px rgba(0,234,255,.04);
+}
+
+.close{
+  float:right;
+  width:32px;
+  height:32px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:50%;
+  background:#071522;
+  color:#fff;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.details-image{
+  display:block;
+  width:150px;
+  height:150px;
+  margin:5px auto 13px;
+  object-fit:cover;
+  border-radius:18px;
+  border:1px solid rgba(0,234,255,.5);
+  box-shadow:0 0 25px rgba(0,234,255,.25);
+}
+
+.details h2{
+  text-align:center;
+  font-size:21px;
+  text-shadow:0 0 12px var(--cyan);
+}
+
+.details-rarity{
+  text-align:center;
+  margin-top:5px;
+  color:var(--gold);
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.stats-title{
+  margin-top:18px;
+  margin-bottom:9px;
+  color:#72edff;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.stat-row{
+  display:flex;
+  justify-content:space-between;
+  padding:9px 10px;
+  margin-bottom:5px;
+  border-radius:9px;
+  background:rgba(0,234,255,.045);
+  font-size:11px;
+}
+
+.stat-row span:first-child{
+  color:#7894a2;
+}
+
+.stat-row span:last-child{
+  color:#eaffff;
+  font-weight:bold;
+}
+
+.ability{
+  padding:10px;
+  margin-bottom:6px;
+  border-left:2px solid var(--cyan);
+  border-radius:7px;
+  background:rgba(0,234,255,.045);
+  font-size:11px;
+  color:#d7faff;
+}
+
+.price{
+  margin-top:18px;
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+  color:var(--gold);
+  text-shadow:0 0 12px rgba(255,217,90,.45);
+}
+
+.buy{
+  width:100%;
+  margin-top:12px;
+  padding:13px;
+  border:1px solid var(--cyan);
+  border-radius:12px;
+  background:linear-gradient(135deg,#06415c,#087f9e);
+  color:#fff;
+  font-weight:900;
+  letter-spacing:1px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0,234,255,.2);
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  z-index:50;
+  left:0;
+  right:0;
+  bottom:0;
+
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+
+  padding:7px 3px calc(7px + env(safe-area-inset-bottom));
+
+  background:rgba(1,5,11,.96);
+  border-top:1px solid rgba(0,234,255,.28);
+  backdrop-filter:blur(16px);
+}
+
+.nav{
+  border:0;
+  background:transparent;
+  color:#718b99;
+  min-height:54px;
+  font-size:8px;
+  cursor:pointer;
+}
+
+.nav-icon{
+  display:block;
+  font-size:18px;
+  margin-bottom:4px;
+}
+
+.nav.active{
+  color:#70edff;
+}
+
+.nav.active .nav-icon{
+  filter:drop-shadow(0 0 8px var(--cyan));
+}
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .brand{
+    font-size:13px;
+  }
+
+  .page-title{
+    font-size:21px;
+  }
+
+  .pet-grid{
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+
+  .pet-card{
+    padding:6px;
+    border-radius:12px;
+  }
+
+  .pet-name{
+    font-size:9px;
+  }
+
+  .pet-rarity{
+    font-size:7px;
+  }
+
+  .details{
+    padding:15px;
+  }
+
+  .details-image{
+    width:130px;
+    height:130px;
+  }
+
+  .nav-icon{
+    font-size:17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="brand">
+    🎵 AMT MUSIC MINING
+  </div>
+
+  <div class="user">
+    Pioneer:
+    <strong id="username">Guest</strong>
+  </div>
+
+</header>
+
+
+<main>
+
+  <h1 class="page-title">
+    🐾 PET MARKETPLACE
+  </h1>
+
+  <div class="subtitle">
+    COLLECT • EQUIP • POWER UP
+  </div>
+
+
+  <div class="search-box">
+    <input
+      id="searchPet"
+      type="text"
+      placeholder="🔎 Search pets..."
+      oninput="searchPets()">
+  </div>
+
+
+  <section class="pet-grid" id="petGrid">
+
+
+    <!-- LUNAR OWL -->
+
+    <article
+      class="pet-card"
+      data-name="Lunar Owl"
+      onclick="showPet('Lunar Owl','lunar-owl.png','LEGENDARY','500','92','88','95',['Moonlight Boost +15%','Night Mining +20%','Energy Regen +10%'])">
+
+      <img
+        class="pet-image"
+        src="images/lunar-owl.png"
+        alt="Lunar Owl">
+
+      <div class="pet-name">
+        Lunar Owl
+      </div>
+
+      <div class="pet-rarity">
+        LEGENDARY
+      </div>
+
+    </article>
+
+
+    <!-- CRYSTAL HEDGEHOG -->
+
+    <article
+      class="pet-card"
+      data-name="Crystal Hedgehog"
+      onclick="showPet('Crystal Hedgehog','crystal-hedgehog.png','EPIC','500','81','90','78',['Crystal Shield +18%','Mining Defense +12%','Core Stability +8%'])">
+
+      <img
+        class="pet-image"
+        src="images/crystal-hedgehog.png"
+        alt="Crystal Hedgehog">
+
+      <div class="pet-name">
+        Crystal Hedgehog
+      </div>
+
+      <div class="pet-rarity">
+        EPIC
+      </div>
+
+    </article>
+
+
+    <!-- SKY FOX -->
+
+    <article
+      class="pet-card"
+      data-name="Sky Fox"
+      onclick="showPet('Sky Fox','sky-fox.png','EPIC','500','89','84','91',['Speed Mining +15%','Sky Energy +12%','Lucky Find +8%'])">
+
+      <img
+        class="pet-image"
+        src="images/sky-fox.png"
+        alt="Sky Fox">
+
+      <div class="pet-name">
+        Sky Fox
+      </div>
+
+      <div class="pet-rarity">
+        EPIC
+      </div>
+
+    </article>
+
+
+    <!-- ROCK TURTLE -->
+
+    <article
+      class="pet-card"
+      data-name="Rock Turtle"
+      onclick="showPet('Rock Turtle','rock-turtle.png','RARE','500','72','96','68',['Mining Armor +20%','Core Defense +15%','Stable Mining +10%'])">
+
+      <img
+        class="pet-image"
+        src="images/rock-turtle.png"
+        alt="Rock Turtle">
+
+      <div class="pet-name">
+        Rock Turtle
+      </div>
+
+      <div class="pet-rarity">
+        RARE
+      </div>
+
+    </article>
+
+
+    <!-- STORM SQUIRREL -->
+
+    <article
+      class="pet-card"
+      data-name="Storm Squirrel"
+      onclick="showPet('Storm Squirrel','storm-squirrel.png','EPIC','500','94','77','90',['Storm Charge +20%','Speed Burst +12%','Electric Core +10%'])">
+
+      <img
+        class="pet-image"
+        src="images/storm-squirrel.png"
+        alt="Storm Squirrel">
+
+      <div class="pet-name">
+        Storm Squirrel
+      </div>
+
+      <div class="pet-rarity">
+        EPIC
+      </div>
+
+    </article>
+
+
+    <!-- DRAGONFLY -->
+
+    <article
+      class="pet-card"
+      data-name="Dragonfly"
+      onclick="showPet('Dragonfly','dragonfly.png','RARE','500','86','73','88',['Flight Boost +15%','Rapid Mining +10%','Wind Energy +8%'])">
+
+      <img
+        class="pet-image"
+        src="images/dragonfly.png"
+        alt="Dragonfly">
+
+      <div class="pet-name">
+        Dragonfly
+      </div>
+
+      <div class="pet-rarity">
+        RARE
+      </div>
+
+    </article>
+
+
+    <!-- SHADOW SCORPION -->
+
+    <article
+      class="pet-card"
+      data-name="Shadow Scorpion"
+      onclick="showPet('Shadow Scorpion','shadow-scorpion.png','LEGENDARY','500','98','82','94',['Shadow Mining +25%','Critical Mine +15%','Dark Energy +12%'])">
+
+      <img
+        class="pet-image"
+        src="images/shadow-scorpion.png"
+        alt="Shadow Scorpion">
+
+      <div class="pet-name">
+        Shadow Scorpion
+      </div>
+
+      <div class="pet-rarity">
+        LEGENDARY
+      </div>
+
+    </article>
+
+
+    <!-- CRYSTAL MANTIS -->
+
+    <article
+      class="pet-card"
+      data-name="Crystal Mantis"
+      onclick="showPet('Crystal Mantis','crsytal-mantis.png','LEGENDARY','500','96','91','93',['Crystal Power +22%','Precision Mine +15%','Core Sync +12%'])">
+
+      <img
+        class="pet-image"
+        src="images/crsytal-mantis.png"
+        alt="Crystal Mantis">
+
+      <div class="pet-name">
+        Crystal Mantis
+      </div>
+
+      <div class="pet-rarity">
+        LEGENDARY
+      </div>
+
+    </article>
+
+
+    <!-- FIRE LIZARD -->
+
+    <article
+      class="pet-card"
+      data-name="Fire Lizard"
+      onclick="showPet('Fire Lizard','fire-lizard.png','EPIC','500','93','75','89',['Fire Charge +20%','Heat Mining +15%','Power Surge +8%'])">
+
+      <img
+        class="pet-image"
+        src="images/fire-lizard.png"
+        alt="Fire Lizard">
+
+      <div class="pet-name">
+        Fire Lizard
+      </div>
+
+      <div class="pet-rarity">
+        EPIC
+      </div>
+
+    </article>
+
+
+    <!-- LEAF FROG -->
+
+    <article
+      class="pet-card"
+      data-name="Leaf Frog"
+      onclick="showPet('Leaf Frog','leaf-frog.png','RARE','500','70','79','85',['Nature Boost +12%','Energy Regen +15%','Green Core +8%'])">
+
+      <img
+        class="pet-image"
+        src="images/leaf-frog.png"
+        alt="Leaf Frog">
+
+      <div class="pet-name">
+        Leaf Frog
+      </div>
+
+      <div class="pet-rarity">
+        RARE
+      </div>
+
+    </article>
+
+
+    <!-- PIXIE ANT -->
+
+    <article
+      class="pet-card"
+      data-name="Pixie Ant"
+      onclick="showPet('Pixie Ant','pixie-ant.png','RARE','500','76','71','92',['Team Mining +10%','Tiny Boost +15%','Lucky Core +9%'])">
+
+      <img
+        class="pet-image"
+        src="images/pixie-ant.png"
+        alt="Pixie Ant">
+
+      <div class="pet-name">
+        Pixie Ant
+      </div>
+
+      <div class="pet-rarity">
+        RARE
+      </div>
+
+    </article>
+
+  </section>
+
+</main>
+
+
+<!-- PET DETAILS -->
+
+<div
+  class="details-overlay"
+  id="detailsOverlay"
+  onclick="closeOutside(event)">
+
+  <div class="details">
+
+    <button
+      class="close"
+      onclick="closeDetails()">
+      ×
+    </button>
+
+    <img
+      id="detailsImage"
+      class="details-image"
+      src=""
+      alt="Pet">
+
+    <h2 id="detailsName">
+      Pet
+    </h2>
+
+    <div
+      class="details-rarity"
+      id="detailsRarity">
+      RARE
+    </div>
+
+
+    <div class="stats-title">
+      ⚡ Ability Stats
+    </div>
+
+    <div class="stat-row">
+      <span>Power</span>
+      <span id="power">0</span>
+    </div>
+
+    <div class="stat-row">
+      <span>Defense</span>
+      <span id="defense">0</span>
+    </div>
+
+    <div class="stat-row">
+      <span>Energy</span>
+      <span id="energy">0</span>
+    </div>
+
+
+    <div class="stats-title">
+      🎵 Special Abilities
+    </div>
+
+    <div id="abilities"></div>
+
+
+    <div class="price">
+      <span id="price">500</span> AMT
+    </div>
+
+    <button
+      class="buy"
+      onclick="buyPet()">
+      🛒 BUY PET
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+  <button class="nav" onclick="go('index.html')">
+    <span class="nav-icon">⛏️</span>
+    Mining
+  </button>
+
+  <button class="nav" onclick="go('wallet.html')">
+    <span class="nav-icon">💳</span>
+    Wallet
+  </button>
+
+  <button class="nav" onclick="go('referral.html')">
+    <span class="nav-icon">👥</span>
+    Referral
+  </button>
+
+  <button class="nav" onclick="go('chat.html')">
+    <span class="nav-icon">💬</span>
+    Chat
+  </button>
+
+  <button class="nav" onclick="go('profile.html')">
+    <span class="nav-icon">👤</span>
+    Profile
+  </button>
+
+  <button class="nav" onclick="go('reward.html')">
+    <span class="nav-icon">🎁</span>
+    Reward
+  </button>
+
+  <button class="nav active">
+    <span class="nav-icon">🛒</span>
+    Market
+  </button>
+
+</nav>
+
+
+<script>
+
+/* PIONEER */
+
+const savedUser =
+  localStorage.getItem("piUser") ||
+  localStorage.getItem("username");
+
+if(savedUser){
+  document.getElementById("username").textContent =
+    savedUser;
+}
+
+
+/* PET DETAILS */
+
+let selectedPet = null;
+
+function showPet(
+  name,
+  image,
+  rarity,
+  price,
+  power,
+  defense,
+  energy,
+  abilities
+){
+
+  selectedPet = name;
+
+  document.getElementById("detailsImage").src =
+    "images/" + image;
+
+  document.getElementById("detailsName").textContent =
+    name;
+
+  document.getElementById("detailsRarity").textContent =
+    rarity;
+
+  document.getElementById("price").textContent =
+    price;
+
+  document.getElementById("power").textContent =
+    power;
+
+  document.getElementById("defense").textContent =
+    defense;
+
+  document.getElementById("energy").textContent =
+    energy;
+
+  const abilityBox =
+    document.getElementById("abilities");
+
+  abilityBox.innerHTML = "";
+
+  abilities.forEach(ability => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "ability";
+
+    div.textContent = "✦ " + ability;
+
+    abilityBox.appendChild(div);
+
+  });
+
+  document
+    .getElementById("detailsOverlay")
+    .classList.add("show");
+}
+
+
+/* CLOSE */
+
+function closeDetails(){
+
+  document
+    .getElementById("detailsOverlay")
+    .classList.remove("show");
+
+}
+
+function closeOutside(event){
+
+  if(event.target.id === "detailsOverlay"){
+    closeDetails();
+  }
+
+}
+
+
+/* SEARCH */
+
+function searchPets(){
+
+  const query =
+    document
+      .getElementById("searchPet")
+      .value
+      .toLowerCase();
+
+  document
+    .querySelectorAll(".pet-card")
+    .forEach(card => {
+
+      const name =
+        card.dataset.name.toLowerCase();
+
+      card.style.display =
+        name.includes(query)
+          ? ""
+          : "none";
+
+    });
+}
+
+
+/* BUY */
+
+function buyPet(){
+
+  if(!selectedPet) return;
+
+  alert(
+    selectedPet +
+    " selected for purchase.\n\n" +
+    "Actual AMT payment will be connected to the backend."
+  );
+
+}
+
+
+/* NAVIGATION */
+
+function go(page){
+  window.location.href = page;
+}
+
+</script>
+
+</body>
+</html>
