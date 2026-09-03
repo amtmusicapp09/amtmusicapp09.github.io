@@ -1,514 +1,1136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AMT Music Mining Token</title>
+    <title>AMT Music Mining Token</title>
 
-  <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
+    <!-- Official Pi SDK -->
+    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 
-    body{
-      min-height:100vh;
-      font-family:Arial,sans-serif;
-      color:#fff;
-      background:
-        radial-gradient(circle at top,#182c70 0%,#080b24 42%,#03040d 100%);
-      padding-bottom:90px;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    header{
-      padding:22px 16px;
-      text-align:center;
-      background:linear-gradient(135deg,#101d55,#39106d);
-      border-bottom:1px solid #45eaff;
-      box-shadow:0 0 20px rgba(0,220,255,.25);
-    }
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            color: white;
+            background:
+                radial-gradient(circle at top, #26105c, #080312 65%);
+            padding-bottom: 90px;
+        }
 
-    header h1{
-      font-size:24px;
-      letter-spacing:1px;
-    }
+        header {
+            padding: 22px 16px;
+            text-align: center;
+            background: linear-gradient(135deg, #190044, #5600a8);
+            border-bottom: 2px solid #ffd700;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
+        }
 
-    #username{
-      margin-top:7px;
-      color:#70efff;
-      font-size:14px;
-    }
+        header h1 {
+            font-size: 24px;
+            color: #ffd700;
+        }
 
-    .container{
-      width:94%;
-      max-width:700px;
-      margin:20px auto;
-    }
+        #pioneerName {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #ddd;
+        }
 
-    .status{
-      text-align:center;
-      padding:10px;
-      margin-bottom:18px;
-      border:1px solid #00eaff;
-      border-radius:12px;
-      background:rgba(0,220,255,.08);
-      color:#65efff;
-      font-size:13px;
-    }
+        .login-area {
+            margin-top: 15px;
+        }
 
-    /* CORE MACHINE */
+        #loginBtn {
+            border: none;
+            border-radius: 12px;
+            padding: 13px 25px;
+            background: #ffd700;
+            color: #17002f;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.4);
+        }
 
-    .core-wrap{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      margin:25px 0 30px;
-    }
+        #loginBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
-    .core{
-      width:250px;
-      height:250px;
-      border-radius:50%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
+        #logoutBtn {
+            display: none;
+            margin-top: 10px;
+            padding: 9px 18px;
+            border: 1px solid #aaa;
+            border-radius: 10px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+        }
 
-      background:
-        radial-gradient(circle,
-        #263f9a 0%,
-        #111c58 35%,
-        #090d2c 68%,
-        #03040d 100%);
+        .network {
+            margin: 18px auto;
+            width: fit-content;
+            padding: 7px 14px;
+            border-radius: 20px;
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            font-size: 12px;
+        }
 
-      border:3px solid #57efff;
+        .machine-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 25px 15px;
+        }
 
-      box-shadow:
-        0 0 15px #31eaff,
-        0 0 40px rgba(0,200,255,.55),
-        inset 0 0 35px rgba(0,230,255,.35);
+        .core {
+            width: 230px;
+            height: 230px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background:
+                radial-gradient(circle, #4d00a8, #17002e 70%);
+            border: 5px solid #ffd700;
+            box-shadow:
+                0 0 20px #8c00ff,
+                0 0 50px rgba(255, 215, 0, 0.35),
+                inset 0 0 35px rgba(255,255,255,0.1);
+        }
 
-      animation:pulse 3s infinite ease-in-out;
-    }
+        .core-inner {
+            line-height: 1.5;
+        }
 
-    @keyframes pulse{
-      0%,100%{
-        transform:scale(1);
-        box-shadow:
-          0 0 15px #31eaff,
-          0 0 40px rgba(0,200,255,.55),
-          inset 0 0 35px rgba(0,230,255,.35);
-      }
+        .core-title {
+            font-size: 18px;
+            color: #ffd700;
+            font-weight: bold;
+        }
 
-      50%{
-        transform:scale(1.035);
-        box-shadow:
-          0 0 25px #31eaff,
-          0 0 65px rgba(0,200,255,.7),
-          inset 0 0 45px rgba(0,230,255,.45);
-      }
-    }
+        #miningStatus {
+            margin-top: 7px;
+            color: #00ffcc;
+            font-size: 14px;
+        }
 
-    .core-icon{
-      font-size:42px;
-      margin-bottom:5px;
-    }
+        #miningRate {
+            margin-top: 5px;
+            font-size: 13px;
+            color: #ddd;
+        }
 
-    .core h2{
-      font-size:24px;
-      color:#72f4ff;
-      letter-spacing:2px;
-    }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
 
-    .core p{
-      margin-top:8px;
-      color:#c5d5ff;
-      font-size:13px;
-    }
+        .card {
+            padding: 18px 12px;
+            border-radius: 16px;
+            text-align: center;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,215,0,0.35);
+            box-shadow: 0 0 15px rgba(0,0,0,0.25);
+        }
 
-    .rate{
-      margin-top:12px;
-      color:#fff;
-      font-size:16px;
-      font-weight:bold;
-    }
+        .card span {
+            display: block;
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
 
-    /* CARDS */
+        .card strong {
+            font-size: 20px;
+            color: #ffd700;
+        }
 
-    .card{
-      margin-bottom:14px;
-      padding:18px;
-      border-radius:17px;
-      background:rgba(12,18,55,.88);
-      border:1px solid rgba(86,220,255,.45);
-      box-shadow:0 0 18px rgba(0,180,255,.1);
-    }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 15px;
+        }
 
-    .card h3{
-      color:#70efff;
-      margin-bottom:8px;
-      font-size:17px;
-    }
+        .mine-btn {
+            min-width: 145px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    .big-number{
-      font-size:29px;
-      font-weight:bold;
-      margin-top:8px;
-    }
+        #startMiningBtn {
+            background: #00e6a8;
+            color: #001b15;
+            box-shadow: 0 0 18px rgba(0,230,168,0.35);
+        }
 
-    .sub{
-      margin-top:6px;
-      color:#8999bb;
-      font-size:12px;
-    }
+        #stopMiningBtn {
+            background: #ff496c;
+            color: white;
+            box-shadow: 0 0 18px rgba(255,73,108,0.25);
+        }
 
-    .mine-btn{
-      width:100%;
-      margin-top:15px;
-      padding:14px;
-      border:0;
-      border-radius:13px;
-      font-size:16px;
-      font-weight:bold;
-      color:#06101d;
-      background:linear-gradient(90deg,#5df3ff,#8c7cff);
-      cursor:pointer;
-    }
+        .claim-area {
+            text-align: center;
+            margin: 15px;
+        }
 
-    .mine-btn:active{
-      transform:scale(.98);
-    }
+        #claimBtn {
+            width: 100%;
+            max-width: 320px;
+            padding: 14px;
+            border: 1px solid #ffd700;
+            border-radius: 12px;
+            background: transparent;
+            color: #ffd700;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    /* BOTTOM NAV */
+        #claimBtn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
 
-    nav{
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      z-index:100;
-      display:flex;
-      overflow-x:auto;
-      background:rgba(4,7,22,.97);
-      border-top:1px solid #35dfff;
-      box-shadow:0 -5px 20px rgba(0,220,255,.15);
-    }
+        .info {
+            max-width: 600px;
+            margin: 25px auto;
+            padding: 0 15px;
+        }
 
-    .nav-btn{
-      min-width:85px;
-      padding:9px 5px;
-      border:0;
-      border-right:1px solid rgba(255,255,255,.06);
-      border-radius:0;
-      background:transparent;
-      color:#aebcdf;
-      font-size:11px;
-      cursor:pointer;
-    }
+        .info-box {
+            padding: 17px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            line-height: 1.6;
+            font-size: 13px;
+            color: #ccc;
+        }
 
-    .nav-btn.active{
-      color:#65efff;
-      background:rgba(0,220,255,.08);
-    }
+        .info-box b {
+            color: #ffd700;
+        }
 
-    .nav-btn:active{
-      background:rgba(0,220,255,.16);
-    }
+        .message {
+            min-height: 20px;
+            text-align: center;
+            margin: 10px 15px;
+            font-size: 13px;
+            color: #00ffcc;
+        }
 
-    .notice{
-      text-align:center;
-      margin-top:15px;
-      color:#7181a5;
-      font-size:11px;
-      line-height:1.5;
-    }
-  </style>
+        nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: rgba(12, 3, 28, 0.97);
+            border-top: 1px solid #ffd700;
+            padding: 8px 5px;
+        }
+
+        nav a {
+            color: #ddd;
+            text-decoration: none;
+            text-align: center;
+            font-size: 11px;
+            padding: 7px 2px;
+        }
+
+        nav a:hover {
+            color: #ffd700;
+        }
+
+        @media (min-width: 600px) {
+            nav {
+                grid-template-columns: repeat(7, 1fr);
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-  <h1>🎵 AMT MUSIC MINING</h1>
-  <div id="username">👤 Pioneer</div>
+    <h1>🎵 AMT MUSIC MINING</h1>
+
+    <div id="pioneerName">
+        Pi Pioneer not logged in
+    </div>
+
+    <div class="login-area">
+        <button id="loginBtn">
+            🔐 LOGIN WITH PI
+        </button>
+
+        <button id="logoutBtn">
+            Logout
+        </button>
+    </div>
 </header>
 
-<div class="container">
-
-  <div class="status">
-    🟢 AMT TESTNET • CORE MACHINE V4 ONLINE
-  </div>
-
-  <!-- AMT CORE MACHINE -->
-
-  <div class="core-wrap">
-
-    <div class="core">
-
-      <div class="core-icon">⚡</div>
-
-      <h2>AMT CORE</h2>
-
-      <p>MACHINE V4</p>
-
-      <div class="rate">
-        0.25 AMT / H
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- BALANCE -->
-
-  <div class="card">
-
-    <h3>💰 AMT Balance</h3>
-
-    <div
-      class="big-number"
-      id="balance">
-      0.00 AMT
-    </div>
-
-    <div class="sub">
-      Local AMT Testnet Balance
-    </div>
-
-  </div>
-
-
-  <!-- MINING SESSION -->
-
-  <div class="card">
-
-    <h3>⛏️ Mining Session</h3>
-
-    <div
-      class="big-number"
-      id="session">
-      0.00 AMT
-    </div>
-
-    <div class="sub">
-      Mining rate: 0.25 AMT per hour
-    </div>
-
-    <button
-      class="mine-btn"
-      id="mineBtn"
-      onclick="toggleMining()">
-      ▶ START MINING
-    </button>
-
-  </div>
-
-
-  <!-- NETWORK -->
-
-  <div class="card">
-
-    <h3>🌐 Network</h3>
-
-    <div class="big-number">
-      TESTNET
-    </div>
-
-    <div class="sub">
-      AMT Music Mining Token
-    </div>
-
-  </div>
-
-
-  <div class="notice">
-    ⚠️ This interface is for AMT Testnet demonstration only.
-    No real blockchain mining or financial transaction is performed.
-  </div>
-
+<div class="network">
+    🧪 AMT TESTNET / SANDBOX
 </div>
 
+<div class="message" id="message"></div>
 
-<!-- BOTTOM NAVIGATION -->
+<section class="machine-wrap">
+    <div class="core">
+        <div class="core-inner">
+            <div class="core-title">
+                ⚡ AMT CORE
+            </div>
+
+            <div id="miningStatus">
+                Mining Offline
+            </div>
+
+            <div id="miningRate">
+                0.25 AMT / H
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+
+    <div class="card">
+        <span>AMT BALANCE</span>
+        <strong id="balance">0.0000</strong>
+    </div>
+
+    <div class="card">
+        <span>TODAY MINED</span>
+        <strong id="todayReward">0.0000</strong>
+    </div>
+
+    <div class="card">
+        <span>REFERRALS</span>
+        <strong id="referrals">0</strong>
+    </div>
+
+    <div class="card">
+        <span>REPUTATION</span>
+        <strong id="reputation">0</strong>
+    </div>
+
+</section>
+
+<section class="controls">
+
+    <button
+        class="mine-btn"
+        id="startMiningBtn"
+    >
+        ⛏️ START MINING
+    </button>
+
+    <button
+        class="mine-btn"
+        id="stopMiningBtn"
+    >
+        ⏹ STOP
+    </button>
+
+</section>
+
+<section class="claim-area">
+
+    <button
+        id="claimBtn"
+        disabled
+    >
+        💎 CLAIM 0.25 AMT
+    </button>
+
+</section>
+
+<section class="info">
+
+    <div class="info-box">
+
+        <b>AMT Tokenomics</b><br><br>
+
+        Maximum Supply:
+        <b>40,000,000 AMT</b><br>
+
+        Mining Rate:
+        <b>0.25 AMT / hour</b><br>
+
+        Daily Mining Limit:
+        <b>6 AMT</b><br>
+
+        Referrals:
+        <b>Unlimited</b><br>
+
+        Referral Code:
+        <b>Pi Pioneer Username</b><br><br>
+
+        ⚠️ This application is currently
+        <b>Testnet / Sandbox</b>.
+
+        Testnet balances and rewards do not represent
+        Mainnet value.
+
+    </div>
+
+</section>
 
 <nav>
 
-  <button
-    class="nav-btn active"
-    onclick="go('index.html')">
-    ⛏️<br>Mining
-  </button>
+    <a href="index.html">⛏️<br>Mining</a>
 
-  <button
-    class="nav-btn"
-    onclick="go('wallet.html')">
-    💳<br>Wallet
-  </button>
+    <a href="wallet.html">💳<br>Wallet</a>
 
-  <button
-    class="nav-btn"
-    onclick="go('referral.html')">
-    👥<br>Referral
-  </button>
+    <a href="referral.html">👥<br>Referral</a>
 
-  <button
-    class="nav-btn"
-    onclick="go('chat.html')">
-    💬<br>Chat
-  </button>
+    <a href="chat.html">💬<br>Chat</a>
 
-  <button
-    class="nav-btn"
-    onclick="go('profile.html')">
-    👤<br>Profile
-  </button>
+    <a href="profile.html">👤<br>Profile</a>
 
-  <button
-    class="nav-btn"
-    onclick="go('reward.html')">
-    🎁<br>Reward
-  </button>
+    <a href="reward.html">🎁<br>Reward</a>
 
-  <button
-    class="nav-btn"
-    onclick="go('marketplace.html')">
-    🛒<br>Market
-  </button>
+    <a href="marketplace.html">🛒<br>Market</a>
 
 </nav>
 
-
 <script>
 
-  // =========================
-  // USERNAME
-  // =========================
+"use strict";
 
-  const username =
-    localStorage.getItem("piUser") ||
-    localStorage.getItem("username") ||
-    "Pioneer";
+/*
+ * ============================================================
+ * AMT MUSIC MINING
+ * Pi Login + Backend Connection
+ * ============================================================
+ */
 
-  document.getElementById("username").textContent =
-    "👤 " + username;
+const API_URL =
+    "https://amtmusicapp09-github-io.onrender.com";
 
+/*
+ * Pi SDK initialization
+ */
 
-  // =========================
-  // NAVIGATION
-  // =========================
+try {
 
-  function go(page){
-    window.location.href = page;
-  }
+    Pi.init({
+        version: "2.0",
+        sandbox: true
+    });
 
+} catch (error) {
 
-  // =========================
-  // BALANCE
-  // =========================
-
-  let balance =
-    Number(
-      localStorage.getItem("amtBalance") || 0
+    console.error(
+        "Pi SDK initialization error:",
+        error
     );
 
-  document.getElementById("balance").textContent =
-    balance.toFixed(2) + " AMT";
+}
 
+/*
+ * Elements
+ */
 
-  // =========================
-  // MINING
-  // =========================
+const loginBtn =
+    document.getElementById("loginBtn");
 
-  let mining = false;
+const logoutBtn =
+    document.getElementById("logoutBtn");
 
-  let sessionAmount = 0;
+const pioneerName =
+    document.getElementById("pioneerName");
 
-  let miningTimer = null;
+const balanceEl =
+    document.getElementById("balance");
 
-  const miningRatePerHour = 0.25;
+const todayRewardEl =
+    document.getElementById("todayReward");
 
-  const miningPerSecond =
-    miningRatePerHour / 3600;
+const referralsEl =
+    document.getElementById("referrals");
 
+const reputationEl =
+    document.getElementById("reputation");
 
-  function updateDisplay(){
+const miningStatusEl =
+    document.getElementById("miningStatus");
 
-    document.getElementById("balance").textContent =
-      balance.toFixed(4) + " AMT";
+const startMiningBtn =
+    document.getElementById("startMiningBtn");
 
-    document.getElementById("session").textContent =
-      sessionAmount.toFixed(4) + " AMT";
+const stopMiningBtn =
+    document.getElementById("stopMiningBtn");
 
-  }
+const claimBtn =
+    document.getElementById("claimBtn");
 
+const messageEl =
+    document.getElementById("message");
 
-  function toggleMining(){
+/*
+ * Session token
+ *
+ * We keep the AMT backend session locally so
+ * the Pioneer can navigate between pages.
+ */
 
-    const button =
-      document.getElementById("mineBtn");
+function getSessionToken() {
 
+    return localStorage.getItem(
+        "amtSessionToken"
+    );
 
-    if(!mining){
+}
 
-      mining = true;
+function setSessionToken(token) {
 
-      button.textContent =
-        "⏹ STOP MINING";
+    localStorage.setItem(
+        "amtSessionToken",
+        token
+    );
 
-      miningTimer =
-        setInterval(() => {
+}
 
-          const earned =
-            miningPerSecond;
+function clearSession() {
 
-          sessionAmount += earned;
+    localStorage.removeItem(
+        "amtSessionToken"
+    );
 
-          balance += earned;
+    localStorage.removeItem(
+        "piUser"
+    );
 
-          localStorage.setItem(
-            "amtBalance",
-            balance.toString()
-          );
+    localStorage.removeItem(
+        "username"
+    );
 
-          localStorage.setItem(
-            "amtMiningEarned",
-            (
-              Number(
-                localStorage.getItem(
-                  "amtMiningEarned"
-                ) || 0
-              ) + earned
-            ).toString()
-          );
+}
 
-          updateDisplay();
+/*
+ * Message
+ */
 
-        },1000);
+function showMessage(text) {
 
-    }else{
+    messageEl.textContent = text;
 
-      mining = false;
+}
 
-      clearInterval(miningTimer);
+/*
+ * Backend request
+ */
 
-      miningTimer = null;
+async function apiRequest(
+    endpoint,
+    options = {}
+) {
 
-      button.textContent =
-        "▶ START MINING";
+    const headers = {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+    };
+
+    const token =
+        getSessionToken();
+
+    if (token) {
+
+        headers.Authorization =
+            `Bearer ${token}`;
 
     }
 
-  }
+    const response =
+        await fetch(
+            API_URL + endpoint,
+            {
+                ...options,
+                headers
+            }
+        );
 
+    const data =
+        await response.json();
 
-  // =========================
-  // INITIAL DISPLAY
-  // =========================
+    if (!response.ok) {
 
-  updateDisplay();
+        throw new Error(
+            data.error ||
+            "AMT server request failed."
+        );
+
+    }
+
+    return data;
+
+}
+
+/*
+ * Pi Login
+ */
+
+async function loginWithPi() {
+
+    try {
+
+        loginBtn.disabled = true;
+
+        loginBtn.textContent =
+            "⏳ CONNECTING...";
+
+        showMessage(
+            "Connecting to Pi Account..."
+        );
+
+        const auth =
+            await Pi.authenticate(
+                ["username"],
+                onIncompletePaymentFound
+            );
+
+        if (
+            !auth ||
+            !auth.accessToken
+        ) {
+
+            throw new Error(
+                "Pi authentication did not return an access token."
+            );
+
+        }
+
+        showMessage(
+            "Verifying Pioneer with AMT server..."
+        );
+
+        const result =
+            await apiRequest(
+                "/api/auth/pi",
+                {
+                    method: "POST",
+
+                    body: JSON.stringify({
+                        accessToken:
+                            auth.accessToken
+                    })
+                }
+            );
+
+        setSessionToken(
+            result.sessionToken
+        );
+
+        localStorage.setItem(
+            "piUser",
+            result.user.username
+        );
+
+        localStorage.setItem(
+            "username",
+            result.user.username
+        );
+
+        updateUserDisplay(
+            result.user
+        );
+
+        showMessage(
+            "✅ Pi Pioneer login successful!"
+        );
+
+        await loadDashboard();
+
+    } catch (error) {
+
+        console.error(
+            "Pi login error:",
+            error
+        );
+
+        showMessage(
+            "❌ " + error.message
+        );
+
+    } finally {
+
+        loginBtn.disabled = false;
+
+        loginBtn.textContent =
+            "🔐 LOGIN WITH PI";
+
+    }
+
+}
+
+/*
+ * Pi incomplete payment callback
+ */
+
+function onIncompletePaymentFound(
+    payment
+) {
+
+    console.log(
+        "Incomplete Pi payment:",
+        payment
+    );
+
+}
+
+/*
+ * User display
+ */
+
+function updateUserDisplay(
+    user
+) {
+
+    if (!user) {
+        return;
+    }
+
+    pioneerName.textContent =
+        "👤 Pioneer: " +
+        user.username;
+
+    loginBtn.style.display =
+        "none";
+
+    logoutBtn.style.display =
+        "inline-block";
+
+    balanceEl.textContent =
+        Number(
+            user.balance || 0
+        ).toFixed(4);
+
+    referralsEl.textContent =
+        user.referrals || 0;
+
+    reputationEl.textContent =
+        user.reputation || 0;
+
+}
+
+/*
+ * Load dashboard
+ */
+
+async function loadDashboard() {
+
+    const token =
+        getSessionToken();
+
+    if (!token) {
+
+        pioneerName.textContent =
+            "Pi Pioneer not logged in";
+
+        loginBtn.style.display =
+            "inline-block";
+
+        logoutBtn.style.display =
+            "none";
+
+        return;
+
+    }
+
+    try {
+
+        const user =
+            await apiRequest(
+                "/api/user"
+            );
+
+        updateUserDisplay(
+            user.user
+        );
+
+        const mining =
+            await apiRequest(
+                "/api/mining/status"
+            );
+
+        updateMiningDisplay(
+            mining.mining
+        );
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+        clearSession();
+
+        pioneerName.textContent =
+            "Pi Pioneer not logged in";
+
+        loginBtn.style.display =
+            "inline-block";
+
+        logoutBtn.style.display =
+            "none";
+
+        showMessage(
+            "Session expired. Please login again."
+        );
+
+    }
+
+}
+
+/*
+ * Mining display
+ */
+
+function updateMiningDisplay(
+    mining
+) {
+
+    if (!mining) {
+        return;
+    }
+
+    balanceEl.textContent =
+        balanceEl.textContent || "0.0000";
+
+    todayRewardEl.textContent =
+        Number(
+            mining.todayReward || 0
+        ).toFixed(4);
+
+    if (mining.active) {
+
+        miningStatusEl.textContent =
+            "🟢 Mining Active";
+
+        claimBtn.disabled =
+            false;
+
+        startMiningBtn.disabled =
+            true;
+
+        stopMiningBtn.disabled =
+            false;
+
+    } else {
+
+        miningStatusEl.textContent =
+            "⚪ Mining Offline";
+
+        claimBtn.disabled =
+            true;
+
+        startMiningBtn.disabled =
+            false;
+
+        stopMiningBtn.disabled =
+            true;
+
+    }
+
+}
+
+/*
+ * Refresh wallet
+ */
+
+async function refreshWallet() {
+
+    try {
+
+        const result =
+            await apiRequest(
+                "/api/wallet"
+            );
+
+        balanceEl.textContent =
+            Number(
+                result.wallet.balance
+            ).toFixed(4);
+
+    } catch (error) {
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+/*
+ * Start mining
+ */
+
+async function startMining() {
+
+    try {
+
+        startMiningBtn.disabled =
+            true;
+
+        showMessage(
+            "Starting AMT mining..."
+        );
+
+        const result =
+            await apiRequest(
+                "/api/mining/start",
+                {
+                    method: "POST"
+                }
+            );
+
+        updateMiningDisplay(
+            result.mining
+        );
+
+        showMessage(
+            "⛏️ AMT mining started!"
+        );
+
+    } catch (error) {
+
+        showMessage(
+            "❌ " + error.message
+        );
+
+        startMiningBtn.disabled =
+            false;
+
+    }
+
+}
+
+/*
+ * Stop mining
+ */
+
+async function stopMining() {
+
+    try {
+
+        const result =
+            await apiRequest(
+                "/api/mining/stop",
+                {
+                    method: "POST"
+                }
+            );
+
+        updateMiningDisplay(
+            result.mining
+        );
+
+        showMessage(
+            "Mining paused."
+        );
+
+    } catch (error) {
+
+        showMessage(
+            "❌ " + error.message
+        );
+
+    }
+
+}
+
+/*
+ * Claim mining reward
+ */
+
+async function claimMining() {
+
+    try {
+
+        claimBtn.disabled =
+            true;
+
+        showMessage(
+            "Recording mining reward..."
+        );
+
+        const result =
+            await apiRequest(
+                "/api/mining/claim",
+                {
+                    method: "POST"
+                }
+            );
+
+        balanceEl.textContent =
+            Number(
+                result.wallet.balance
+            ).toFixed(4);
+
+        todayRewardEl.textContent =
+            Number(
+                result.mining.todayReward
+            ).toFixed(4);
+
+        showMessage(
+            "💎 +" +
+            Number(result.reward).toFixed(4) +
+            " AMT recorded!"
+        );
+
+        await loadDashboard();
+
+    } catch (error) {
+
+        showMessage(
+            "❌ " + error.message
+        );
+
+        await loadDashboard();
+
+    }
+
+}
+
+/*
+ * Logout
+ */
+
+async function logout() {
+
+    try {
+
+        await apiRequest(
+            "/api/auth/logout",
+            {
+                method: "POST"
+            }
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Logout request:",
+            error
+        );
+
+    }
+
+    clearSession();
+
+    pioneerName.textContent =
+        "Pi Pioneer not logged in";
+
+    loginBtn.style.display =
+        "inline-block";
+
+    logoutBtn.style.display =
+        "none";
+
+    balanceEl.textContent =
+        "0.0000";
+
+    todayRewardEl.textContent =
+        "0.0000";
+
+    referralsEl.textContent =
+        "0";
+
+    reputationEl.textContent =
+        "0";
+
+    miningStatusEl.textContent =
+        "Mining Offline";
+
+    claimBtn.disabled =
+        true;
+
+    startMiningBtn.disabled =
+        false;
+
+    stopMiningBtn.disabled =
+        true;
+
+    showMessage(
+        "Logged out."
+    );
+
+}
+
+/*
+ * Button events
+ */
+
+loginBtn.addEventListener(
+    "click",
+    loginWithPi
+);
+
+logoutBtn.addEventListener(
+    "click",
+    logout
+);
+
+startMiningBtn.addEventListener(
+    "click",
+    startMining
+);
+
+stopMiningBtn.addEventListener(
+    "click",
+    stopMining
+);
+
+claimBtn.addEventListener(
+    "click",
+    claimMining
+);
+
+/*
+ * Initial load
+ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        stopMiningBtn.disabled =
+            true;
+
+        claimBtn.disabled =
+            true;
+
+        await loadDashboard();
+
+    }
+);
 
 </script>
 
