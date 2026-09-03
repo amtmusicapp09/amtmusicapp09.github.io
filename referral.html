@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMT Music Mining | Referral</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at top, #182b55 0%, #080b1c 45%, #03040c 100%);
+    }
+
+    .header {
+      padding: 22px 15px;
+      text-align: center;
+      background: rgba(4, 8, 25, 0.94);
+      border-bottom: 1px solid rgba(0, 234, 255, 0.35);
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.12);
+    }
+
+    .header h1 {
+      color: #00eaff;
+      font-size: 24px;
+      text-shadow: 0 0 15px rgba(0, 234, 255, 0.7);
+    }
+
+    .header p {
+      margin-top: 7px;
+      color: #9da9c9;
+      font-size: 13px;
+    }
+
+    .container {
+      width: calc(100% - 28px);
+      max-width: 520px;
+      margin: 22px auto;
+    }
+
+    .hero-card {
+      padding: 28px 20px;
+      text-align: center;
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(18, 44, 91, 0.96),
+          rgba(17, 9, 50, 0.96)
+        );
+
+      border: 1px solid rgba(0, 234, 255, 0.4);
+
+      box-shadow:
+        0 0 35px rgba(0, 210, 255, 0.14),
+        inset 0 0 35px rgba(123, 44, 255, 0.08);
+    }
+
+    .hero-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0 0 12px rgba(0, 234, 255, 0.45));
+    }
+
+    .hero-card h2 {
+      font-size: 23px;
+      color: #fff;
+    }
+
+    .hero-card p {
+      margin-top: 8px;
+      color: #9da9c9;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .username-box {
+      margin-top: 22px;
+      padding: 18px 12px;
+      border-radius: 17px;
+
+      background: rgba(0, 234, 255, 0.06);
+      border: 1px solid rgba(0, 234, 255, 0.28);
+    }
+
+    .label {
+      color: #8290b5;
+      font-size: 11px;
+      margin-bottom: 8px;
+    }
+
+    .username {
+      color: #00f0ff;
+      font-size: 23px;
+      font-weight: bold;
+      word-break: break-word;
+      text-shadow: 0 0 12px rgba(0, 234, 255, 0.55);
+    }
+
+    .code-title {
+      margin-top: 24px;
+      color: #00eaff;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .code-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .code-input {
+      width: 100%;
+      min-width: 0;
+      padding: 14px 12px;
+      border-radius: 13px;
+
+      background: rgba(3, 8, 25, 0.9);
+      border: 1px solid rgba(123, 44, 255, 0.45);
+
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .copy-btn,
+    .share-btn {
+      border: 0;
+      border-radius: 13px;
+      padding: 14px 15px;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .copy-btn {
+      background: linear-gradient(135deg, #00cfff, #286cff);
+    }
+
+    .share-btn {
+      width: 100%;
+      margin-top: 12px;
+      background: linear-gradient(135deg, #7b2cff, #c52cff);
+    }
+
+    .copy-btn:active,
+    .share-btn:active {
+      transform: scale(0.97);
+    }
+
+    .section-title {
+      margin: 23px 0 12px;
+      color: #00eaff;
+      font-size: 17px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 19px 10px;
+      text-align: center;
+      border-radius: 17px;
+
+      background: rgba(10, 19, 46, 0.86);
+      border: 1px solid rgba(123, 44, 255, 0.3);
+    }
+
+    .stat-icon {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #8f9aba;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card strong {
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .join-card {
+      padding: 20px 15px;
+      border-radius: 19px;
+
+      background: rgba(10, 19, 46, 0.86);
+      border: 1px solid rgba(0, 234, 255, 0.2);
+    }
+
+    .join-card p {
+      color: #9da9c9;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .join-input {
+      width: 100%;
+      margin-top: 13px;
+      padding: 14px;
+
+      border-radius: 13px;
+      border: 1px solid rgba(0, 234, 255, 0.25);
+
+      background: rgba(3, 8, 25, 0.9);
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .join-btn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+
+      border: 0;
+      border-radius: 13px;
+
+      background: linear-gradient(135deg, #00d9ff, #7b2cff);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .join-status {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid rgba(0, 255, 157, 0.25);
+      color: #00ffae;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+
+      color: #aeb9d5;
+      font-size: 11px;
+      line-height: 1.5;
+
+      background: rgba(123, 44, 255, 0.07);
+      border: 1px solid rgba(123, 44, 255, 0.2);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      padding: 9px 3px;
+
+      background: rgba(3, 6, 18, 0.97);
+      border-top: 1px solid rgba(0, 234, 255, 0.3);
+      box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-btn {
+      min-width: 45px;
+      border: 0;
+      background: transparent;
+      color: #8290b5;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .nav-btn .icon {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 20px;
+    }
+
+    .nav-btn.active {
+      color: #00eaff;
+      text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
+    }
+
+    @media (max-width: 380px) {
+      .nav-btn {
+        min-width: 40px;
+        font-size: 9px;
+      }
+
+      .nav-btn .icon {
+        font-size: 18px;
+      }
+
+      .code-box {
+        flex-direction: column;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>👥 AMT REFERRAL</h1>
+    <p>AMT Music Mining Token</p>
+  </header>
+
+
+  <main class="container">
+
+    <!-- REFERRAL HERO -->
+
+    <section class="hero-card">
+
+      <div class="hero-icon">👥</div>
+
+      <h2>Invite New Pioneers</h2>
+
+      <p>
+        Share your Pi username with other Pioneers
+        so they can join your referral network.
+      </p>
+
+
+      <div class="username-box">
+
+        <div class="label">
+          YOUR PI USERNAME
+        </div>
+
+        <div
+          class="username"
+          id="myUsername"
+        >
+          Pioneer
+        </div>
+
+      </div>
+
+
+      <div class="code-title">
+        🔗 Your Shared Referral Code
+      </div>
+
+      <div class="code-box">
+
+        <input
+          id="referralCode"
+          class="code-input"
+          type="text"
+          readonly
+        >
+
+        <button
+          class="copy-btn"
+          onclick="copyReferralCode()"
+        >
+          📋 Copy
+        </button>
+
+      </div>
+
+
+      <button
+        class="share-btn"
+        onclick="shareReferral()"
+      >
+        📤 Share My Referral
+      </button>
+
+    </section>
+
+
+    <!-- REFERRAL STATS -->
+
+    <div class="section-title">
+      📊 Referral Statistics
+    </div>
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">👤</div>
+        <span>Total Referrals</span>
+        <strong id="referralCount">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⚡</div>
+        <span>Referral Earnings</span>
+        <strong id="referralEarnings">0.00</strong>
+      </div>
+
+    </section>
+
+
+    <!-- ENTER SHARED CODE -->
+
+    <div class="section-title">
+      🔗 Join a Pioneer Referral
+    </div>
+
+    <section class="join-card">
+
+      <p>
+        If another Pioneer shared their Pi username
+        with you, enter that username below.
+      </p>
+
+      <input
+        id="sharedCodeInput"
+        class="join-input"
+        type="text"
+        placeholder="Enter Pioneer Pi username"
+        autocomplete="off"
+      >
+
+      <button
+        class="join-btn"
+        onclick="saveReferral()"
+      >
+        ✅ Use Shared Code
+      </button>
+
+      <div
+        id="joinStatus"
+        class="join-status"
+      ></div>
+
+    </section>
+
+
+    <div class="notice">
+      🟢 <strong>AMT TESTNET</strong><br>
+      The referral relationship is currently stored
+      locally for testnet development. Pi wallet
+      passphrases are never requested.
+    </div>
+
+  </main>
+
+
+  <!-- BOTTOM NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-btn" onclick="go('index.html')">
+      <span class="icon">⛏️</span>
+      Mining
+    </button>
+
+    <button class="nav-btn" onclick="go('wallet.html')">
+      <span class="icon">💳</span>
+      Wallet
+    </button>
+
+    <button class="nav-btn active" onclick="go('referral.html')">
+      <span class="icon">👥</span>
+      Referral
+    </button>
+
+    <button class="nav-btn" onclick="go('chat.html')">
+      <span class="icon">💬</span>
+      Chat
+    </button>
+
+    <button class="nav-btn" onclick="go('profile.html')">
+      <span class="icon">👤</span>
+      Profile
+    </button>
+
+    <button class="nav-btn" onclick="go('reward.html')">
+      <span class="icon">🎁</span>
+      Reward
+    </button>
+
+    <button class="nav-btn" onclick="go('marketplace.html')">
+      <span class="icon">🛒</span>
+      Market
+    </button>
+
+  </nav>
+
+
+  <script>
+
+    // ==========================================
+    // GET CURRENT PI USERNAME
+    // ==========================================
+
+    const myUsername =
+      localStorage.getItem("piUser") ||
+      localStorage.getItem("username") ||
+      "Pioneer";
+
+
+    document.getElementById("myUsername").textContent =
+      myUsername;
+
+
+    // ==========================================
+    // PI USERNAME = SHARED REFERRAL CODE
+    // ==========================================
+
+    document.getElementById("referralCode").value =
+      myUsername;
+
+
+    // ==========================================
+    // LOAD REFERRAL DATA
+    // ==========================================
+
+    let referrals =
+      JSON.parse(
+        localStorage.getItem("amtReferrals") || "[]"
+      );
+
+    let referralEarnings =
+      parseFloat(
+        localStorage.getItem("amtReferralEarned") || "0"
+      );
+
+
+    document.getElementById("referralCount").textContent =
+      referrals.length;
+
+    document.getElementById("referralEarnings").textContent =
+      referralEarnings.toFixed(2) + " AMT";
+
+
+    // ==========================================
+    // COPY REFERRAL CODE
+    // ==========================================
+
+    async function copyReferralCode() {
+
+      const code =
+        document.getElementById("referralCode").value;
+
+      try {
+
+        await navigator.clipboard.writeText(code);
+
+        alert(
+          "Referral code copied: " + code
+        );
+
+      } catch (error) {
+
+        const input =
+          document.getElementById("referralCode");
+
+        input.select();
+
+        document.execCommand("copy");
+
+        alert(
+          "Referral code copied: " + code
+        );
+
+      }
+    }
+
+
+    // ==========================================
+    // SHARE REFERRAL
+    // ==========================================
+
+    async function shareReferral() {
+
+      const code =
+        document.getElementById("referralCode").value;
+
+      const shareText =
+        "Join AMT Music Mining! My Pioneer referral code is: " +
+        code;
+
+      if (navigator.share) {
+
+        try {
+
+          await navigator.share({
+            title: "AMT Music Mining",
+            text: shareText
+          });
+
+        } catch (error) {
+
+          console.log("Share cancelled.");
+
+        }
+
+      } else {
+
+        try {
+
+          await navigator.clipboard.writeText(
+            shareText
+          );
+
+          alert(
+            "Referral message copied. You can paste it in your message app."
+          );
+
+        } catch (error) {
+
+          alert(shareText);
+
+        }
+
+      }
+    }
+
+
+    // ==========================================
+    // SAVE SHARED CODE
+    // ==========================================
+
+    function saveReferral() {
+
+      const input =
+        document.getElementById("sharedCodeInput");
+
+      const sharedCode =
+        input.value.trim();
+
+      const status =
+        document.getElementById("joinStatus");
+
+
+      if (!sharedCode) {
+
+        alert(
+          "Please enter a Pioneer Pi username."
+        );
+
+        return;
+      }
+
+
+      // Prevent self-referral
+
+      if (
+        sharedCode.toLowerCase() ===
+        myUsername.toLowerCase()
+      ) {
+
+        alert(
+          "You cannot use your own username as your referral code."
+        );
+
+        return;
+      }
+
+
+      // Save the Pioneer who referred this user
+
+      localStorage.setItem(
+        "amtReferredBy",
+        sharedCode
+      );
+
+
+      status.style.display = "block";
+
+      status.textContent =
+        "✅ Referral saved: " + sharedCode;
+
+      input.value = "";
+
+    }
+
+
+    // ==========================================
+    // NAVIGATION
+    // ==========================================
+
+    function go(page) {
+      window.location.href = page;
+    }
+
+  </script>
+
+</body>
+</html>
