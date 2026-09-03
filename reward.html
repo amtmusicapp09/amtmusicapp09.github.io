@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMT Rewards | Testnet</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      min-height:100vh;
+      font-family:Arial,sans-serif;
+      color:#fff;
+      background:
+        radial-gradient(circle at top,#182c70 0%,#080b24 42%,#03040d 100%);
+      padding-bottom:90px;
+    }
+
+    header{
+      padding:22px 16px;
+      text-align:center;
+      background:linear-gradient(135deg,#101d55,#39106d);
+      border-bottom:1px solid #45eaff;
+      box-shadow:0 0 20px rgba(0,220,255,.25);
+    }
+
+    header h1{
+      font-size:25px;
+      letter-spacing:1px;
+    }
+
+    #username{
+      margin-top:7px;
+      color:#70efff;
+      font-size:14px;
+    }
+
+    .container{
+      width:94%;
+      max-width:700px;
+      margin:20px auto;
+    }
+
+    .testnet{
+      text-align:center;
+      padding:10px;
+      margin-bottom:16px;
+      border:1px solid #00eaff;
+      border-radius:12px;
+      background:rgba(0,220,255,.08);
+      color:#65efff;
+      font-size:13px;
+    }
+
+    .reward-card{
+      margin-bottom:15px;
+      padding:20px;
+      border:1px solid rgba(86,220,255,.5);
+      border-radius:18px;
+      background:rgba(12,18,55,.88);
+      box-shadow:0 0 18px rgba(0,180,255,.12);
+    }
+
+    .reward-card h2{
+      font-size:19px;
+      margin-bottom:8px;
+    }
+
+    .reward-card p{
+      color:#b9c9e8;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .amount{
+      margin:14px 0;
+      font-size:27px;
+      font-weight:bold;
+      color:#6ff5ff;
+    }
+
+    button{
+      width:100%;
+      padding:13px;
+      border:0;
+      border-radius:12px;
+      font-weight:bold;
+      cursor:pointer;
+      color:#06101d;
+      background:linear-gradient(90deg,#5df3ff,#8c7cff);
+    }
+
+    button:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+    }
+
+    .history-title{
+      margin:25px 0 12px;
+      font-size:20px;
+    }
+
+    #history{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .history-item{
+      padding:13px;
+      border-radius:12px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+    }
+
+    .history-item strong{
+      color:#6ff5ff;
+    }
+
+    .empty{
+      padding:18px;
+      text-align:center;
+      color:#8795b5;
+      border:1px dashed #425071;
+      border-radius:12px;
+    }
+
+    nav{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index:100;
+      display:flex;
+      overflow-x:auto;
+      background:rgba(4,7,22,.97);
+      border-top:1px solid #35dfff;
+      box-shadow:0 -5px 20px rgba(0,220,255,.15);
+    }
+
+    .nav-btn{
+      min-width:85px;
+      padding:9px 5px;
+      background:transparent;
+      color:#aebcdf;
+      border-radius:0;
+      font-size:11px;
+      border-right:1px solid rgba(255,255,255,.06);
+    }
+
+    .nav-btn.active{
+      color:#65efff;
+      background:rgba(0,220,255,.08);
+    }
+
+    .small{
+      margin-top:8px;
+      font-size:12px !important;
+      color:#7383a7 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🎁 AMT REWARDS</h1>
+  <div id="username">👤 Pioneer</div>
+</header>
+
+<div class="container">
+
+  <div class="testnet">
+    🟢 AMT TESTNET — Rewards shown here are local test rewards.
+  </div>
+
+  <!-- DAILY REWARD -->
+  <div class="reward-card">
+    <h2>🎁 Daily Mining Reward</h2>
+    <p>Claim your daily AMT test reward once every 24 hours.</p>
+
+    <div class="amount">+10.00 AMT</div>
+
+    <button id="dailyBtn" onclick="claimDailyReward()">
+      Claim Daily Reward
+    </button>
+
+    <p class="small" id="dailyStatus">
+      Ready for test claim.
+    </p>
+  </div>
+
+  <!-- PIONEER BONUS -->
+  <div class="reward-card">
+    <h2>⚡ Pioneer Bonus</h2>
+    <p>
+      Test reward for Pioneer participation in the AMT Music Mining ecosystem.
+    </p>
+
+    <div class="amount">+5.00 AMT</div>
+
+    <button onclick="testReward('Pioneer Bonus',5)">
+      Test Claim
+    </button>
+  </div>
+
+  <!-- REFERRAL REWARD -->
+  <div class="reward-card">
+    <h2>👥 Referral Reward</h2>
+    <p>
+      Test reward connected to your local referral activity.
+    </p>
+
+    <div class="amount">+3.00 AMT</div>
+
+    <button onclick="testReward('Referral Reward',3)">
+      Test Claim
+    </button>
+  </div>
+
+  <!-- ACHIEVEMENT -->
+  <div class="reward-card">
+    <h2>🏆 Achievement Reward</h2>
+    <p>
+      Test reward for completing AMT mining achievements.
+    </p>
+
+    <div class="amount">+8.00 AMT</div>
+
+    <button onclick="testReward('Achievement Reward',8)">
+      Test Claim
+    </button>
+  </div>
+
+  <h2 class="history-title">📊 Reward History</h2>
+
+  <div id="history"></div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav>
+
+  <button class="nav-btn" onclick="go('index.html')">
+    ⛏️<br>Mining
+  </button>
+
+  <button class="nav-btn" onclick="go('wallet.html')">
+    💳<br>Wallet
+  </button>
+
+  <button class="nav-btn" onclick="go('referral.html')">
+    👥<br>Referral
+  </button>
+
+  <button class="nav-btn" onclick="go('chat.html')">
+    💬<br>Chat
+  </button>
+
+  <button class="nav-btn" onclick="go('profile.html')">
+    👤<br>Profile
+  </button>
+
+  <button class="nav-btn active">
+    🎁<br>Reward
+  </button>
+
+  <button class="nav-btn" onclick="go('marketplace.html')">
+    🛒<br>Market
+  </button>
+
+</nav>
+
+<script>
+
+  // =========================
+  // USER
+  // =========================
+
+  const username =
+    localStorage.getItem("piUser") ||
+    localStorage.getItem("username") ||
+    "Pioneer";
+
+  document.getElementById("username").textContent =
+    "👤 " + username;
+
+
+  // =========================
+  // NAVIGATION
+  // =========================
+
+  function go(page){
+    window.location.href = page;
+  }
+
+
+  // =========================
+  // STORAGE
+  // =========================
+
+  function getNumber(key){
+    return Number(localStorage.getItem(key) || 0);
+  }
+
+  function setNumber(key,value){
+    localStorage.setItem(key,String(value));
+  }
+
+
+  // =========================
+  // ADD TEST REWARD
+  // =========================
+
+  function addReward(title,amount){
+
+    const currentRewards = getNumber("amtRewards");
+
+    setNumber(
+      "amtRewards",
+      currentRewards + amount
+    );
+
+    const currentBalance = getNumber("amtBalance");
+
+    setNumber(
+      "amtBalance",
+      currentBalance + amount
+    );
+
+    const history =
+      JSON.parse(
+        localStorage.getItem("amtRewardHistory") || "[]"
+      );
+
+    history.unshift({
+      title:title,
+      amount:amount,
+      time:new Date().toLocaleString()
+    });
+
+    localStorage.setItem(
+      "amtRewardHistory",
+      JSON.stringify(history)
+    );
+
+    renderHistory();
+  }
+
+
+  // =========================
+  // TEST REWARD
+  // =========================
+
+  function testReward(title,amount){
+
+    addReward(title,amount);
+
+    alert(
+      "🎁 Test Reward Added!\n\n" +
+      "+" + amount.toFixed(2) + " AMT\n\n" +
+      "AMT Testnet Demo"
+    );
+  }
+
+
+  // =========================
+  // DAILY REWARD
+  // =========================
+
+  function claimDailyReward(){
+
+    const lastClaim =
+      Number(
+        localStorage.getItem("amtDailyRewardClaimed") || 0
+      );
+
+    const now = Date.now();
+
+    const cooldown = 24 * 60 * 60 * 1000;
+
+    if(lastClaim && now - lastClaim < cooldown){
+
+      const remaining =
+        cooldown - (now - lastClaim);
+
+      const hours =
+        Math.ceil(remaining / (60 * 60 * 1000));
+
+      document.getElementById("dailyStatus").textContent =
+        "⏳ Daily reward available again in about " +
+        hours +
+        " hour(s).";
+
+      return;
+    }
+
+    const reward = 10;
+
+    addReward(
+      "Daily Mining Reward",
+      reward
+    );
+
+    localStorage.setItem(
+      "amtDailyRewardClaimed",
+      String(now)
+    );
+
+    document.getElementById("dailyStatus").textContent =
+      "✅ Daily test reward claimed.";
+
+    updateDailyButton();
+
+    alert(
+      "🎁 Daily Reward Claimed!\n\n" +
+      "+10.00 AMT\n\n" +
+      "AMT Testnet Demo"
+    );
+  }
+
+
+  // =========================
+  // DAILY BUTTON STATUS
+  // =========================
+
+  function updateDailyButton(){
+
+    const lastClaim =
+      Number(
+        localStorage.getItem("amtDailyRewardClaimed") || 0
+      );
+
+    const button =
+      document.getElementById("dailyBtn");
+
+    const status =
+      document.getElementById("dailyStatus");
+
+    if(!lastClaim){
+      button.disabled = false;
+      button.textContent =
+        "Claim Daily Reward";
+      status.textContent =
+        "Ready for test claim.";
+      return;
+    }
+
+    const cooldown =
+      24 * 60 * 60 * 1000;
+
+    const remaining =
+      cooldown - (Date.now() - lastClaim);
+
+    if(remaining <= 0){
+
+      button.disabled = false;
+      button.textContent =
+        "Claim Daily Reward";
+
+      status.textContent =
+        "🎁 Daily reward is ready.";
+
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent =
+      "Reward Already Claimed";
+
+    const hours =
+      Math.ceil(
+        remaining / (60 * 60 * 1000)
+      );
+
+    status.textContent =
+      "⏳ Available again in about " +
+      hours +
+      " hour(s).";
+  }
+
+
+  // =========================
+  // HISTORY
+  // =========================
+
+  function renderHistory(){
+
+    const historyBox =
+      document.getElementById("history");
+
+    const history =
+      JSON.parse(
+        localStorage.getItem("amtRewardHistory") || "[]"
+      );
+
+    historyBox.innerHTML = "";
+
+    if(history.length === 0){
+
+      historyBox.innerHTML =
+        '<div class="empty">' +
+        'No rewards claimed yet.' +
+        '</div>';
+
+      return;
+    }
+
+    history.slice(0,20).forEach(item => {
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "history-item";
+
+      div.innerHTML =
+        "<strong>+" +
+        Number(item.amount).toFixed(2) +
+        " AMT</strong><br>" +
+        item.title +
+        "<br><small>" +
+        item.time +
+        "</small>";
+
+      historyBox.appendChild(div);
+
+    });
+  }
+
+
+  // =========================
+  // START
+  // =========================
+
+  renderHistory();
+  updateDailyButton();
+
+  setInterval(
+    updateDailyButton,
+    60000
+  );
+
+</script>
+
+</body>
+</html>
