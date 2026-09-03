@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMT Music Mining | Wallet</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      padding-bottom: 90px;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at top, #172b58 0%, #080b1d 45%, #03040c 100%);
+    }
+
+    .header {
+      padding: 22px 15px;
+      text-align: center;
+      background: rgba(4, 8, 25, 0.92);
+      border-bottom: 1px solid rgba(0, 234, 255, 0.35);
+      box-shadow: 0 0 25px rgba(0, 200, 255, 0.12);
+    }
+
+    .header h1 {
+      color: #00eaff;
+      font-size: 24px;
+      text-shadow: 0 0 15px rgba(0, 234, 255, 0.7);
+    }
+
+    .header p {
+      margin-top: 7px;
+      color: #9da9c9;
+      font-size: 13px;
+    }
+
+    .container {
+      width: calc(100% - 28px);
+      max-width: 520px;
+      margin: 22px auto;
+    }
+
+    .balance-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(18, 44, 91, 0.96),
+          rgba(17, 9, 50, 0.96)
+        );
+
+      border: 1px solid rgba(0, 234, 255, 0.4);
+
+      box-shadow:
+        0 0 35px rgba(0, 210, 255, 0.14),
+        inset 0 0 35px rgba(123, 44, 255, 0.08);
+    }
+
+    .balance-card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      top: -100px;
+      right: -70px;
+      border-radius: 50%;
+      background: rgba(0, 234, 255, 0.08);
+    }
+
+    .wallet-icon {
+      font-size: 48px;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 12px rgba(0, 234, 255, 0.5));
+    }
+
+    .balance-label {
+      color: #9da9c9;
+      font-size: 13px;
+    }
+
+    .balance {
+      margin-top: 7px;
+      color: #00f0ff;
+      font-size: 38px;
+      font-weight: bold;
+      text-shadow: 0 0 18px rgba(0, 234, 255, 0.65);
+    }
+
+    .currency {
+      color: #fff;
+      font-size: 15px;
+      margin-left: 5px;
+    }
+
+    .network {
+      display: inline-block;
+      margin-top: 13px;
+      padding: 7px 13px;
+      border-radius: 20px;
+
+      background: rgba(0, 255, 157, 0.08);
+      border: 1px solid rgba(0, 255, 157, 0.3);
+
+      color: #00ffae;
+      font-size: 12px;
+    }
+
+    .section-title {
+      margin: 23px 0 12px;
+      color: #00eaff;
+      font-size: 17px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat-card {
+      padding: 18px 12px;
+      text-align: center;
+      border-radius: 17px;
+
+      background: rgba(10, 19, 46, 0.86);
+      border: 1px solid rgba(123, 44, 255, 0.3);
+    }
+
+    .stat-icon {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: #8f9aba;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card strong {
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      padding: 14px 8px;
+      border: 1px solid rgba(0, 234, 255, 0.3);
+      border-radius: 15px;
+      background: rgba(0, 234, 255, 0.06);
+      color: #00eaff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .action-btn:active {
+      transform: scale(0.97);
+    }
+
+    .transaction {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 15px;
+
+      background: rgba(10, 19, 46, 0.86);
+      border: 1px solid rgba(0, 234, 255, 0.18);
+    }
+
+    .transaction-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .transaction-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .transaction-date {
+      margin-top: 5px;
+      color: #7e8baa;
+      font-size: 10px;
+    }
+
+    .amount {
+      color: #00ffae;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .empty-message {
+      padding: 22px;
+      text-align: center;
+      color: #7885a5;
+      border: 1px dashed rgba(0, 234, 255, 0.2);
+      border-radius: 15px;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+
+      color: #b6c1df;
+      font-size: 11px;
+      line-height: 1.5;
+
+      background: rgba(123, 44, 255, 0.07);
+      border: 1px solid rgba(123, 44, 255, 0.2);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      padding: 9px 3px;
+
+      background: rgba(3, 6, 18, 0.97);
+      border-top: 1px solid rgba(0, 234, 255, 0.3);
+      box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .nav-btn {
+      min-width: 45px;
+      border: 0;
+      background: transparent;
+      color: #8290b5;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .nav-btn .icon {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 20px;
+    }
+
+    .nav-btn.active {
+      color: #00eaff;
+      text-shadow: 0 0 10px rgba(0, 234, 255, 0.8);
+    }
+
+    @media (max-width: 380px) {
+      .nav-btn {
+        min-width: 40px;
+        font-size: 9px;
+      }
+
+      .nav-btn .icon {
+        font-size: 18px;
+      }
+
+      .balance {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>💳 AMT WALLET</h1>
+    <p>AMT Music Mining Token</p>
+  </header>
+
+
+  <main class="container">
+
+    <!-- WALLET BALANCE -->
+
+    <section class="balance-card">
+
+      <div class="wallet-icon">💳</div>
+
+      <div class="balance-label">
+        Available AMT Balance
+      </div>
+
+      <div class="balance">
+        <span id="balance">0.00</span>
+        <span class="currency">AMT</span>
+      </div>
+
+      <div class="network">
+        🟢 AMT TESTNET
+      </div>
+
+    </section>
+
+
+    <!-- WALLET STATS -->
+
+    <div class="section-title">
+      📊 Wallet Statistics
+    </div>
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">⛏️</div>
+        <span>Mining Earned</span>
+        <strong id="miningEarned">0.00 AMT</strong>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🎁</div>
+        <span>Rewards</span>
+        <strong id="rewards">0.00 AMT</strong>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <span>Referral Earned</span>
+        <strong id="referralEarned">0.00 AMT</strong>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🛒</div>
+        <span>Marketplace</span>
+        <strong id="marketplaceSpent">0.00 AMT</strong>
+      </div>
+
+    </section>
+
+
+    <!-- WALLET ACTIONS -->
+
+    <div class="section-title">
+      ⚡ Wallet Actions
+    </div>
+
+    <section class="actions">
+
+      <button class="action-btn" onclick="comingSoon('Send')">
+        📤 Send
+      </button>
+
+      <button class="action-btn" onclick="comingSoon('Receive')">
+        📥 Receive
+      </button>
+
+      <button class="action-btn" onclick="comingSoon('Swap')">
+        🔄 Swap
+      </button>
+
+      <button class="action-btn" onclick="comingSoon('Withdraw')">
+        💸 Withdraw
+      </button>
+
+    </section>
+
+
+    <!-- TRANSACTIONS -->
+
+    <div class="section-title">
+      📜 Transaction History
+    </div>
+
+    <section id="transactions">
+
+      <div class="empty-message">
+        No transactions yet.
+        <br><br>
+        Your AMT testnet activity will appear here.
+      </div>
+
+    </section>
+
+
+    <div class="notice">
+      ⚠️ <strong>Testnet Wallet</strong><br>
+      This wallet screen is for AMT testnet development and testing.
+      No real-value transaction is being performed by this page.
+    </div>
+
+  </main>
+
+
+  <!-- BOTTOM NAVIGATION -->
+
+  <nav class="bottom-nav">
+
+    <button class="nav-btn" onclick="go('index.html')">
+      <span class="icon">⛏️</span>
+      Mining
+    </button>
+
+    <button class="nav-btn active" onclick="go('wallet.html')">
+      <span class="icon">💳</span>
+      Wallet
+    </button>
+
+    <button class="nav-btn" onclick="go('referral.html')">
+      <span class="icon">👥</span>
+      Referral
+    </button>
+
+    <button class="nav-btn" onclick="go('chat.html')">
+      <span class="icon">💬</span>
+      Chat
+    </button>
+
+    <button class="nav-btn" onclick="go('profile.html')">
+      <span class="icon">👤</span>
+      Profile
+    </button>
+
+    <button class="nav-btn" onclick="go('reward.html')">
+      <span class="icon">🎁</span>
+      Reward
+    </button>
+
+    <button class="nav-btn" onclick="go('marketplace.html')">
+      <span class="icon">🛒</span>
+      Market
+    </button>
+
+  </nav>
+
+
+  <script>
+
+    // ==============================
+    // LOAD TESTNET WALLET DATA
+    // ==============================
+
+    const balance =
+      parseFloat(localStorage.getItem("amtBalance")) || 0;
+
+    const miningEarned =
+      parseFloat(localStorage.getItem("amtMiningEarned")) || 0;
+
+    const rewards =
+      parseFloat(localStorage.getItem("amtRewards")) || 0;
+
+    const referralEarned =
+      parseFloat(localStorage.getItem("amtReferralEarned")) || 0;
+
+    const marketplaceSpent =
+      parseFloat(localStorage.getItem("amtMarketplaceSpent")) || 0;
+
+
+    document.getElementById("balance").textContent =
+      balance.toFixed(2);
+
+    document.getElementById("miningEarned").textContent =
+      miningEarned.toFixed(2) + " AMT";
+
+    document.getElementById("rewards").textContent =
+      rewards.toFixed(2) + " AMT";
+
+    document.getElementById("referralEarned").textContent =
+      referralEarned.toFixed(2) + " AMT";
+
+    document.getElementById("marketplaceSpent").textContent =
+      marketplaceSpent.toFixed(2) + " AMT";
+
+
+    // ==============================
+    // NAVIGATION
+    // ==============================
+
+    function go(page) {
+      window.location.href = page;
+    }
+
+
+    // ==============================
+    // TEMPORARY TESTNET ACTIONS
+    // ==============================
+
+    function comingSoon(action) {
+
+      alert(
+        action +
+        " is currently under AMT testnet development."
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
